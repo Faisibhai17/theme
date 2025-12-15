@@ -1,0 +1,348 @@
+<div class="product-area hm5-section-padding" id="section-{{ section.id }}">
+  <div class="{% if section.settings.container_style == 'style_1' %}container {% else %} container-fluid{% endif %}">
+    <div class="row">
+      {% assign featured_product = collections[section.settings.featured_product_handle] %}
+      {% assign featured_product_limit = section.settings.featured_product_limit_handle %}
+
+      {%- if featured_product == empty -%}
+        {% assign a = 1 %}
+        {% for i in (1..featured_product_limit) %}
+          {% assign product_item = 'product-' | append: a %}
+          {% assign a = a | plus: 1 %}
+          <div class="col-lg-{{ section.settings.product_column }} col-md-{{ section.settings.product_column_md }} col-{{ section.settings.product_column_xs }}">
+            <div class="product-wrap-3 mb-20 scroll-zoom">
+              <div class="product-img" style="background: #f2f2f2;">
+                {{ product_item | placeholder_svg_tag: 'my-custom-class' }}
+                <div class="product-content-3-wrap">
+                  <div class="product-content-3">
+                    <div class="product-title">
+                      <h3><a href="#">T- Shirt And Jeans</a></h3>
+                    </div>
+                    <div class="price-3">
+                      <span>$ 40.00</span>
+                      <span class="old">$ 50.00</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% if a == 7 %}
+            {% assign a = 1 %}
+          {% endif %}
+        {% endfor %}
+
+      {%- else -%}
+        {% for product in featured_product.products limit: featured_product_limit %}
+          <div class="col-lg-{{ section.settings.product_column }} col-md-{{ section.settings.product_column_md }} col-{{ section.settings.product_column_xs }}">
+            {% include 'product-grid-item-3' %}
+          </div>
+        {% endfor %}
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+{%- include 'section-style' -%}
+
+{% schema %}
+{
+  "name": "Featured Product 2",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Container Style"
+    },
+    {
+      "type": "radio",
+      "id": "container_style",
+      "label": "Container Style",
+      "options": [
+        {
+          "value": "style_1",
+          "label": "Container"
+        },
+        {
+          "value": "style_2",
+          "label": "Container Fulied"
+        }
+      ],
+
+      "default": "style_2"
+    },
+    {
+      "type": "header",
+      "content": "Product"
+    },
+    {
+      "type": "collection",
+      "id": "featured_product_handle",
+      "label": "Select Collection"
+    },
+    {
+      "type": "range",
+      "id": "featured_product_limit_handle",
+      "min": 2,
+      "max": 20,
+      "step": 1,
+      "label": "Limit",
+      "default": 8
+    },
+    {
+      "type": "header",
+      "content": "Product Column"
+    },
+    {
+      "type": "select",
+      "id": "product_column",
+      "label": "Desktop",
+      "options": [
+        {
+          "label": "2",
+          "value": "6"
+        },
+        {
+          "label": "3",
+          "value": "4"
+        },
+        {
+          "label": "4",
+          "value": "3"
+        }
+      ],
+      "default": "3"
+    },
+    {
+      "type": "select",
+      "id": "product_column_md",
+      "label": "Tablet",
+      "options": [
+        {
+          "label": "2",
+          "value": "6"
+        },
+        {
+          "label": "3",
+          "value": "4"
+        },
+        {
+          "label": "4",
+          "value": "3"
+        }
+      ],
+      "default": "4"
+    },
+    {
+      "type": "select",
+      "id": "product_column_xs",
+      "label": "Mobile",
+      "options": [
+        {
+          "label": "1",
+          "value": "12"
+        },
+        {
+          "label": "2",
+          "value": "6"
+        }
+      ],
+      "default": "12"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "section_padding",
+      "name": "Section Padding",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "header",
+          "content": "Large/Desktop Device"
+        },
+        {
+          "type": "range",
+          "id": "section_padding_top",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Padding Top",
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "section_padding_bottom",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Padding Bottom",
+          "unit": "px",
+          "default": 100
+        },
+        {
+          "type": "header",
+          "content": "Tablet Device"
+        },
+        {
+          "type": "range",
+          "id": "section_padding_top_md",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Padding Top",
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "section_padding_bottom_md",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Padding Bottom",
+          "unit": "px",
+          "default": 80
+        },
+        {
+          "type": "header",
+          "content": "Mobile Device"
+        },
+        {
+          "type": "range",
+          "id": "section_padding_top_xs",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Padding Top",
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "section_padding_bottom_xs",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Padding Bottom",
+          "unit": "px",
+          "default": 60
+        }
+      ]
+    },
+    {
+      "type": "section_margin",
+      "name": "Section Margin",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "header",
+          "content": "Large/Desktop Device"
+        },
+        {
+          "type": "range",
+          "id": "section_margin_top",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Margin Top",
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "section_margin_bottom",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Margin Bottom",
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "header",
+          "content": "Tablet Device"
+        },
+        {
+          "type": "range",
+          "id": "section_margin_top_md",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Margin Top",
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "section_margin_bottom_md",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Margin Bottom",
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "header",
+          "content": "Mobile Device"
+        },
+        {
+          "type": "range",
+          "id": "section_margin_top_xs",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Margin Top",
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "section_margin_bottom_xs",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Margin Bottom",
+          "unit": "px",
+          "default": 0
+        }
+      ]
+    },
+    {
+      "type": "section_background",
+      "name": "Section Background",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "section_bg_image",
+          "label": "BG Image"
+        },
+        {
+          "type": "color",
+          "id": "section_bg_color",
+          "label": "BG Color",
+          "default": "#ffffff"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Featured Product 2",
+      "category": "3. collections",
+      "blocks": [
+        {
+          "type": "section_padding"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

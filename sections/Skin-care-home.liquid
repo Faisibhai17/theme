@@ -1,0 +1,69 @@
+
+<div class="skincare-quiz">
+   <div class="container">
+     <div class="row">
+       <div class="col-md-3 col-sm-12 align-self-center">
+          <div class="tt-skincare">
+            <h3 class="titlte-sec">FIND YOUR FORMULA</h3>
+            <h2 class="title-big">Skincare Quiz</h2>
+            <p>Start here for personalized product selections to reach your skin goals.</p>            
+          </div>
+         
+       </div>
+       <div class="col-md-6 col-sm-12 align-self-center">
+         <div class="analysis-img">
+           <img src="https://cdn.shopify.com/s/files/1/0555/6148/6492/files/skin_analysisd.png?v=1674587004" width="100%" alt="Skincare packs">
+         </div>
+       </div>
+       <div class="col-md-3 col-sm-12 align-self-center">
+        <ol class="skin-details">
+         <li>Complete the Quiz</li>
+         <li>Get the best advise for your skin type</li>
+         <li>Build your own Skincare Ritual</li>
+         </ol> 
+       </div>
+     </div>
+   </div>  
+</div>
+<div class="button-sec" id="home-quiz-btn">
+  {% assign quiz-btn = 'TAKE QUIZ NOW' %}
+  
+   <div class="button-skin text-center">
+      {% if shop.locale == 'en' %}
+        <a class="animated" href="#quiz-wnHEnx" id="lang-en">
+      {% elsif shop.locale == 'ar' %}
+        <a class="animated" href="#quiz-JRH8yg" id=lang-arabic>
+      {% elsif shop.locale == 'id' %}
+        <a class="animated" href="#quiz-DmHbWY" id="lang-indonesian">   
+      {% elsif shop.locale == 'es' %}
+        <a class="animated" href="#quiz-7jHgPr" id="lang-spanish">
+      {% elsif shop.locale == 'zh-TW' %}
+        <a class="animated" href="#quiz-BZHpPG" id="lang-chinese">
+      {% elsif shop.locale == 'ja' %}
+        <a class="animated" href="#quiz-jyHy2y" id="lang-japanesse">
+      {% elsif shop.locale == 'de'%}
+        <a class="animated" href="#quiz-MnH72q" id="lang-german">
+      {% else %}
+        <a class="animated" href="#quiz-wnHEnx" id="lang-en">
+    {% endif %}
+    {{ quiz-btn }}</a>
+   </div>  
+</div>
+
+
+
+
+
+
+{% schema %}
+  {
+    "name": "skincare",
+    "settings": [
+
+],
+"presets": [{
+    "name": "skincare-quiz",
+    "category": "skincare"
+  }]
+}
+{% endschema %}

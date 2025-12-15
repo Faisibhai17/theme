@@ -1,0 +1,340 @@
+<div class="slider-area" id="section-{{ section.id }}">
+  <div class="slider-active owl-carousel nav-style-1">
+    {% for block in section.blocks %}
+      {% case block.type %}
+        {% when 'slide' %}
+          <div class="single-slider slider-height-1" style="background-color: {{ block.settings.slider_bg_color }};">
+            <div class="container">
+              <div class="row">
+                <div class="col-xl-6 col-lg-6 col-md-6 col-12 col-sm-6">
+                  <div class="slider-content slider-animated-1 text-{% if block.settings.text_style == 'text_style_left' %}left{% elsif block.settings.text_style == 'text_style_center' %}center{% elsif block.settings.text_style == 'text_style_right' %}right{% endif %}">
+                    {% if block.settings.slider_subtitle != '' %}
+                      <h3 class="animated">{{ block.settings.slider_subtitle }}</h3>
+                    {% endif %}
+                    {% if block.settings.slider_title != '' %}
+                      <h1 class="animated">{{ block.settings.slider_title }}</h1>
+                    {% endif %}
+                    {% if block.settings.button_title != '' %}
+                      <div class="slider-btn btn-hover">
+                        <a class="animated" href="{{ block.settings.button_url }}">{{ block.settings.button_title }}</a>
+                      </div>
+                    {% endif %}
+                  </div>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-12 col-sm-6">
+                  <div class="slider-single-img slider-animated-1">
+                    <img
+                      class="animated"
+                      src="{% if block.settings.slider_img %}{{ block.settings.slider_img | img_url: 'master' }}{% else %}http:\/\/via.placeholder.com\/730x714{% endif %}"
+                      alt="{{ block.settings.slider_img.alt }}"
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+      {% endcase %}
+    {% endfor %}
+  </div>
+</div>
+
+{%- include 'section-style' -%}
+
+<script>
+  /* Slider active */
+  $('#section-{{ section.id }} .slider-active').owlCarousel({
+      loop: true,
+    {% if settings.rtl_enable %} rtl:true, {% endif %}
+      nav: true,
+      autoplay: false,
+      navText: ['<i class="fa fa-chevron-left"></i>', '<i class="fa fa-chevron-right"></i>'],
+      autoplayTimeout: 5000,
+      animateOut: 'fadeOut',
+      animateIn: 'fadeIn',
+      item: 1,
+      responsive: {
+          0: {
+              items: 1
+          },
+          768: {
+              items: 1
+          },
+          1000: {
+              items: 1
+          }
+      }
+  })
+</script>
+
+{% schema %}
+{
+  "name": "Slider",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "Slide",
+      "settings": [
+        {
+          "type": "header",
+          "content": "Background Color"
+        },
+        {
+          "type": "color",
+          "id": "slider_bg_color",
+          "label": "BG Color",
+          "default": "#f0e0ff"
+        },
+        {
+          "type": "header",
+          "content": "Text Style"
+        },
+        {
+          "type": "radio",
+          "id": "text_style",
+          "label": "Text Style",
+          "options": [
+            {
+              "value": "text_style_left",
+              "label": "Left"
+            },
+            {
+              "value": "text_style_center",
+              "label": "center"
+            },
+            {
+              "value": "text_style_right",
+              "label": "right"
+            }
+          ],
+
+          "default": "text_style_left"
+        },
+        {
+          "type": "text",
+          "id": "slider_subtitle",
+          "label": "Slider Subtitle",
+          "default": "Smart Products"
+        },
+        {
+          "type": "text",
+          "id": "slider_title",
+          "label": "Slider Title",
+          "default": "Summer Offer <br>2019 Collection",
+          "info": "<br>"
+        },
+        {
+          "type": "text",
+          "id": "button_title",
+          "label": "Button Title",
+          "default": "SHOP NOW"
+        },
+        {
+          "type": "url",
+          "id": "button_url",
+          "label": "URL"
+        },
+        {
+          "type": "image_picker",
+          "id": "slider_img",
+          "label": "Image",
+          "info": "Recommended Size: 730 x 714px"
+        }
+      ]
+    },
+    {
+      "type": "section_padding",
+      "name": "Section Padding",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "header",
+          "content": "Large/Desktop Device"
+        },
+        {
+          "type": "range",
+          "id": "section_padding_top",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Padding Top",
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "section_padding_bottom",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Padding Bottom",
+          "unit": "px",
+          "default": 100
+        },
+        {
+          "type": "header",
+          "content": "Tablet Device"
+        },
+        {
+          "type": "range",
+          "id": "section_padding_top_md",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Padding Top",
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "section_padding_bottom_md",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Padding Bottom",
+          "unit": "px",
+          "default": 80
+        },
+        {
+          "type": "header",
+          "content": "Mobile Device"
+        },
+        {
+          "type": "range",
+          "id": "section_padding_top_xs",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Padding Top",
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "section_padding_bottom_xs",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Padding Bottom",
+          "unit": "px",
+          "default": 60
+        }
+      ]
+    },
+    {
+      "type": "section_margin",
+      "name": "Section Margin",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "header",
+          "content": "Large/Desktop Device"
+        },
+        {
+          "type": "range",
+          "id": "section_margin_top",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Margin Top",
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "section_margin_bottom",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Margin Bottom",
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "header",
+          "content": "Tablet Device"
+        },
+        {
+          "type": "range",
+          "id": "section_margin_top_md",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Margin Top",
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "section_margin_bottom_md",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Margin Bottom",
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "header",
+          "content": "Mobile Device"
+        },
+        {
+          "type": "range",
+          "id": "section_margin_top_xs",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Margin Top",
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "section_margin_bottom_xs",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Margin Bottom",
+          "unit": "px",
+          "default": 0
+        }
+      ]
+    },
+    {
+      "type": "section_background",
+      "name": "Section Background",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "section_bg_image",
+          "label": "BG Image"
+        },
+        {
+          "type": "color",
+          "id": "section_bg_color",
+          "label": "BG Color",
+          "default": "#ffffff"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Slider",
+      "category": "1. slideshow",
+      "blocks": [
+        {
+          "type": "section_padding"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

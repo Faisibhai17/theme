@@ -1,0 +1,39 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-xl-5 col-lg-6 d-none d-lg-block">
+      <div class="main-menu menu-white">
+        {% include 'main-menu' %}
+      </div>
+    </div>
+    <div class="col-xl-2 col-lg-2 col-md-6 col-4">
+      <div class="logo text-center logo-hm5">
+        <div class="sticky-none">
+          {%- include 'header-logo' -%}
+        </div>
+
+        <div class="sticky-block">
+          {%- include 'header-logo-2' -%}
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-5 col-lg-4 col-md-6 col-8">
+      <div class="header-right-wrap header-right-wrap-white">
+        {%- if section.settings.search_enable -%}
+          {% include 'search-bar' %}
+        {%- endif -%}
+        {%- if section.settings.top_menu_enable -%}
+          {% include 'header-top-menu' %}
+        {%- endif -%}
+        {%- if section.settings.header_wishlist_enable -%}
+          {% include 'header-wishlist' %}
+        {%- endif -%}
+        {%- if section.settings.mini_cart_enable -%}
+          {%- include 'mini-cart' -%}
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+  <div class="mobile-menu-area white-mobile-menu">
+    {% include 'mobile-menu' %}
+  </div>
+</div>

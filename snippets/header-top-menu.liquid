@@ -1,0 +1,23 @@
+<div class="same-style account-satting">
+  <a class="account-satting-active" href="#"><i class="pe-7s-user-female"></i></a>
+  <div class="account-dropdown">
+    <ul>
+      {% if shop.customer_accounts_enabled and customer %}
+        <li>
+          <a href="/account/logout">{{ section.settings.signout_title }}</a>
+        </li>
+      {% else %}
+        <li>
+          <a href="/account/login">{{ section.settings.signin_title }}</a>
+        </li>
+      {% endif %}
+
+      {% assign header_top_menu_handle = section.settings.header_top_menu %}
+      {% for link in linklists[header_top_menu_handle].links %}
+        <li>
+          <a href="{{ link.url }}">{{ link.title }}</a>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>

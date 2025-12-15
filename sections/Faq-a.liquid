@@ -1,0 +1,90 @@
+      
+
+   {%for block in section.blocks%}
+	<div class="faq faq">
+     <div class="faq tab">
+          <input type="checkbox" id="tab{{forloop.index}}" class="faq tab-toggle">
+                <label for="tab{{forloop.index}}" class="faq tab-label">
+                    {{block.settings.question}}
+                </label>
+     <div class="faq tab-content">
+         {{block.settings.answer}}
+     </div>
+       {%endfor%}
+  </div>
+
+ <style>
+   
+.faq .tab {
+    border-radius: 8px;
+    overflow: hidden;
+	color: white;
+}
+
+.faq .tab-toggle {
+    display: none;
+}
+
+.faq .tab-label {
+    background-color: #7DCABB;
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+    font-weight: bold;
+    color: black,
+}
+
+.faq .tab-label:after {
+    content: '\276F';
+    transition: all .4s;
+}
+
+.faq .tab-content {
+    background-color: white;
+    max-height: 0px;
+    overflow: hidden;
+    transition: all .4s;
+    padding: 0 1rem;
+	color: black;
+}
+
+.faq .tab-toggle:checked~.tab-label::after {
+    transform: rotate(90deg);
+}
+
+.faq .tab-toggle:checked~.tab-content {
+    max-height: 100vh;
+}
+ </style>
+{% schema %}
+   
+   {
+    "name": "FAQ-QUESTION",
+    "blocks": [
+      {
+        "type": "text",
+        "name": "Question/Answer",
+        "settings": [
+         {
+        "id": "question",
+        "type": "text",
+        "label": "Question",
+        "default": "Add Question Here"
+      },
+      {
+        "id": "answer",
+        "type": "richtext",
+        "label": "The Answer",
+        "default": "<p>Add your answer here</p>"
+      }
+        ]
+      }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

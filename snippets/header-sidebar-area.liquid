@@ -1,0 +1,23 @@
+<div class="logo">
+  {%- include 'header-logo' -%}
+</div>
+<div class="header-right-wrap">
+  {%- if section.settings.search_enable -%}
+    {% include 'search-bar' %}
+  {%- endif -%}
+  {%- if section.settings.top_menu_enable -%}
+    {% include 'header-top-menu' %}
+  {%- endif -%}
+  {%- if section.settings.header_wishlist_enable -%}
+    {% include 'header-wishlist' %}
+  {%- endif -%}
+  {%- if section.settings.mini_cart_enable -%}
+    {%- include 'mini-cart' -%}
+  {%- endif -%}
+</div>
+<div class="sidebar-menu">
+  {% include 'main-menu-2' %}
+</div>
+<div class="sidebar-copyright">
+  {{ section.settings.header_copy_ritht_text }}
+</div>

@@ -1,0 +1,29 @@
+{{ content_for_index }}
+
+<script>
+  jQuery(document).ready(function ($) {
+    $('.tab-pane .row').addClass('owl-carousel');
+  });
+
+  $(function () {
+    // Owl Carousel
+    var owl = $('.owl-carousel');
+    owl.owlCarousel({
+      items: 3,
+      margin: 10,
+      loop: true,
+      nav: true,
+      responsive: {
+        0: {
+          items: 2,
+        },
+        768: {
+          items: 2,
+        },
+        1000: {
+          items: 3,
+        },
+      },
+    });
+  });
+</script>

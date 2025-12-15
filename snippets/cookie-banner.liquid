@@ -1,0 +1,77 @@
+<div id="cookies-banner" style="display:none">
+  <span
+    >We use cookies to provide you with a personalised experience on our website.
+    <a href="/policies/privacy-policy">Private Policy</a>.</span
+  >
+  <!-- <button style="margin-left: 1em;" onclick="handleDecline()">Decline</button> -->
+  <button id="acceptBanner" style="margin-left: 1em;" onclick="handleAccept()">Accept</button>
+  <button id="close-cookie-banner" class="notranslate" onclick="closeCookieBanner()">X</button>
+</div>
+{% comment %} <script>
+  if (!sessionStorage.getItem('bannerAccepted')) {
+    setTimeout(function showBanner() {
+      getBannerEl().style.display = 'block';
+    }, 30000);
+  } else hideBanner();
+
+  function closeCookieBanner(res) {
+    getBannerEl().style.display = 'none';
+  }
+
+  function getBannerEl() {
+    return document.getElementById('cookies-banner');
+  }
+
+  function hideBanner(res) {
+    getBannerEl().style.display = 'none';
+  }
+
+  function handleAccept(e) {
+    window.Shopify.customerPrivacy.setTrackingConsent(true, hideBanner);
+
+    document.addEventListener('trackingConsentAccepted', function () {
+      console.log('trackingConsentAccepted event fired');
+      sessionStorage.setItem('bannerAccepted', true);
+      hideBanner();
+    });
+  }
+
+  function handleDecline() {
+    window.Shopify.customerPrivacy.setTrackingConsent(false, hideBanner);
+  }
+  function startTracking() {
+    // Your actual tracking logic here, such as analytics, cookies, etc.
+    console.log('Tracking has started.');
+
+    // Example tracking logic
+    // gtag('event', 'page_view', { 'send_to': 'GA_TRACKING_ID' });
+    // You can add more tracking functionalities here
+  }
+  function initCookieBanner() {
+    const userCanBeTracked = window.Shopify.customerPrivacy.userCanBeTracked();
+    const userTrackingConsent = window.Shopify.customerPrivacy.getTrackingConsent();
+
+    if (!userCanBeTracked && userTrackingConsent === 'no_interaction') {
+      setTimeout();
+    }
+    if (!window.Shopify.customerPrivacy || window.Shopify.customerPrivacy.userCanBeTracked()) {
+      startTracking();
+    }
+  }
+
+  window.Shopify.loadFeatures(
+    [
+      {
+        name: 'consent-tracking-api',
+        version: '0.1',
+      },
+    ],
+    function (error) {
+      if (error) {
+        throw error;
+      }
+
+      initCookieBanner();
+    }
+  );
+</script> {% endcomment %}

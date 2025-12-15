@@ -1,0 +1,460 @@
+{% if section.settings.header_style == 'header_style_1' %}
+  {% if template == 'index' %}
+    <header class="header-area header-padding-1 sticky-bar header-res-padding clearfix">
+      {% include 'header-top-4' %}
+      <div class="header-bottom sticky-bar header-res-padding">
+        {% include 'header-bottom-7' %}
+      </div>
+    </header>
+  {% else %}
+    <header class="header-area header-in-container clearfix">
+      {% include 'header-top-4' %}
+      <div class="header-bottom sticky-bar header-res-padding">
+        {% include 'header-bottom-7' %}
+      </div>
+    </header>
+  {% endif %}
+
+{% elsif section.settings.header_style == 'header_style_2' %}
+  {% if template == 'index' %}
+    <header class="header-area clearfix">
+      <div class="header-top-area header-padding-2">
+        {% include 'header-top' %}
+      </div>
+      <div class="header-bottom sticky-bar header-res-padding header-padding-2">
+        {% include 'header-bottom' %}
+      </div>
+    </header>
+  {% else %}
+    <header class="header-area header-in-container clearfix">
+      {% include 'header-top-4' %}
+      <div class="header-bottom sticky-bar header-res-padding">
+        {% include 'header-bottom-7' %}
+      </div>
+    </header>
+  {% endif %}
+
+{% elsif section.settings.header_style == 'header_style_3' %}
+  {% if template == 'index' %}
+    <div class="home-sidebar-left">
+      {% include 'header-sidebar-area' %}
+    </div>
+    <header class="header-area header-padding-1 sticky-bar header-res-padding clearfix header-hm4-none">
+      {% include 'header-bottom-2' %}
+    </header>
+  {% else %}
+    <header class="header-area header-in-container clearfix">
+      {% include 'header-top-4' %}
+      <div class="header-bottom sticky-bar header-res-padding">
+        {% include 'header-bottom-7' %}
+      </div>
+    </header>
+  {% endif %}
+
+{% elsif section.settings.header_style == 'header_style_4' %}
+  {% if template == 'index' %}
+    <header class="header-area sticky-bar header-padding-3 header-res-padding clearfix transparent-bar header-4">
+      {% include 'header-bottom-3' %}
+    </header>
+  {% else %}
+    <header class="header-area header-in-container clearfix">
+      {% include 'header-top-4' %}
+      <div class="header-bottom sticky-bar header-res-padding">
+        {% include 'header-bottom-7' %}
+      </div>
+    </header>
+  {% endif %}
+
+{% elsif section.settings.header_style == 'header_style_5' %}
+  {% if template == 'index' %}
+    <header class="header-area sticky-bar header-padding-3 header-res-padding clearfix transparent-bar header-hm-7">
+      {% include 'header-bottom-4' %}
+    </header>
+  {% else %}
+    <header class="header-area header-in-container clearfix">
+      {% include 'header-top-4' %}
+      <div class="header-bottom sticky-bar header-res-padding">
+        {% include 'header-bottom-7' %}
+      </div>
+    </header>
+  {% endif %}
+
+{% elsif section.settings.header_style == 'header_style_6' %}
+  {% if template == 'index' %}
+    <header class="header-area clearfix header-hm8">
+      {% include 'header-top-2' %}
+      <div class="header-bottom sticky-bar header-res-padding header-padding-2">
+        {% include 'header-bottom-5' %}
+      </div>
+    </header>
+  {% else %}
+    <header class="header-area header-in-container clearfix">
+      {% include 'header-top-4' %}
+      <div class="header-bottom sticky-bar header-res-padding">
+        {% include 'header-bottom-7' %}
+      </div>
+    </header>
+  {% endif %}
+
+{% elsif section.settings.header_style == 'header_style_7' %}
+  {% if template == 'index' %}
+    <header class="header-area clearfix header-hm9 transparent-bar">
+      {% include 'header-top-3' %}
+      <div class="header-bottom sticky-bar header-res-padding header-padding-2">
+        {% include 'header-bottom-6' %}
+      </div>
+    </header>
+  {% else %}
+    <header class="header-area header-in-container clearfix">
+      {% include 'header-top-4' %}
+      <div class="header-bottom sticky-bar header-res-padding">
+        {% include 'header-bottom-7' %}
+      </div>
+    </header>
+  {% endif %}
+
+{% else %}
+  <header class="header-area header-in-container clearfix">
+    {% include 'header-top-4' %}
+    <div class="header-bottom sticky-bar header-res-padding">
+      {% include 'header-bottom-7' %}
+    </div>
+  </header>
+{% endif %}
+
+{% include 'clickable-mainmenu' %}
+
+<style>
+  .theme-logo img{
+    max-width: {{ section.settings.logo_width }}px;
+  }
+</style>
+
+<script>
+
+    {% if settings.stickey_header_enable %}
+
+  /*--
+  Menu Stick
+  -----------------------------------*/
+  var header = $('.sticky-bar');
+  var win = $(window);
+  win.on('scroll', function() {
+      var scroll = win.scrollTop();
+      if (scroll < 200) {
+          header.removeClass('stick');
+      } else {
+          header.addClass('stick');
+      }
+  });
+
+  {% endif %}
+</script>
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Header Style"
+    },
+    {
+      "type": "radio",
+      "id": "header_style",
+      "label": "Header Style",
+      "options": [
+        {
+          "value": "header_style_1",
+          "label": "Style 1"
+        },
+        {
+          "value": "header_style_2",
+          "label": "Style 2"
+        },
+        {
+          "value": "header_style_3",
+          "label": "Style 3"
+        },
+        {
+          "value": "header_style_4",
+          "label": "Style 4"
+        },
+        {
+          "value": "header_style_5",
+          "label": "Style 5"
+        },
+        {
+          "value": "header_style_6",
+          "label": "Style 6"
+        },
+        {
+          "value": "header_style_7",
+          "label": "Style 7"
+        },
+        {
+          "value": "header_style_8",
+          "label": "Style 8"
+        }
+      ],
+
+      "default": "header_style_1"
+    },
+    {
+      "type": "header",
+      "content": "Header Top"
+    },
+    {
+      "type": "text",
+      "id": "custom_number",
+      "label": "Custom Text",
+      "default": "Call Us 3965410"
+    },
+    {
+      "type": "text",
+      "id": "custom_text",
+      "label": "Custom Text",
+      "default": "Free delivery on order over <span>$200</span>",
+      "info": "Use of <span>"
+    },
+    {
+      "type": "header",
+      "content": "Header Bottom"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo"
+    },
+    {
+      "type": "header",
+      "content": "Sticky Logo"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo_2",
+      "label": "Sticky Logo"
+    },
+    {
+      "type": "range",
+      "id": "logo_width",
+      "label": "Custom logo width",
+      "min": 50,
+      "max": 300,
+      "step": 5,
+      "unit": "px",
+      "default": 150
+    },
+    {
+      "type": "checkbox",
+      "id": "ratina_logo_enable",
+      "label": "Retina Logo Enable",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "google_translate_enable",
+      "label": "Google Translate Enable",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Search"
+    },
+    {
+      "type": "checkbox",
+      "id": "search_enable",
+      "label": "Search Enable",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Top Menu"
+    },
+    {
+      "type": "checkbox",
+      "id": "top_menu_enable",
+      "label": "Top Menu Enable",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Log in/Log out Title"
+    },
+    {
+      "type": "text",
+      "id": "signin_title",
+      "label": "Log In Title",
+      "default": "Login"
+    },
+    {
+      "type": "text",
+      "id": "signout_title",
+      "label": "Log Out Title",
+      "default": "Logout"
+    },
+    {
+      "type": "link_list",
+      "id": "header_top_menu",
+      "label": "Select Menu"
+    },
+    {
+      "type": "header",
+      "content": "Header Wishlist"
+    },
+    {
+      "type": "checkbox",
+      "id": "header_wishlist_enable",
+      "label": "Wishlist Enable",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Mini Cart"
+    },
+    {
+      "type": "checkbox",
+      "id": "mini_cart_enable",
+      "label": "Mini Cart Enable",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "cart_item_title",
+      "label": "Item Title",
+      "default": "Item"
+    },
+    {
+      "type": "text",
+      "id": "cart_items_title",
+      "label": "Items Title",
+      "default": "Items"
+    },
+
+    {
+      "type": "text",
+      "id": "quantity_title",
+      "label": "Quantity Title",
+      "default": "Qty: "
+    },
+    {
+      "type": "text",
+      "id": "view_cart_title",
+      "label": "View Cart Title",
+      "default": "View Cart"
+    },
+    {
+      "type": "text",
+      "id": "checkout_title",
+      "label": "Checkout Title",
+      "default": "Checkout"
+    },
+    {
+      "type": "header",
+      "content": "Copy Right"
+    },
+    {
+      "type": "richtext",
+      "id": "header_copy_ritht_text",
+      "label": "CopyRight Text",
+      "default": "<p>Copyright © 99 Shopify All Right Reserved.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Social Icon"
+    },
+    {
+      "type": "checkbox",
+      "id": "social_icon_enable",
+      "label": "Social Icon Enable",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Icon With Link"
+    },
+    {
+      "type": "text",
+      "id": "social_icon_1_name",
+      "label": "Social Icon Name",
+      "default": "facebook",
+      "info": "Fontawesome Icon [See Icon](https:\/\/fontawesome.com\/v4.7.0\/icons\/)"
+    },
+    {
+      "type": "url",
+      "id": "social_icon_1_url",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Icon With Link"
+    },
+    {
+      "type": "text",
+      "id": "social_icon_2_name",
+      "label": "Social Icon Name",
+      "default": "dribbble",
+      "info": "Fontawesome Icon [See Icon](https:\/\/fontawesome.com\/v4.7.0\/icons\/)"
+    },
+    {
+      "type": "url",
+      "id": "social_icon_2_url",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Icon With Link"
+    },
+    {
+      "type": "text",
+      "id": "social_icon_3_name",
+      "label": "Social Icon Name",
+      "default": "pinterest-p",
+      "info": "Fontawesome Icon [See Icon](https:\/\/fontawesome.com\/v4.7.0\/icons\/)"
+    },
+    {
+      "type": "url",
+      "id": "social_icon_3_url",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Icon With Link"
+    },
+    {
+      "type": "text",
+      "id": "social_icon_4_name",
+      "label": "Social Icon Name",
+      "default": "twitter",
+      "info": "Fontawesome Icon [See Icon](https:\/\/fontawesome.com\/v4.7.0\/icons\/)"
+    },
+    {
+      "type": "url",
+      "id": "social_icon_4_url",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Icon With Link"
+    },
+    {
+      "type": "text",
+      "id": "social_icon_5_name",
+      "label": "Social Icon Name",
+      "default": "linkedin",
+      "info": "Fontawesome Icon [See Icon](https:\/\/fontawesome.com\/v4.7.0\/icons\/)"
+    },
+    {
+      "type": "url",
+      "id": "social_icon_5_url",
+      "label": "Link"
+    }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

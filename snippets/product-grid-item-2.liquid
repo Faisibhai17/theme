@@ -1,0 +1,91 @@
+{%- assign on_sale = false -%}
+{%- if product.compare_at_price > product.price -%}
+  {%- assign on_sale = true -%}
+{%- endif -%}
+
+{%- assign sold_out = true -%}
+{%- if product.available -%}
+  {%- assign sold_out = false -%}
+{%- endif -%}
+
+{%- assign variant = product.selected_or_first_available_variant -%}
+
+{%- if product.available -%}
+  {%- assign func = 'Shopify.addItem(' | append: variant.id | append: ', 1)' -%}
+{%- endif -%}
+
+<div class="product-wrap-2 mb-25 scroll-zoom {{ variant.id }}">
+  <div class="product-img">
+    <a href="{{ product.url | within: collection }}">
+      {% if product.images.size > 1 %}
+        <img
+          class="default-img popup_cart_image"
+          src="{{ product.featured_image.src | img_url: 'large' }}"
+          alt="{{ product.featured_image.alt | escape }}"
+        >
+        {% for image in product.images limit: 1 offset: 1 %}
+          <img
+            class="hover-img popup_cart_image"
+            src="{{ image.src | img_url : 'large' }}"
+            alt="{{ product.image.alt | escape }}"
+          >
+        {% endfor %}
+      {% else %}
+        <img
+          class="popup_cart_image"
+          src="{{ product.featured_image.src | img_url: 'large' }}"
+          alt="{{ product.featured_image.alt | escape }}"
+        >
+      {% endif %}
+    </a>
+    {%- include 'product-badge' -%}
+    {%- unless product.description contains '[affiliate_link]' -%}
+      <div class="product-action-2">
+        {% include 'action-button-2' %}
+
+        {%- if settings.product_quickview_enalbe -%}
+          <a
+            title="Quick View"
+            class="action-plus"
+            title="Quick View"
+            data-toggle="modal"
+            data-target="#quickViewModal"
+            href="javascript:void(0);"
+            onclick="quiqview('{{ product.handle | handleize }}')"
+            ><i class="fa fa-eye"></i>
+          </a>
+        {%- endif -%}
+
+        {%- if settings.compare_product_enalbe -%}
+          <a href="#" class="compare" data-pid="{{ product.handle  }}" title="Compare" data-original-title="Compare"
+            ><i class="fa fa-retweet"></i
+          ></a>
+        {%- endif -%}
+      </div>
+    {%- endunless -%}
+
+    {% if product.description contains '[countdown]' %}
+      {% assign count_down_first = product.description | split: '[/countdown]' | first %}
+      {% assign count_down_final = count_down_first | split: '[countdown]' | last %}
+      <div class="coundown-main" data-countdown="{{ count_down_final }}"></div>
+    {% endif %}
+  </div>
+  <div class="product-content-2">
+    <div class="title-price-wrap-2">
+      <h3 class="popup_cart_title">
+        <a href="{{ product.url | within: collection }}">{{ product.title }}</a>
+      </h3>
+      <div class="price-2">
+        <span>{{ product.variants.first.price | money }}</span>
+        {% if product.variants.first.compare_at_price > product.variants.first.price %}
+          <span class="old">{{ product.variants.first.compare_at_price | money }}</span>
+        {% endif %}
+      </div>
+    </div>
+    {%- unless product.description contains '[affiliate_link]' -%}
+      <div class="pro-wishlist-2">
+        {% include 'wishlist-button-3' %}
+      </div>
+    {%- endunless -%}
+  </div>
+</div>

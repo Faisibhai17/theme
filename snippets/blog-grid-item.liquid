@@ -1,0 +1,64 @@
+{% comment %}
+  <div class="article">
+
+    {% if article.image %}
+    <a class="article__featured-image" href="{{ article.url }}">
+      {{ article | img_url: '1024x1024' | img_tag: article.title }}
+    </a>
+    {% endif %}
+
+    <h2 class="h3"><a href="{{ article.url }}">{{ article.title }}</a></h2>
+    {% capture author %}<strong>{{ article.author }}</strong>{% endcapture %}
+    {% capture date %}<time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: format: 'month_day_year' }}</time>{% endcapture %}
+    <p>{{ 'blogs.article.author_on_date_html' | t: author: author, date: date }}</p>
+
+    <div class="rte">
+      {% if article.excerpt.size > 0 %}
+      {{ article.excerpt }}
+      {% else %}
+      <p>{{ article.content | strip_html | truncatewords: 50 }}</p>
+      {% endif %}
+    </div>
+
+    <ul class="inline-list">
+      {% if blog.comments_enabled? %}
+      <li>
+        <a href="{{ article.url }}#comments">
+          {{ 'blogs.comments.with_count' | t: count: article.comments_count }}
+        </a>
+      </li>
+      {% endif %}
+
+      {% include 'tags-article' %}
+    </ul>
+
+    <p><a href="{{ article.url }}">{{ 'blogs.article.read_more' | t }} &rarr;</a></p>
+
+  </div>
+{% endcomment %}
+
+<div class="blog-wrap mb-30 scroll-zoom">
+  <div class="blog-img">
+    {% if article.image %}
+      <a class="article__featured-image" href="{{ article.url }}"
+        ><img src="{{ article | img_url : '370X270', crop: 'center' }}" alt="{{ article.image.alt }}"
+      ></a>
+    {% endif %}
+    {% if article.tags.size > 0 %}
+      {% for tag in article.tags limit: 1 %}
+        <span class="pink">{{ tag }}</span>
+      {% endfor %}
+    {% endif %}
+  </div>
+  <div class="blog-content-wrap">
+    <div class="blog-content text-center">
+      <h3>
+        <a href="{{ article.url }}">{{ article.title | truncate: 40 }}</a>
+      </h3>
+      <span>
+        {{- settings.post_by }}
+        <span>{{ article.author }}</span></span
+      >
+    </div>
+  </div>
+</div>

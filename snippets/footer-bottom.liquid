@@ -1,0 +1,7 @@
+<div class="footer-bottom text-{% if section.settings.footer_text_style == 'copy_style_left' %}left{% elsif section.settings.footer_text_style == 'copy_style_center' %}center{% elsif section.settings.footer_text_style == 'copy_style_right' %}right{% endif %}">
+  <div class="container">
+    <div class="copyright-2">
+      {{ section.settings.copy_ritht_text }}
+    </div>
+  </div>
+</div>

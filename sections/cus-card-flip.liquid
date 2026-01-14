@@ -1,0 +1,450 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<!-- Main Content -->
+<div class="pitch-deck-section">
+  <div class="page-width">
+    <div class="pitch-deck-content">
+      <div class="pitch-deck-main-wrapper">
+        <div class="pd-heading">
+          {{ section.settings.heading }}
+        </div>
+        <div class="pd-desc">
+          {{ section.settings.desc }}
+        </div>
+      </div>
+      <!-- Cards -->
+      <div class="cards-wrapper">
+        <div class="card card-one">
+          <div class="card-inner">
+            <div class="card-front">
+              <div class="checkmark">
+                <i class="fas fa-check-circle"></i>
+              </div>
+              <div class="pd-heading">
+                <h4>{{ section.settings.card_heading }}</h4>
+              </div>
+              <div class="pd-para">
+                <p>{{ section.settings.card_para }}</p>
+              </div>
+            </div>
+            <div class="card-back">
+              <div class="pd-heading">
+                <h4>{{ section.settings.card_back_heading }}</h4>
+              </div>
+              <div class="pd-para">
+                <p>{{ section.settings.card_back_para }}</p>
+              </div>
+              <div class="pd-link">
+                <a href="{{ section.settings.card_back_url }}">{{ section.settings.card_back_link_text }}</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card card-two">
+          <div class="card-inner">
+            <div class="card-front">
+              <div class="checkmark">
+                <i class="fas fa-check-circle"></i>
+              </div>
+              <div class="pd-heading">
+                <h4>{{ section.settings.card_heading_2 }}</h4>
+              </div>
+              <div class="pd-para">
+                <p>{{ section.settings.card_para_2 }}</p>
+              </div>
+            </div>
+            <div class="card-back">
+              <div class="pd-heading">
+                <h4>{{ section.settings.card_back_heading_2 }}</h4>
+              </div>
+              <div class="pd-para">
+                <p>{{ section.settings.card_back_para_2 }}</p>
+              </div>
+              <div class="pd-link">
+                <a href="{{ section.settings.card_back_url_2 }}">{{ section.settings.card_back_link_text_2 }}</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card card-three">
+          <div class="card-inner">
+            <div class="card-front">
+              <div class="checkmark">
+                <i class="fas fa-check-circle"></i>
+              </div>
+              <div class="pd-heading">
+                <h4>{{ section.settings.card_heading_3 }}</h4>
+              </div>
+              <div class="pd-para">
+                <p>{{ section.settings.card_para_3 }}</p>
+              </div>
+            </div>
+            <div class="card-back">
+              <div class="pd-heading">
+                <h4>{{ section.settings.card_back_heading_3 }}</h4>
+              </div>
+              <div class="pd-para">
+                <p>{{ section.settings.card_back_para_3 }}</p>
+              </div>
+              <div class="pd-link">
+                <a href="{{ section.settings.card_back_url_3 }}">{{ section.settings.card_back_link_text_3 }}</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card card-four">
+          <div class="card-inner">
+            <div class="card-front">
+              <div class="checkmark">
+                <i class="fas fa-check-circle"></i>
+              </div>
+              <div class="pd-heading">
+                <h4>{{ section.settings.card_heading_4 }}</h4>
+              </div>
+              <div class="pd-para">
+                <p>{{ section.settings.card_para_4 }}</p>
+              </div>
+            </div>
+            <div class="card-back">
+              <div class="pd-heading">
+                <h4>{{ section.settings.card_back_heading_4 }}</h4>
+              </div>
+              <div class="pd-para">
+                <p>{{ section.settings.card_back_para_4 }}</p>
+              </div>
+              <div class="pd-link">
+                <a href="{{ section.settings.card_back_url_4 }}">{{ section.settings.card_back_link_text_4 }}</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% schema %}
+{
+"name": "Cus Card Flip",
+"settings": [
+{
+"type": "richtext",
+"id": "heading",
+"label": "Heading Text"
+},
+{
+"type": "richtext",
+"id": "desc",
+"label": "Description"
+},
+{
+"type": "text",
+"id": "card_heading",
+"label": "Card Title"
+},
+{
+"type": "textarea",
+"id": "card_para",
+"label": "Card Text"
+},{
+"type": "text",
+"id": "card_back_heading",
+"label": "Card Back Title"
+},
+{
+"type": "textarea",
+"id": "card_back_para",
+"label": "Card Back Para"
+},
+{
+"type": "url",
+"id": "card_back_url",
+"label": "Back Link URL"
+},
+{
+"type": "text",
+"id": "card_back_link_text",
+"label": "Back Link Text"
+},
+{
+"type": "text",
+"id": "card_heading_2",
+"label": "Second Card Title"
+},
+{
+"type": "textarea",
+"id": "card_para_2",
+"label": "Second Card Text"
+},{
+"type": "text",
+"id": "card_back_heading_2",
+"label": "Card Back Title"
+},
+{
+"type": "textarea",
+"id": "card_back_para_2",
+"label": "Card Back Para"
+},
+{
+"type": "url",
+"id": "card_back_url_2",
+"label": "Back Link URL"
+},
+{
+"type": "text",
+"id": "card_back_link_text_2",
+"label": "Back Link Text"
+},
+{
+"type": "text",
+"id": "card_heading_3",
+"label": "Third Card Title"
+},
+{
+"type": "textarea",
+"id": "card_para_3",
+"label": "Third Card Text"
+},{
+"type": "text",
+"id": "card_back_heading_3",
+"label": "Card Back Title"
+},
+{
+"type": "textarea",
+"id": "card_back_para_3",
+"label": "Card Back Para"
+},
+{
+"type": "url",
+"id": "card_back_url_3",
+"label": "Back Link URL"
+},
+{
+"type": "text",
+"id": "card_back_link_text_3",
+"label": "Back Link Text"
+},
+{
+"type": "text",
+"id": "card_heading_4",
+"label": "Fourth Card Title"
+},
+{
+"type": "textarea",
+"id": "card_para_4",
+"label": "Fourth Card Text"
+},{
+"type": "text",
+"id": "card_back_heading_4",
+"label": "Card Back Title"
+},
+{
+"type": "textarea",
+"id": "card_back_para_4",
+"label": "Card Back Para"
+},
+{
+"type": "url",
+"id": "card_back_url_4",
+"label": "Back Link URL"
+},
+{
+"type": "text",
+"id": "card_back_link_text_4",
+"label": "Back Link Text"
+}
+],
+"presets": [
+{
+"name": "Cus Card Flip"
+}
+]
+}
+{% endschema %}
+<style>
+  .pitch-deck-section {
+    text-align: center;
+  }
+
+  .pitch-deck-main-wrapper {
+    padding: 10px;
+  }
+
+  .pitch-deck-section .pd-heading h2 {
+    color: #06063B;
+    font-size: 30px;
+    font-weight: 600;
+    line-height: 30px;
+    margin: 0;
+  }
+
+  .pitch-deck-section .pd-desc p {
+    color: #54595f;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 32px;
+    margin: 0;
+  }
+
+  .pitch-deck-section .pd-desc {
+    padding-bottom: 20px;
+  }
+
+  .pd-para p {
+    font-weight: 600;
+    color: #4054b2;
+    line-height: 21px;
+    font-size: 21px;
+  }
+
+  .pitch-deck-section .cards-wrapper {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    padding-top: 40px;
+    padding-bottom: 50px;
+  }
+
+  .pitch-deck-section .card {
+    width: 25%;
+    height: 280px !important;
+    perspective: 1000px;
+    /* Adjust the perspective if needed */
+  }
+
+  .pitch-deck-section .card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+    background-color: #0003289E;
+  }
+
+  .card-back .pd-para p {
+    font-size: 14px;
+    color: #54595f;
+    max-width: 175px;
+  }
+
+  .pd-link a {
+    color: #fff;
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 15px;
+    background: blue;
+    text-decoration: none;
+    border-radius: 8px;
+    padding: 12px 24px;
+    text-align: center;
+  }
+
+  .pd-link {
+    margin-top: 40px;
+  }
+
+  .pitch-deck-section .card-front,
+  .pitch-deck-section .card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    padding: 10px;
+  }
+
+  .pitch-deck-section .card-back .pd-heading h4 {
+    color: #4054b2
+  }
+
+  .pitch-deck-section .card-back {
+    background-color: #fff;
+    /* Adjust based on your design */
+    color: #333;
+    /* Adjust based on your design */
+    transform: rotateX(180deg);
+    padding: 50px;
+  }
+
+  .pitch-deck-section .card:hover .card-inner {
+    transform: rotateX(180deg);
+  }
+
+  .pitch-deck-section .card-one {
+    background: url("https://cdn.shopify.com/s/files/1/0852/6010/8073/files/Products-19.webp?v=1714685456") no-repeat;
+    background-size: cover;
+  }
+
+  .pitch-deck-section .card-two {
+    background: url("https://cdn.shopify.com/s/files/1/0852/6010/8073/files/Premium-14.webp?v=1714685650") no-repeat;
+    background-size: cover;
+  }
+
+  .pitch-deck-section .checkmark i.fas.fa-check-circle {
+    font-family: "Font Awesome 5 Free";
+    font-size: 30px;
+    transition: all .3s;
+    color: #fff;
+  }
+
+  .pitch-deck-section .pd-heading h4 {
+    color: #fff;
+    font-size: 21px;
+    margin: 0;
+    padding-bottom: 20px;
+    font-weight: 600;
+  }
+
+  .pd-para p {
+    font-size: 14px;
+    color: #fff;
+    margin: 0;
+  }
+
+  .pitch-deck-section .card-three {
+    background: url(" https://cdn.shopify.com/s/files/1/0852/6010/8073/files/Products-1-scaled.webp?v=1714685737") no-repeat;
+    background-size: cover;
+  }
+
+  .pitch-deck-section .card-four {
+    background: url("https://cdn.shopify.com/s/files/1/0852/6010/8073/files/Pitch-Deck-Services_Investment-Deck-Design.webp?v=1714685800") no-repeat;
+    background-size: cover;
+  }
+
+  @media only screen and (max-width: 768px) {
+    .pitch-deck-section .pd-heading h2 {
+      font-size: 26px;
+    }
+
+    .pitch-deck-section .cards-wrapper {
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .pitch-deck-section .card {
+      width: 100%;
+    }
+
+    .pitch-deck-section .pd-heading h4 {
+      font-size: 21px;
+    }
+
+    .pd-para p {
+      font-size: 14px;
+    }
+
+    .pitch-deck-section .checkmark i.fas.fa-check-circle {
+      font-size: 30px;
+    }
+
+    .pitch-deck-section .card-front,
+    .pitch-deck-section .card-back {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .card-back .pd-para p {
+      max-width: 175px;
+    }
+  }
+</style>

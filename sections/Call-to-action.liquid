@@ -1,0 +1,126 @@
+<div class="page-width">
+  <div class="cta">
+    <h2>{{ section.settings.cta_heading }}</h2>
+    <p>{{ section.settings.cta_description }}</p>
+    <a href="{{ section.settings.cta_button_url }}" class="cta-button">{{ section.settings.cta_button_text }}</a>
+  </div>
+</div>
+<style>
+      /* CTA Section */
+  .cta {
+    background-color: #fff; /* Dark blue background */
+    color: #08083C; /* White text color */
+    text-align: center; /* Centered text */
+    padding: 60px 20px; /* Padding for spacing */
+    border-radius: 8px; /* Rounded corners */
+    margin-top: 40px; /* Space between sections */
+  }
+
+  .cta h2 {
+    font-size: 36px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #08083C; /* White text for heading */
+  }
+
+  .cta p {
+    font-size: 18px;
+    color: #08083C; /* White text for description */
+    margin-bottom: 30px; /* Space between description and button */
+  }
+
+  .cta-button {
+    background-color: #08083C; /* White button */
+    color: #fff; /* Dark blue text on button */
+    font-size: 18px;
+    padding: 15px 30px; /* Button padding */
+    text-decoration: none; /* Remove underline */
+    border-radius: 5px; /* Rounded button corners */
+    display: inline-block; /* Align with text */
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth hover effect */
+  }
+
+  .cta-button:hover {
+    background-color: #08083C; /* Dark blue on hover */
+    color: #fff; /* White text on hover */
+    transform: scale(1.05); /* Slight zoom effect */
+  }
+
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .cta {
+      padding: 50px 15px; /* Adjust padding on smaller screens */
+    }
+
+    .cta h2 {
+      font-size: 32px; /* Adjust heading size */
+    }
+
+    .cta p {
+      font-size: 16px; /* Adjust paragraph size */
+    }
+
+    .cta-button {
+      font-size: 16px; /* Adjust button text size */
+      padding: 12px 25px; /* Adjust button padding */
+    }
+  }
+
+  @media (max-width: 480px) {
+    .cta {
+      padding: 40px 10px; /* Adjust padding for very small screens */
+    }
+
+    .cta h2 {
+      font-size: 28px; /* Adjust heading size */
+    }
+
+    .cta p {
+      font-size: 14px; /* Adjust paragraph size */
+    }
+
+    .cta-button {
+      font-size: 14px; /* Adjust button text size */
+      padding: 10px 20px; /* Adjust button padding */
+    }
+  }
+</style>
+{% schema %}
+{
+  "name": "Call to Action Section",
+  "settings": [
+    {
+      "type": "text",
+      "label": "CTA Heading",
+      "id": "cta_heading",
+      "default": "Join Our Team",
+      "info": "Main heading for the CTA section"
+    },
+    {
+      "type": "textarea",
+      "label": "CTA Description",
+      "id": "cta_description",
+      "default": "If you're passionate about innovation, we would love to work with you!",
+      "info": "Description under the CTA heading"
+    },
+    {
+      "type": "url",
+      "label": "CTA Button URL",
+      "id": "cta_button_url",
+      "info": "URL for the CTA button"
+    },
+    {
+      "type": "text",
+      "label": "CTA Button Text",
+      "id": "cta_button_text",
+      "default": "Get in Touch",
+      "info": "Text displayed on the CTA button"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Call to Action Section"
+    }
+  ]
+}
+{% endschema %}

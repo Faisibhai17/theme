@@ -1,0 +1,92 @@
+<div style="background:#e6e6e6">
+<div class="cus-logos">
+  <div class="cus-logos-heading">
+    <h2>{{ section.settings.heading }}</h2>
+  </div>
+  <div class="cus-logos-wrap">
+    {% for block in section.blocks %}
+    <div class="cus-logo"><img src="{{ block.settings.image | img_url: '1000x' }}" /></div>
+      {% endfor %}
+  </div>
+</div>
+</div>
+<style>
+  .cus-logos {
+    margin: auto;
+    max-width: 1300px;
+    padding: 50px 0;
+}
+.cus-logos-heading h2 {
+    color: #06063b;
+    font-size: 52px;
+    font-weight: 600;
+    text-transform: none;
+    font-style: normal;
+    text-decoration: none;
+    line-height: 1.2em;
+    letter-spacing: 0px;
+    word-spacing: 0em;
+    text-align: center;
+}
+  .cus-logos-wrap {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 10px;
+}
+  .cus-logo {
+    max-width: 20%;
+    margin: 15px;
+}
+.cus-logo img {
+    width: 100%;
+    filter: brightness(100%) contrast(0%) saturate(100%) blur(0px) hue-rotate(0deg);
+}
+  .cus-logo:hover img {
+    filter: unset;
+}
+  @media screen and (max-width: 768px) {
+    .cus-logo {
+    max-width: 40%;
+}
+    .cus-logos-wrap {
+    justify-content: space-around;
+}
+    .cus-logos-heading h2 {
+      font-size: 32px;
+    }
+  }
+</style>
+
+{% schema %}
+  {
+  "name": "Custom Logos",
+  "settings": [
+    {
+          "type": "text",
+          "id": "heading",
+          "label": "Title",
+      "default": "Some Happy Clients"
+        }
+  ],
+  "blocks": [
+    {
+      "type": "Logo",
+      "name": "Logo",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Logo"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Logos"
+    }
+  ]
+}
+{% endschema %}

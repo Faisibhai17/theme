@@ -1,0 +1,126 @@
+{% comment %}START - Set global restricted products, tags, blogs, and pages{% endcomment %}
+  {% assign restricted_pages_5478_Basic = '' | split:',' %}
+  {% assign restricted_collections_5478_Basic = '' | split:',' %}
+  {% assign restricted_products_5478_Basic = '' | split:',' %}
+  {% assign restricted_product_tags_5478_Basic = '' | split:',' %}
+  {% assign restricted_blogs_5478_Basic = '' | split:',' %}
+  {% assign restricted_article_tags_5478_Basic = '' | split:',' %}
+  {% assign restricted_pages_5478_Standard = '' | split:',' %}
+  {% assign restricted_collections_5478_Standard = '' | split:',' %}
+  {% assign restricted_products_5478_Standard = 'membership-based-plan' | split:',' %}
+  {% assign restricted_product_tags_5478_Standard = '' | split:',' %}
+  {% assign restricted_blogs_5478_Standard = '' | split:',' %}
+  {% assign restricted_article_tags_5478_Standard = '' | split:',' %}
+  {% assign restricted_pages_5478_Premium = '' | split:',' %}
+  {% assign restricted_collections_5478_Premium = '' | split:',' %}
+  {% assign restricted_products_5478_Premium = '' | split:',' %}
+  {% assign restricted_product_tags_5478_Premium = '' | split:',' %}
+  {% assign restricted_blogs_5478_Premium = '' | split:',' %}
+  {% assign restricted_article_tags_5478_Premium = '' | split:',' %}
+{% comment %}END - Set global restricted products, tags, blogs, and pages{% endcomment %}
+
+{% comment %}Only include all this content if we're on a page since that's all that can be restricted currently.{% endcomment %}
+{% if template.name == 'page' or template.name == 'collection' or template.name == 'product' or template.name == 'blog' or template.name == 'article' %}
+
+  {% assign gateway_message = '' %}
+  {% assign is_not_allowed = 'unset' %}
+
+  
+          
+          
+    {% comment %}START - Membership Type: Membership Based Plan - Standard - $39/month{% endcomment %}
+
+
+      {% assign is_restricted = false %}
+      {% assign is_allowed = false %}
+
+      {% assign restricted_pages = '' | split:',' %}
+      {% assign restricted_collections = '' | split:',' %}
+      {% assign restricted_products = 'membership-based-plan' | split:',' %}
+      {% assign restricted_product_tags = '' | split:',' %}
+      {% assign restricted_blogs = '' | split:',' %}
+      {% assign restricted_article_tags = '' | split:',' %}
+
+      {% if template.name == 'page' and restricted_pages contains page.handle %}
+        {% assign is_restricted = true %}
+      {% elsif template.name == 'collection' and restricted_collections contains collection.handle %}
+        {% assign is_restricted = true %}
+      {% elsif template.name == 'blog' and restricted_blogs contains blog.handle %}
+        {% assign is_restricted = true %}
+      {% elsif template.name == 'article' %}
+          {% for tag in restricted_article_tags %}
+            {% if article.tags contains tag %}
+              {% assign is_restricted = true %}
+              {% break %}
+            {% endif %}
+          {% endfor %}
+          {% assign blog_handle = article.handle | split: '/' %}
+          {% if restricted_blogs contains blog_handle[0] %}
+            {% assign is_restricted = true %}
+          {% endif %}
+      {% elsif template.name == 'product' %}
+        {% if restricted_products contains product.handle %}
+          {% assign is_restricted = true %}
+        {% else %}
+          {% for tag in restricted_product_tags %}
+            {% if product.tags contains tag %}
+              {% assign is_restricted = true %}
+              {% break %}
+            {% endif %}
+          {% endfor %}
+        {% endif %}
+        {% for collection in product.collections %}
+            {% for restricted_collection in restricted_collections %}
+                {% if collection.handle == restricted_collection %}
+                    {% assign is_restricted = true %}
+                    {% break %}
+                {% endif %}
+            {% endfor %}
+        {% endfor %}
+      {% endif %}
+      {% if is_restricted %}
+        {% assign is_member = false %}
+        {% assign is_tier = false %}
+        {% if customer %}
+
+          {% assign membership_tag = 'CM-5478 Membership: Active' %}
+          {% assign tier_tag = 'CM-5478 Tier: Standard' %}
+
+          {% for tag in customer.tags %}
+            {% if tag == membership_tag %}{% assign is_member = true %}{% endif %}
+            {% if tag == tier_tag %}{% assign is_tier = true %}{% endif %}
+          {% endfor %}
+
+          {% if is_member %}
+            {% if is_tier %}
+              {% assign is_allowed = true %}
+            {% else %}
+              {% capture gateway_message %}This page is for tier members only. <a href="/a/membership/dashboard">Upgrade your membership today</a>!{% endcapture %}
+            {% endif %}
+          {% else %}
+            {% capture gateway_message %}This page is for members only. If you're already a member, please <a href="/account/login">login</a>. If you're not yet a member, <a href="/products/membership-based-plan">become one today</a>!{% endcapture %}
+          {% endif %}
+
+        {% endif %}
+      {%endif %}
+
+      {% if is_restricted == true and is_allowed == false and is_not_allowed == 'unset' %}
+        {% assign is_not_allowed = true %}
+      {% elsif is_restricted == true and is_allowed == true %}
+        {% assign is_not_allowed = false %}
+      {% endif %}
+
+    {% comment %}END - Membership Type: Membership Based Plan - Standard - $39/month{% endcomment %}
+
+  
+          
+  {% comment %}Customer is not logged in{% endcomment %}
+  {% unless customer %}
+    {% capture gateway_message %}This page is for members only. If you're already a member, please <a href="/account/login">login</a>.{% endcapture %}
+  {% endunless %}
+
+  {% if is_not_allowed == true and is_not_allowed != 'unset' %} 
+    {% assign content_for_layout = gateway_message %}
+  {% endif %}
+
+{% endif %}

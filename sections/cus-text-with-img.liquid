@@ -1,0 +1,135 @@
+<div class="projects-div">
+<div class="left-side">
+  <div class="content-block">
+    <span>{{ section.settings.number1 }}</span>
+    <p>{{ section.settings.text1 }}</p>
+  </div>
+  <div class="content-block">
+    <span>{{ section.settings.number2 }}</span>
+    <p>{{ section.settings.text2 }}</p>
+  </div>
+  <div class="content-block">
+    <span>{{ section.settings.number3 }}</span>
+    <p>{{ section.settings.text3 }}</p>
+  </div>
+</div>
+<div class="right-side">
+  <img src="{{ section.settings.image | img_url: '1000x' }}" />
+</div> 
+</div>
+
+<style>
+  .projects-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    max-width: 1300px;
+    margin: auto;
+    padding-top: 100px;
+}
+  .left-side {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    flex: 1;
+}
+  .right-side{
+    flex: 1;
+  }
+  .right-side img {
+    max-height: 150px;
+    object-fit: cover;
+    width: 100%;
+    border-radius: 15px;
+}
+  .content-block span {
+    color: #1f41ff;
+    font-size: 45px;
+    font-weight: 600;
+    line-height: 1.2em;
+    word-spacing: 0.1em;
+}
+ .content-block p {
+    text-align: center;
+    font-size: 19px;
+    font-weight: 400;
+    line-height: 1.2em;
+}
+  .content-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+  @media screen and (max-width: 768px) {
+.projects-div {
+    flex-direction: column;
+}
+  .right-side {
+    width: 80%;
+    margin: auto;
+}
+    .content-block span {
+    font-size: 32px;
+    line-height: 0.8em;
+}
+    .content-block p {
+    text-align: center;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 0.8em;
+}
+  }
+</style>
+
+{% schema %}
+  {
+    "name": "Number with Image",
+    "settings": [
+      {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+       {
+          "type": "text",
+          "id": "number1",
+          "label": "Number 1"
+        },
+       {
+          "type": "text",
+          "id": "text1",
+          "label": "Text 1"
+        },
+       {
+          "type": "text",
+          "id": "number2",
+          "label": "Number 2"
+        },
+       {
+          "type": "text",
+          "id": "text2",
+          "label": "Text 2"
+        },
+      {
+          "type": "text",
+          "id": "number3",
+          "label": "Number 3"
+        },
+       {
+          "type": "text",
+          "id": "text3",
+          "label": "Text 3"
+        }
+    ],
+    
+  "presets": [
+    {
+      "name": "Cus with Image"
+    }
+  ]
+  }
+{% endschema %}

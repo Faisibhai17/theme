@@ -1,0 +1,304 @@
+<div class="custom_faq page-width" id="faq-id">
+  <div class="cus_faq_header">
+    <div class="cus_faq_title"><h2 class="cus_faq_title">Frequently Asked Questions</h2></div>
+  </div>
+  <div class="cus_faq_tabs"> 
+    {% for block in section.blocks %}
+      <div class="tab-items {% if forloop.first %}active{% endif %}" id="tab{{ forloop.index }}">
+        <button class="accordion"><h3>{{ block.settings.question }}</h3></button>
+        <div class="panel">
+          <p class="cus_panel_text">{{ block.settings.answer }}</p>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+<style>
+  .custom_faq{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+.custom_faq h3 {
+    line-height: 25px;
+    font-size: 22px;
+    text-transform: capitalize;
+    padding: 0px 10px;
+    margin: 0px;
+    color: #fff;
+}
+  .panel p {
+    color: #000;
+    padding: 0px 20px;
+}
+  .panel ul li {
+    color: #000;
+}
+  button.accordion {
+    z-index: 2;
+    position: relative;
+}
+  .cus_faq_header{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 30px;
+  }
+  .cus_faq_title{
+    font-family: Coluna, sans-serif;
+    font-weight: 700;
+    font-size: 6.5rem;
+    color: #161831;
+    line-height: 1;
+   
+  }
+  .cus_faq_title h2{
+     border-bottom: 1px solid #C7D8E9;
+  }
+  .cus_faq_subtitle{
+    margin: auto;
+    font-size: 0.9375rem;
+  }
+  .cus_faq_tabs{
+    display: flex;
+    flex-direction: column;
+    margin: 20px 0;
+  }
+  .cus_faq_buttons {
+    justify-content: center;
+    flex-wrap: nowrap;
+    grid-gap: 1em;
+    text-transform: uppercase;
+    margin: 30px;
+    }
+
+    .cus_faq_button {
+      cursor: pointer;
+      padding: 10px 20px;
+      margin: 0.5rem;
+      color: #000;
+      font-weight: 700;
+    /* text-decoration: underline 3px;
+    text-underline-offset: 5px; */
+    }
+
+  .cus_faq_button.opened{
+    text-decoration: underline 3px;
+      text-underline-offset: 5px;
+  }
+
+    tab-items {
+      display: none;
+      border-radius: 0 0 5px 5px;
+      width: 100%;
+
+    }
+
+    tab-items.active {
+      display: block;
+      background-color: #fff;
+    }
+ .accordion {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    color: yellow;
+    padding: 15px 30px;
+    width: 100%;
+    text-align: left;
+    font-weight: 700;
+    outline: none;
+    border: 6px solid #fff;
+    background: #08083C;
+    transition: background 1s;
+    border-radius: 50px;
+}
+.accordion:before {
+    content: "\002B";
+    font-size: 3.2rem;
+    position: relative;
+    right: 8px;
+    top: 0px;
+}
+ .accordion.active:before{
+    content:  "\2212";
+    font-size: 3.2rem;
+    position: relative;
+    right: 8px;
+    top: 0px;
+  }
+
+ .accordion:hover {
+  background-color: #161831;
+  color: #d7fd45;
+}
+  .active{
+    border-color: #d7fd45;
+    color: #fff;
+  }
+/* .accordion:hover {
+  border: 6px solid #161831;
+} */
+
+ .panel {
+      transition: max-height 0.5s ease-in-out, opacity 0.5s ease-in-out;
+      max-height: 0;
+      opacity: 0;
+    }
+    .accordion.active + .panel {
+      max-height: 500px; /* Set a reasonable max height */
+      opacity: 1;
+    }
+ 
+  .cus_panel_text {
+    line-height: 25px;
+    color: #222;
+    padding: 0px 10px;
+    margin-bottom: 10px;
+}
+    
+   @media screen and (min-width: 1180px) {
+  .custom_faq{
+     width: 85%;
+    max-width: 1500px;
+    margin: auto;
+  }
+}
+  @media screen and (max-width: 800px) {
+    .cus_faq_title{
+      font-size: 3.5rem;
+    }
+    .cus_faq_tabs{
+      width: 85%;
+    }
+    .cus_faq_buttons {
+    display: block;
+    width: 320px;
+    overflow-x: scroll;
+    /* overflow-y: hidden; */
+    white-space: nowrap;
+    padding-bottom: 10px;
+}
+    .cus_faq_button {
+    cursor: pointer;
+    padding: 0px 10px;
+    color: #000;
+    font-weight: 700;
+      margin: 0;
+}
+    .accordion{
+      position: relative;
+      z-index: 999;
+    }
+  }
+@media screen and (max-width: 768px) {
+  .custom_faq h3 {
+    line-height: 17px;
+    font-size: 15px;
+    padding: 0px 0px;
+}
+  .accordion {
+    padding: 10px 20px;
+}
+  .cus_faq_header {
+    padding: 10px;
+}
+  .cus_faq_title {
+    font-size: 2.6rem;
+}
+}
+</style>
+
+<script>
+  function openTab(evt, tabName) {
+    var i, tabItems, tabButtons;
+    tabItems = document.querySelectorAll("tab-items");
+    for (i = 0; i < tabItems.length; i++) {
+      tabItems[i].style.display = "none";
+    }
+    var buttons = document.querySelectorAll('.cus_faq_button');
+    buttons.forEach(function(btn) {
+      btn.classList.remove('opened');
+    });
+    evt.currentTarget.classList.add('opened');
+
+    document.getElementById(tabName).style.display = "block";
+  };
+
+  var acc = document.getElementsByClassName("accordion");
+  var i;
+
+  for (i = 0; i < acc.length; i++) {
+    acc[i].addEventListener("click", function() {
+      this.classList.toggle("active");
+
+      var panel = this.nextElementSibling;
+      if (panel.style.maxHeight) {
+        panel.style.maxHeight = null;
+        panel.style.opacity = "0";
+      } else {
+        panel.style.maxHeight = panel.scrollHeight + "px";
+        panel.style.opacity = "1";
+      }
+    });
+  }
+</script>
+ <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Select all buttons within the container
+            var languageSelectorButtons = document.querySelectorAll('.language-selector-container .language-selector');
+
+            // Add <a> tag around each button with the dynamic link
+            languageSelectorButtons.forEach(function(button) {
+                // Get the data-lang attribute value
+                var lang = button.getAttribute('data-lang');
+
+                // Create an <a> tag
+                var link = document.createElement('a');
+
+                // Set the href attribute based on data-lang value
+                link.href = 'https://everwellpro.com/pages/home-' + lang;
+
+                // Append the button to the <a> tag
+                link.appendChild(button.cloneNode(true));
+
+                // Replace the original button with the <a> tag
+                button.parentNode.replaceChild(link, button);
+            });
+        });
+    </script>
+
+{% schema %}
+{
+  "name": "Custom FAQ Section",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "faq",
+      "name": "FAQ Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question"
+        },
+        {
+          "type": "richtext",
+          "id": "answer",
+          "label": "Answer"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom FAQ Section"
+    }
+  ]
+}
+{% endschema %}
+

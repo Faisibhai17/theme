@@ -1,0 +1,311 @@
+/* Customer Signup Buttons Section */
+.customer-signup-buttons {
+  text-align: center;
+}
+
+.customer-signup-buttons__container {
+  max-width: 80rem;
+  margin: 0 auto;
+}
+
+.customer-signup-buttons__heading {
+  margin-bottom: 3rem;
+  font-size: calc(var(--font-heading-scale) * 2.8rem);
+}
+
+@media screen and (min-width: 750px) {
+  .customer-signup-buttons__heading {
+    font-size: calc(var(--font-heading-scale) * 3.6rem);
+  }
+}
+
+.customer-signup-buttons__buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  align-items: center;
+}
+
+@media screen and (min-width: 750px) {
+  .customer-signup-buttons__buttons {
+    flex-direction: row;
+    justify-content: center;
+    gap: 3rem;
+  }
+}
+
+.customer-signup-buttons__button {
+  min-width: 20rem;
+  padding: 1.5rem 3rem;
+  font-size: 1.6rem;
+  color: #fff;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+}
+
+.customer-signup-buttons__button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.customer-signup-buttons__button:hover:not(:disabled) {
+  opacity: 0.9;
+}
+
+/* Customer Signup Modal */
+.customer-signup-modal {
+  box-sizing: border-box;
+  opacity: 0;
+  position: fixed;
+  visibility: hidden;
+  z-index: -1;
+  margin: 0 auto;
+  top: 0;
+  left: 0;
+  overflow: auto;
+  width: 100%;
+  background: rgba(var(--color-foreground), 0.2);
+  height: 100%;
+}
+
+.customer-signup-modal[open] {
+  opacity: 1;
+  visibility: visible;
+  z-index: 101;
+}
+
+.customer-signup-modal__content {
+  border-radius: var(--popup-corner-radius, 0);
+  background-color: #fff;
+  overflow: auto;
+  max-height: 90vh;
+  margin: 0 auto;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 5rem;
+  width: 92%;
+  max-width: 60rem;
+  position: absolute;
+  top: 0;
+  padding: 3rem 2rem 2rem;
+  border-color: rgba(var(--color-foreground), var(--popup-border-opacity, 0.1));
+  border-style: solid;
+  border-width: var(--popup-border-width, 0.1rem);
+  box-shadow: var(--popup-shadow-horizontal-offset, 0) var(--popup-shadow-vertical-offset, 0.4rem) var(--popup-shadow-blur-radius, 1.2rem)
+    rgba(var(--color-shadow), var(--popup-shadow-opacity, 0.1));
+}
+
+@media screen and (min-width: 750px) {
+  .customer-signup-modal__content {
+    padding: 4rem 3rem 3rem;
+    margin-top: 3rem;
+  }
+}
+
+.customer-signup-modal__close {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  background: transparent;
+  border: none;
+  padding: 0.5rem;
+  cursor: pointer;
+  color: rgb(var(--color-foreground));
+  z-index: 1;
+}
+
+.customer-signup-modal__close:hover {
+  color: rgba(var(--color-foreground), 0.75);
+}
+
+.customer-signup-modal__close .icon {
+  width: 2.2rem;
+  height: 2.2rem;
+}
+
+.customer-signup-modal__form-wrapper {
+  position: relative;
+}
+
+.customer-signup-modal__title {
+  margin-top: 0;
+  margin-bottom: 2rem;
+  font-size: calc(var(--font-heading-scale) * 2.4rem);
+  text-align: center;
+}
+
+@media screen and (min-width: 750px) {
+  .customer-signup-modal__title {
+    font-size: calc(var(--font-heading-scale) * 2.8rem);
+    margin-bottom: 3rem;
+  }
+}
+
+/* Form Styles */
+.customer-signup-form {
+  margin-top: 2rem;
+}
+
+.customer-signup-form .field {
+  margin: 2rem 0 0 0;
+  flex-direction: column-reverse;
+}
+
+.customer-signup-form .field:first-of-type {
+  margin-top: 0;
+}
+
+.customer-signup-form .field label {
+  display: block;
+  margin-bottom: 0.8rem;
+  font-size: 1.4rem;
+  font-weight: 500;
+  color: rgb(var(--color-foreground));
+}
+
+.customer-signup-form .field input[type="text"],
+.customer-signup-form .field input[type="email"],
+.customer-signup-form .field input[type="password"],
+.customer-signup-form .field textarea {
+  width: 100%;
+  padding: 1.2rem 1.5rem;
+  border: 0.1rem solid rgba(var(--color-foreground), 0.2);
+  border-radius: var(--inputs-radius, 0);
+  background-color: #fff;
+  color: rgb(var(--color-foreground));
+  font-size: 1.6rem;
+  font-family: var(--font-body-family);
+  font-style: var(--font-body-style);
+  font-weight: var(--font-body-weight);
+  transition: border-color 0.2s ease;
+}
+
+.customer-signup-form .field input:focus,
+.customer-signup-form .field textarea:focus {
+  outline: none;
+  border-color: rgb(var(--color-foreground));
+}
+
+.customer-signup-form .field textarea {
+  resize: vertical;
+  min-height: 10rem;
+}
+
+.customer-signup-form .form__message {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-top: 1rem;
+  font-size: 1.4rem;
+  color: rgb(220, 38, 38);
+}
+
+.customer-signup-form .form__message svg {
+  width: 1.6rem;
+  height: 1.6rem;
+  flex-shrink: 0;
+}
+
+.customer-signup-form .form__message ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 0.5rem 0 0 0;
+}
+
+.customer-signup-form .form__message li {
+  margin: 0.5rem 0;
+}
+
+.customer-signup-form button[type="submit"] {
+  width: 100%;
+  margin-top: 2.5rem;
+  padding: 1.5rem 3rem;
+  font-size: 1.6rem;
+}
+
+@media screen and (min-width: 750px) {
+  .customer-signup-form button[type="submit"] {
+    margin-top: 3rem;
+  }
+}
+
+/* Error Container */
+.form__error-container {
+  display: none;
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background-color: rgba(220, 38, 38, 0.1);
+  border: 0.1rem solid rgb(220, 38, 38);
+  border-radius: var(--inputs-radius, 0);
+}
+
+.form__error-container .form__message {
+  color: rgb(220, 38, 38);
+  margin: 0;
+  line-height: 1.6;
+}
+
+.form__error-container .form__message strong {
+  display: block;
+  margin-bottom: 1rem;
+  font-size: 1.6rem;
+}
+
+.form__error-container ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+.form__error-container li {
+  margin: 0.5rem 0;
+  color: rgb(220, 38, 38);
+}
+
+/* Success Message */
+.customer-signup-form__success {
+  display: none;
+  padding: 2rem;
+  background-color: rgba(34, 197, 94, 0.1);
+  border: 0.1rem solid rgb(34, 197, 94);
+  border-radius: var(--inputs-radius, 0);
+  color: rgb(22, 163, 74);
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.customer-signup-form__success.show {
+  display: block;
+}
+
+.customer-signup-form__success p {
+  margin: 0;
+  font-size: 1.6rem;
+}
+
+/* Loading State */
+.customer-signup-form button[type="submit"].loading {
+  opacity: 0.7;
+  cursor: not-allowed;
+  position: relative;
+}
+
+.customer-signup-form button[type="submit"].loading::after {
+  content: '';
+  position: absolute;
+  width: 1.6rem;
+  height: 1.6rem;
+  top: 50%;
+  left: 50%;
+  margin-left: -0.8rem;
+  margin-top: -0.8rem;
+  border: 0.2rem solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: #fff;
+  animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}

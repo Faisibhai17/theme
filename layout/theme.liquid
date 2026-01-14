@@ -1,912 +1,361 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html class="js" lang="{{ request.locale.iso_code }}">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="theme-color" content="">
+    <link rel="canonical" href="{{ canonical_url }}">
 
-<!--[if IE 9]> <html class="ie9 no-js supports-no-cookies translated-ltr tt{{ shop.locale }}" lang="{{ shop.locale }}"> <![endif]-->
-<!--[if (gt IE 9)|!(IE)]><!--> <html id="{{ Shopify.locale }}" class="no-js supports-no-cookies"  lang="{{ shop.locale }}"> <!--<![endif]-->
+    {%- if settings.favicon != blank -%}
+      <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
+    {%- endif -%}
 
-<head>
- {%- render 'ecom_header' -%}
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-29K4RNVJF3"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+    {%- unless settings.type_header_font.system? and settings.type_body_font.system? -%}
+      <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
+    {%- endunless -%}
 
-  gtag('config', 'G-29K4RNVJF3');
-</script>
+    <title>
+      {{ page_title }}
+      {%- if current_tags %} &ndash; tagged "{{ current_tags | join: ', ' }}"{% endif -%}
+      {%- if current_page != 1 %} &ndash; Page {{ current_page }}{% endif -%}
+      {%- unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless -%}
+    </title>
 
-<!-- Google Tag Manager -->
-{% comment %} <script async>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-P63XRBVT');</script>
-<!-- End Google Tag Manager -->
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-29K4RNVJF3"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+    {% if page_description %}
+      <meta name="description" content="{{ page_description | escape }}">
+    {% endif %}
 
-  gtag('config', 'G-29K4RNVJF3');
-</script> {% endcomment %}
-<meta name="google-site-verification" content="jYBO0X0VPA2THyXhSrEWtVPz9xpHnQkFgyDv0HrwEAc" />
-<meta name="google-site-verification" content="gDkWCSg_HoOqiAErtYTYj9-rrk26AO6gRNsXud-7NWs" />
-<script type="text/javascript" id="sa-otto" data-uuid="0b44bf0d-02ed-4212-bc75-1fe75a6245b1" src="data:text/javascript;base64,dmFyIHNjcmlwdCA9IGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoInNjcmlwdCIpO3NjcmlwdC5zcmMgPSAiaHR0cHM6Ly9kYXNoYm9hcmQubGlua2dyYXBoLmNvbS9zY3JpcHRzL290dG8uanMiO3NjcmlwdC5kYXRhc2V0LnV1aWQgPSAiMGI0NGJmMGQtMDJlZC00MjEyLWJjNzUtMWZlNzVhNjI0NWIxIjtzY3JpcHQuaWQgPSAic2Etb3R0by1sb2FkZXIiO2RvY3VtZW50LmhlYWQuYXBwZW5kQ2hpbGQoc2NyaXB0KTs="></script>  
-<meta name="facebook-domain-verification" content="v39ls23wsqya1zfvq59cr2c54advng" />
+    {% render 'meta-tags' %}
 
-<meta name="facebook-domain-verification" content="kll02kzul4hvszyos0h0k9cptzqwcf" />
+    <script src="{{ 'constants.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'pubsub.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'global.js' | asset_url }}" defer="defer"></script>
+    {%- if settings.animations_reveal_on_scroll -%}
+      <script src="{{ 'animations.js' | asset_url }}" defer="defer"></script>
+    {%- endif -%}
 
-<meta name="facebook-domain-verification" content="c65qwtjpjay59rad92fev78z7qdokx" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-  
-   
-{%- if shop.metafields.bis.email_custom_info -%}
-    <script async >{{shop.metafields.bis.email_custom_info}}</script>
-{%- endif -%}
-    <script async src='{{ 'sealapps_email_config.js' | asset_url }}' defer='defer' ></script> 
-    <script async src='{{ 'product_restore_email.js' | asset_url }}' defer='defer' ></script> 
-    <script async id='em_product_variants' type='application/json'>
-        {{ product.variants | json }}
-    </script>
-    <script async id='em_product_selected_or_first_available_variant' type='application/json'>
-        {{ product.selected_or_first_available_variant | json }}
-    </script>
- {%- render 'beae_header' -%}
-  <!-- Basic and Helper page needs -->
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="keywords" content="24K gold skincare, Anti-aging cream, Age-defying beauty, Gold-infused formula, Youthful complexion, Nourishing skincare, Radiant rejuvenation, Gold beauty treatment, Opulent skincare, Skin revitalization">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="theme-color" content="{{ settings.color_primary }}">
-  {% comment %} <link rel="canonical" href="{{ canonical_url }}"> {% endcomment %}
-  <script  src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> 
-  <link href="https://fonts.cdnfonts.com/css/source-sans-pro" rel="stylesheet">
-                
+    {{ content_for_header }}
 
-  {%- if settings.favicon != blank -%}
-  <link rel="shortcut icon" href="{{ settings.favicon | img_url: '32x32' }}" type="image/png" />
-  {%- endif -%}
-<!--announcement bar-->
-  {% section 'announcement-bar' %}
-  <!-- Title and description -->
-  {% capture seo_title %}
-  {{ page_title }}
-  {% if current_tags %}
-  {%- assign meta_tags = current_tags | join: ', ' %} &ndash; {{ 'general.meta.tags' | t: tags: meta_tags -}}
-  {% endif %}
-  {% if current_page != 1 %}
-  &ndash; {{ 'general.meta.page' | t: page: current_page }}
-  {% endif %}
-  {% unless page_title contains shop.name %}
-  &ndash; {{ shop.name }}
-  {% endunless %}
-  {% endcapture %}
-  <title>{{ seo_title }}</title>
+    {%- liquid
+      assign body_font_bold = settings.type_body_font | font_modify: 'weight', 'bold'
+      assign body_font_italic = settings.type_body_font | font_modify: 'style', 'italic'
+      assign body_font_bold_italic = body_font_bold | font_modify: 'style', 'italic'
+    %}
 
-  {%- if page_description -%}
-  <meta name="description" content="{{ page_description | escape }}">
-  {%- endif -%}
+    {% style %}
+      {{ settings.type_body_font | font_face: font_display: 'swap' }}
+      {{ body_font_bold | font_face: font_display: 'swap' }}
+      {{ body_font_italic | font_face: font_display: 'swap' }}
+      {{ body_font_bold_italic | font_face: font_display: 'swap' }}
+      {{ settings.type_header_font | font_face: font_display: 'swap' }}
 
-  <!-- Helpers -->
-  {% include 'social-meta-tags' %}
+      {% for scheme in settings.color_schemes -%}
+        {% assign scheme_classes = scheme_classes | append: ', .color-' | append: scheme.id %}
+        {% if forloop.index == 1 -%}
+          :root,
+        {%- endif %}
+        .color-{{ scheme.id }} {
+          --color-background: {{ scheme.settings.background.red }},{{ scheme.settings.background.green }},{{ scheme.settings.background.blue }};
+        {% if scheme.settings.background_gradient != empty %}
+          --gradient-background: {{ scheme.settings.background_gradient }};
+        {% else %}
+          --gradient-background: {{ scheme.settings.background }};
+        {% endif %}
 
-  <!-- CSS -->
-  {{ 'timber.scss.css' | asset_url | stylesheet_tag }}
-   {{ 'custom.css' | asset_url | stylesheet_tag }}
-   {{ 'new-faq.css' | asset_url | stylesheet_tag }}
-  {%- include 'header-css' -%}
+        {% liquid
+          assign background_color = scheme.settings.background
+          assign background_color_brightness = background_color | color_brightness
+          if background_color_brightness <= 26
+            assign background_color_contrast = background_color | color_lighten: 50
+          elsif background_color_brightness <= 65
+            assign background_color_contrast = background_color | color_lighten: 5
+          else
+            assign background_color_contrast = background_color | color_darken: 25
+          endif
+        %}
 
-  <!-- Header hook for plugins -->
-  {{ content_for_header }}
-  {% include 'oldIE-js' %}
-  <!-- JS -->
-  {%- include 'header-js' -%}
+        --color-foreground: {{ scheme.settings.text.red }},{{ scheme.settings.text.green }},{{ scheme.settings.text.blue }};
+        --color-background-contrast: {{ background_color_contrast.red }},{{ background_color_contrast.green }},{{ background_color_contrast.blue }};
+        --color-shadow: {{ scheme.settings.shadow.red }},{{ scheme.settings.shadow.green }},{{ scheme.settings.shadow.blue }};
+        --color-button: {{ scheme.settings.button.red }},{{ scheme.settings.button.green }},{{ scheme.settings.button.blue }};
+        --color-button-text: {{ scheme.settings.button_label.red }},{{ scheme.settings.button_label.green }},{{ scheme.settings.button_label.blue }};
+        --color-secondary-button: {{ scheme.settings.background.red }},{{ scheme.settings.background.green }},{{ scheme.settings.background.blue }};
+        --color-secondary-button-text: {{ scheme.settings.secondary_button_label.red }},{{ scheme.settings.secondary_button_label.green }},{{ scheme.settings.secondary_button_label.blue }};
+        --color-link: {{ scheme.settings.secondary_button_label.red }},{{ scheme.settings.secondary_button_label.green }},{{ scheme.settings.secondary_button_label.blue }};
+        --color-badge-foreground: {{ scheme.settings.text.red }},{{ scheme.settings.text.green }},{{ scheme.settings.text.blue }};
+        --color-badge-background: {{ scheme.settings.background.red }},{{ scheme.settings.background.green }},{{ scheme.settings.background.blue }};
+        --color-badge-border: {{ scheme.settings.text.red }},{{ scheme.settings.text.green }},{{ scheme.settings.text.blue }};
+        --payment-terms-background-color: rgb({{ scheme.settings.background.rgb }});
+      }
+      {% endfor %}
 
-  {% if template contains 'customers' %}
-  {{ 'shopify_common.js' | shopify_asset_url | script_tag }}
-  {% endif %}
+      {{ scheme_classes | prepend: 'body' }} {
+        color: rgba(var(--color-foreground), 0.75);
+        background-color: rgb(var(--color-background));
+      }
 
-  <script async>
-(function(d, t, g, k) {
-	var ph = d.createElement(t),
-	s = d.getElementsByTagName(t)[0],
-	t = (new URLSearchParams(window.location.search)).get(k);
-	t && localStorage.setItem(k, t);
-	t = localStorage.getItem(k);
-	ph.type = 'text/javascript';
-	ph.async = true;
-	ph.defer = true;
-	ph.charset = 'UTF-8';
-	ph.src = g + '&v=' + (new Date()).getTime();
-	ph.src += t ? '&' + k + '=' + t : '';
-	s.parentNode.insertBefore(ph, s);
-})(document, 'script', '//projects.creativ.com.au/?p=1446&ph_apikey=ae094d12b4516236586137dbb06201b1', 'ph_access_token');
-</script> 
+      :root {
+        --font-body-family: {{ settings.type_body_font.family }}, {{ settings.type_body_font.fallback_families }};
+        --font-body-style: {{ settings.type_body_font.style }};
+        --font-body-weight: {{ settings.type_body_font.weight }};
+        --font-body-weight-bold: {{ settings.type_body_font.weight | plus: 300 | at_most: 1000 }};
 
+        --font-heading-family: {{ settings.type_header_font.family }}, {{ settings.type_header_font.fallback_families }};
+        --font-heading-style: {{ settings.type_header_font.style }};
+        --font-heading-weight: {{ settings.type_header_font.weight }};
 
- 
+        --font-body-scale: {{ settings.body_scale | divided_by: 100.0 }};
+        --font-heading-scale: {{ settings.heading_scale | times: 1.0 | divided_by: settings.body_scale }};
 
- <script async type="text/javascript">
-  $(document).ready(function() {   
-    document.addEventListener("toggleSubmenu", function (e) {
-      //e.preventDefault()
-      let subMenu = e.mmSubmenu
-      let subMenuHeight = e.mmMobileHeight
-      let submenuParent = $(subMenu).parent()
-      
-      setTimeout(function() {
-        if ( submenuParent.find('.mm-arrow-icon').hasClass('mm-cross')) {
-          submenuParent.siblings()
-                     .find('.mm-submenu')
-                     .css('max-height', '0px')
-                     
-          submenuParent.siblings()
-                     .find('.mm-arrow-icon')
-                     .removeClass('mm-cross')
-                     
-          submenuParent.siblings().removeClass('mm-hovering')
+        --media-padding: {{ settings.media_padding }}px;
+        --media-border-opacity: {{ settings.media_border_opacity | divided_by: 100.0 }};
+        --media-border-width: {{ settings.media_border_thickness }}px;
+        --media-radius: {{ settings.media_radius }}px;
+        --media-shadow-opacity: {{ settings.media_shadow_opacity | divided_by: 100.0 }};
+        --media-shadow-horizontal-offset: {{ settings.media_shadow_horizontal_offset }}px;
+        --media-shadow-vertical-offset: {{ settings.media_shadow_vertical_offset }}px;
+        --media-shadow-blur-radius: {{ settings.media_shadow_blur }}px;
+        --media-shadow-visible: {% if settings.media_shadow_opacity > 0 %}1{% else %}0{% endif %};
+
+        --page-width: {{ settings.page_width | divided_by: 10 }}rem;
+        --page-width-margin: {% if settings.page_width == '1600' %}2{% else %}0{% endif %}rem;
+
+        --product-card-image-padding: {{ settings.card_image_padding | divided_by: 10.0 }}rem;
+        --product-card-corner-radius: {{ settings.card_corner_radius | divided_by: 10.0 }}rem;
+        --product-card-text-alignment: {{ settings.card_text_alignment }};
+        --product-card-border-width: {{ settings.card_border_thickness | divided_by: 10.0 }}rem;
+        --product-card-border-opacity: {{ settings.card_border_opacity | divided_by: 100.0 }};
+        --product-card-shadow-opacity: {{ settings.card_shadow_opacity | divided_by: 100.0 }};
+        --product-card-shadow-visible: {% if settings.card_shadow_opacity > 0 %}1{% else %}0{% endif %};
+        --product-card-shadow-horizontal-offset: {{ settings.card_shadow_horizontal_offset | divided_by: 10.0 }}rem;
+        --product-card-shadow-vertical-offset: {{ settings.card_shadow_vertical_offset | divided_by: 10.0 }}rem;
+        --product-card-shadow-blur-radius: {{ settings.card_shadow_blur | divided_by: 10.0 }}rem;
+
+        --collection-card-image-padding: {{ settings.collection_card_image_padding | divided_by: 10.0 }}rem;
+        --collection-card-corner-radius: {{ settings.collection_card_corner_radius | divided_by: 10.0 }}rem;
+        --collection-card-text-alignment: {{ settings.collection_card_text_alignment }};
+        --collection-card-border-width: {{ settings.collection_card_border_thickness | divided_by: 10.0 }}rem;
+        --collection-card-border-opacity: {{ settings.collection_card_border_opacity | divided_by: 100.0 }};
+        --collection-card-shadow-opacity: {{ settings.collection_card_shadow_opacity | divided_by: 100.0 }};
+        --collection-card-shadow-visible: {% if settings.collection_card_shadow_opacity > 0 %}1{% else %}0{% endif %};
+        --collection-card-shadow-horizontal-offset: {{ settings.collection_card_shadow_horizontal_offset | divided_by: 10.0 }}rem;
+        --collection-card-shadow-vertical-offset: {{ settings.collection_card_shadow_vertical_offset | divided_by: 10.0 }}rem;
+        --collection-card-shadow-blur-radius: {{ settings.collection_card_shadow_blur | divided_by: 10.0 }}rem;
+
+        --blog-card-image-padding: {{ settings.blog_card_image_padding | divided_by: 10.0 }}rem;
+        --blog-card-corner-radius: {{ settings.blog_card_corner_radius | divided_by: 10.0 }}rem;
+        --blog-card-text-alignment: {{ settings.blog_card_text_alignment }};
+        --blog-card-border-width: {{ settings.blog_card_border_thickness | divided_by: 10.0 }}rem;
+        --blog-card-border-opacity: {{ settings.blog_card_border_opacity | divided_by: 100.0 }};
+        --blog-card-shadow-opacity: {{ settings.blog_card_shadow_opacity | divided_by: 100.0 }};
+        --blog-card-shadow-visible: {% if settings.blog_card_shadow_opacity > 0 %}1{% else %}0{% endif %};
+        --blog-card-shadow-horizontal-offset: {{ settings.blog_card_shadow_horizontal_offset | divided_by: 10.0 }}rem;
+        --blog-card-shadow-vertical-offset: {{ settings.blog_card_shadow_vertical_offset | divided_by: 10.0 }}rem;
+        --blog-card-shadow-blur-radius: {{ settings.blog_card_shadow_blur | divided_by: 10.0 }}rem;
+
+        --badge-corner-radius: {{ settings.badge_corner_radius | divided_by: 10.0 }}rem;
+
+        --popup-border-width: {{ settings.popup_border_thickness }}px;
+        --popup-border-opacity: {{ settings.popup_border_opacity | divided_by: 100.0 }};
+        --popup-corner-radius: {{ settings.popup_corner_radius }}px;
+        --popup-shadow-opacity: {{ settings.popup_shadow_opacity | divided_by: 100.0 }};
+        --popup-shadow-horizontal-offset: {{ settings.popup_shadow_horizontal_offset }}px;
+        --popup-shadow-vertical-offset: {{ settings.popup_shadow_vertical_offset }}px;
+        --popup-shadow-blur-radius: {{ settings.popup_shadow_blur }}px;
+
+        --drawer-border-width: {{ settings.drawer_border_thickness }}px;
+        --drawer-border-opacity: {{ settings.drawer_border_opacity | divided_by: 100.0 }};
+        --drawer-shadow-opacity: {{ settings.drawer_shadow_opacity | divided_by: 100.0 }};
+        --drawer-shadow-horizontal-offset: {{ settings.drawer_shadow_horizontal_offset }}px;
+        --drawer-shadow-vertical-offset: {{ settings.drawer_shadow_vertical_offset }}px;
+        --drawer-shadow-blur-radius: {{ settings.drawer_shadow_blur }}px;
+
+        --spacing-sections-desktop: {{ settings.spacing_sections }}px;
+        --spacing-sections-mobile: {% if settings.spacing_sections < 24 %}{{ settings.spacing_sections }}{% else %}{{ settings.spacing_sections | times: 0.7 | round | at_least: 20 }}{% endif %}px;
+
+        --grid-desktop-vertical-spacing: {{ settings.spacing_grid_vertical }}px;
+        --grid-desktop-horizontal-spacing: {{ settings.spacing_grid_horizontal }}px;
+        --grid-mobile-vertical-spacing: {{ settings.spacing_grid_vertical | divided_by: 2 }}px;
+        --grid-mobile-horizontal-spacing: {{ settings.spacing_grid_horizontal | divided_by: 2 }}px;
+
+        --text-boxes-border-opacity: {{ settings.text_boxes_border_opacity | divided_by: 100.0 }};
+        --text-boxes-border-width: {{ settings.text_boxes_border_thickness }}px;
+        --text-boxes-radius: {{ settings.text_boxes_radius }}px;
+        --text-boxes-shadow-opacity: {{ settings.text_boxes_shadow_opacity | divided_by: 100.0 }};
+        --text-boxes-shadow-visible: {% if settings.text_boxes_shadow_opacity > 0 %}1{% else %}0{% endif %};
+        --text-boxes-shadow-horizontal-offset: {{ settings.text_boxes_shadow_horizontal_offset }}px;
+        --text-boxes-shadow-vertical-offset: {{ settings.text_boxes_shadow_vertical_offset }}px;
+        --text-boxes-shadow-blur-radius: {{ settings.text_boxes_shadow_blur }}px;
+
+        --buttons-radius: {{ settings.buttons_radius }}px;
+        --buttons-radius-outset: {% if settings.buttons_radius > 0 %}{{ settings.buttons_radius | plus: settings.buttons_border_thickness }}{% else %}0{% endif %}px;
+        --buttons-border-width: {% if settings.buttons_border_opacity > 0 %}{{ settings.buttons_border_thickness }}{% else %}0{% endif %}px;
+        --buttons-border-opacity: {{ settings.buttons_border_opacity | divided_by: 100.0 }};
+        --buttons-shadow-opacity: {{ settings.buttons_shadow_opacity | divided_by: 100.0 }};
+        --buttons-shadow-visible: {% if settings.buttons_shadow_opacity > 0 %}1{% else %}0{% endif %};
+        --buttons-shadow-horizontal-offset: {{ settings.buttons_shadow_horizontal_offset }}px;
+        --buttons-shadow-vertical-offset: {{ settings.buttons_shadow_vertical_offset }}px;
+        --buttons-shadow-blur-radius: {{ settings.buttons_shadow_blur }}px;
+        --buttons-border-offset: {% if settings.buttons_radius > 0 or settings.buttons_shadow_opacity > 0 %}0.3{% else %}0{% endif %}px;
+
+        --inputs-radius: {{ settings.inputs_radius }}px;
+        --inputs-border-width: {{ settings.inputs_border_thickness }}px;
+        --inputs-border-opacity: {{ settings.inputs_border_opacity | divided_by: 100.0 }};
+        --inputs-shadow-opacity: {{ settings.inputs_shadow_opacity | divided_by: 100.0 }};
+        --inputs-shadow-horizontal-offset: {{ settings.inputs_shadow_horizontal_offset }}px;
+        --inputs-margin-offset: {% if settings.inputs_shadow_vertical_offset != 0 and settings.inputs_shadow_opacity > 0 %}{{ settings.inputs_shadow_vertical_offset | abs }}{% else %}0{% endif %}px;
+        --inputs-shadow-vertical-offset: {{ settings.inputs_shadow_vertical_offset }}px;
+        --inputs-shadow-blur-radius: {{ settings.inputs_shadow_blur }}px;
+        --inputs-radius-outset: {% if settings.inputs_radius > 0 %}{{ settings.inputs_radius | plus: settings.inputs_border_thickness }}{% else %}0{% endif %}px;
+
+        --variant-pills-radius: {{ settings.variant_pills_radius }}px;
+        --variant-pills-border-width: {{ settings.variant_pills_border_thickness }}px;
+        --variant-pills-border-opacity: {{ settings.variant_pills_border_opacity | divided_by: 100.0 }};
+        --variant-pills-shadow-opacity: {{ settings.variant_pills_shadow_opacity | divided_by: 100.0 }};
+        --variant-pills-shadow-horizontal-offset: {{ settings.variant_pills_shadow_horizontal_offset }}px;
+        --variant-pills-shadow-vertical-offset: {{ settings.variant_pills_shadow_vertical_offset }}px;
+        --variant-pills-shadow-blur-radius: {{ settings.variant_pills_shadow_blur }}px;
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: inherit;
+      }
+
+      html {
+        box-sizing: border-box;
+        font-size: calc(var(--font-body-scale) * 62.5%);
+        height: 100%;
+      }
+
+      body {
+        display: grid;
+        grid-template-rows: auto auto 1fr auto;
+        grid-template-columns: 100%;
+        min-height: 100%;
+        margin: 0;
+        font-size: 1.5rem;
+        letter-spacing: 0.06rem;
+        line-height: calc(1 + 0.8 / var(--font-body-scale));
+        font-family: var(--font-body-family);
+        font-style: var(--font-body-style);
+        font-weight: var(--font-body-weight);
+      }
+
+      @media screen and (min-width: 750px) {
+        body {
+          font-size: 1.6rem;
         }
+      }
+    {% endstyle %}
 
-        
-      }, 100)            
-    });
-  });
+    {{ 'base.css' | asset_url | stylesheet_tag }}
+    {{ 'custom.css' | asset_url | stylesheet_tag }}
 
-   $('.osf_inline_button').on('click', function() {
-     alert($('.osf_close_span').html());
-   });
-</script>
-<style type="text/css">
-.mobile-menu .vertical-mega-menu ul.mm-submenu li:hover {
-    background: #7dccbd !important;
-}
-.mobile-menu .submenu-height {
-   max-height: 0px !important;
-}
-.hide-close-btn {
-  display: none !important;
-}
-</style>
+    {%- unless settings.type_body_font.system? -%}
+      {% comment %}theme-check-disable AssetPreload{% endcomment %}
+      <link rel="preload" as="font" href="{{ settings.type_body_font | font_url }}" type="font/woff2" crossorigin>
+      {% comment %}theme-check-enable AssetPreload{% endcomment %}
+    {%- endunless -%}
+    {%- unless settings.type_header_font.system? -%}
+      {% comment %}theme-check-disable AssetPreload{% endcomment %}
+      <link rel="preload" as="font" href="{{ settings.type_header_font | font_url }}" type="font/woff2" crossorigin>
+      {% comment %}theme-check-enable AssetPreload{% endcomment %}
+    {%- endunless -%}
 
+    {%- if localization.available_countries.size > 1 or localization.available_languages.size > 1 -%}
+      {{ 'component-localization-form.css' | asset_url | stylesheet_tag: preload: true }}
+      <script src="{{ 'localization-form.js' | asset_url }}" defer="defer"></script>
+    {%- endif -%}
 
- 
-  {% render 'judgeme_core' %}
+    {%- if settings.predictive_search_enabled -%}
+      <link
+        rel="stylesheet"
+        href="{{ 'component-predictive-search.css' | asset_url }}"
+        media="print"
+        onload="this.media='all'"
+      >
+    {%- endif -%}
 
-  <!-- Meta Pixel Code -->
-<script async>
-!function(f,b,e,v,n,t,s)
-{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];
-s.parentNode.insertBefore(t,s)}(window, document,'script',
-'https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '1006023630764540');
-fbq('track', 'PageView');
-</script>
-<noscript><img height="1" width="1" style="display:none"
-src="https://www.facebook.com/tr?id=1006023630764540&ev=PageView&noscript=1"/></noscript>
-<!-- End Meta Pixel Code --> 
-
-
- <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "LocalBusiness",
-  "address": {
-    "@type": "PostalAddress",
-    "addressLocality": "Sydney, NSW ",
-    "addressRegion": "Australia",
-    "streetAddress": "New South Wales"
-  },
-  "description": " Welcome to Yesse Skincare Australia, your trusted source for premium natural skincare products. Explore our range of meticulously crafted, eco-friendly skincare solutions designed to nourish and enhance your natural beauty. Discover the power of clean ingredients and radiant skin. Join us on your journey to healthier, more beautiful skin.",
-  "name": "Health/Beauty",
-  "telephone": "+61 406 938 556"  
-}
-</script>
-  <meta name="msvalidate.01" content="4F8B06573CF601BF9148081E438A29B4" />
-<meta name="google-site-verification" content="J3o589WJwDw7vbrE2O4HnNEb7e7VVtN9zB1LU6Bt9WM" />
-  
-<script async type="text/javascript">
-    (function(c,l,a,r,i,t,y){
-        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-    })(window, document, "clarity", "script", "o0x9n27b5u");
-</script>
-  
-{% comment %} <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-LV4JWQNG8K"></script>
-<script async>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-LV4JWQNG8K');
-</script>
-
-  <!-- Google Tag Manager -->
-<script async>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-T4DGJ6NT');</script> {% endcomment %}
-<!-- End Google Tag Manager -->
-
-  <script type="application/ld+json" class="schemantra">{
-  "@context": "https://schema.org",
-  "@type": "Brand",
-  "@id": "Brand",
-  "additionalType": "https://yesseskincareaustralia.com/",
-  "alternateName": "Skincare Products in Australia – Yesse Skincare Australia",
-  "description": "Uncover premium Australian skincare brands with natural products, anti-aging serums, and skincare rituals. Find the best for your skin.",
-  "image": "https://yesseskincareaustralia.com/cdn/shop/files/Yesenia_Girls_Banner_cf867cb6-5ee1-4438-a020-61170f96ca81_1.webp?v=1698706377",
-  "logo": "https://yesseskincareaustralia.com/cdn/shop/files/Original_Logo_2_250x.png?v=1681266661"
-}</script>
-  
+    <script>
+      if (Shopify.designMode) {
+        document.documentElement.classList.add('shopify-design-mode');
+      }
+    </script>
+  {% unless request.design_mode %}{% include 'cm_restricted_content' %}{% endunless %}
 </head>
 
-<body id="{{ page_title | handle }}" class="  {% if customer %}customer-logged-in {% endif %}template-{{ template.name | handle }} translate-{{ shop.locale }} {{ request.locale.iso_code }} ">
-   
-  
-  <!-- theme.liquid content -->
+  <body class="gradient{% if settings.animations_hover_elements != 'none' %} animate--hover-{{ settings.animations_hover_elements }}{% endif %}">
+    <a class="skip-to-content-link button visually-hidden" href="#MainContent">
+      {{ 'accessibility.skip_to_text' | t }}
+    </a>
 
-  {% render 'cookie-banner' %}
-  
-  {%- if settings.enable_preloader -%}
-  {% include 'preloader' %} 
-  {%- endif -%}
-
-  {%- if template == 'index' and settings.newsletter_popup_enable -%}
-  {% include 'newsletter-popup' %}
-    {%- section 'newsletter-area-2' -%}
-  {%- endif -%}
-
-  <div class="{% if settings.box_layout_enable %}wrapper wrapper-box{% endif %}">
-
-    {%- if settings.topbar_notification_enable -%}
-    {%- if settings.topbar_notification == 'topbar_in_index' and template == 'index' -%}
-    {% include 'top-notification-bar' %}
-    {%- elsif settings.topbar_notification == 'topbar_in_template' -%}
-    {% include 'top-notification-bar' %}
-    {%- endif -%}
+    {%- if settings.cart_type == 'drawer' -%}
+      {%- render 'cart-drawer' -%}
     {%- endif -%}
 
-    {% section 'header' %}
+    {% sections 'header-group' %}
 
-    {%- if template != 'index' -%}
-    {% include 'breadcrumb-banner' %}
-    {%- endif -%}
-
-    
-    
-     <div class="{%- if template == 'index' -%} {% if settings.home_sidebar_enable %}home-sidebar-right{% endif %} {%- endif -%}">
-      
-       
-       
-       
-    <main>
+    <main id="MainContent" class="content-for-layout focus-none" role="main" tabindex="-1">
       {{ content_for_layout }}
     </main>
-<!--        {% section 'collection-banner' %} -->
-    {% unless template == 'page.quiz' %}
-      <div class="instagram-section">
-      <h2 style ="text-align:center;color: #8d7535;font-family: 'dearJoe 6 TRIAL';margin-top:30px;";">Follow us on <span class="notranslate" style ="text-align:center;color: #8d7535!important;font-family: 'dearJoe 6 TRIAL';margin-top:30px; font-weight:400 !important"> instagram</span></h2>
-       <div id="insta-feed"></div>
-      </div> 
-       {% section 'deal-of-product' %}
-        <div id="footer-form-kl" style='background:linear-gradient(0deg, rgba(141, 117, 53, 0.59), rgba(141, 117, 53, 0.59)), url(/cdn/shop/files/Footer_Bg.png?v=1666949167);padding-top: 30px;
-          padding-bottom: 30px;'><div class="klaviyo-form-TiTJrn"></div></div>
-       <!-- {%- section 'newslatter-area-2' -%} -->
-    {% endunless %}
 
- 
+    {% sections 'footer-group' %}
 
-     {% section 'footer' %}
-    
-       
-  
-    </div>
+    <ul hidden>
+      <li id="a11y-refresh-page-message">{{ 'accessibility.refresh_page' | t }}</li>
+      <li id="a11y-new-window-message">{{ 'accessibility.link_messages.new_window' | t }}</li>
+    </ul>
 
-    
-    
-    <!-- Necessary JS -->
-    {% include 'footer-js' %}
-    
-    {% include 'compare-popup' %}
-
-  </div>
-
-
- {%- render 'beae_footer' -%}
-
- 
-                <!-- sb csp code -->
-                 <script async>
-                var is_theme_extension = '1';
-                {% capture ProIDsCollections %}
-                {% render 'csp-collectionProductIDS_sb' %}
-                {% endcapture %}
-                {% render 'sb-csp-productCollectionData2' %}
-                    var ProIDsCollectionsTest = { {{ProIDsCollections}} }
-                    var ProIDsCollections =`{{ProIDsCollections}}`;
-                </script><!-- sb csp code -->
-
- <script async>
-let currentYear =  new Date().getFullYear();
-  document.getElementById("current-year").innerHTML = currentYear;
-</script>
-             
-<!-- Back in Stock helper snippet -->
-{% render 'back-in-stock-helper' %}
-<!-- End Back in Stock helper snippet -->
-
-
-<script async>
- 
-let hasSet = false
-let tt = setInterval(function() {
-  
-  if ( $('.osf_close_button').length > 0 ) {
-    if ( !$('.osf_close_button').hasClass('notranslate') ) {
-      $('.osf_close_button').addClass('notranslate')  
-    }
-  }
-
-  if ( !hasSet && $('.div.osf_dialog > div > div > div > button > span').length > 0 ) {
-    hasSet = true;
-    $('.div.osf_dialog > div > div > div > button > span').addClass('hide-close-btn')
-  }
-},100)
-
-
-setTimeout(function() {
-  let body = document.querySelector('body')
-  body.addEventListener('click', function(e) {
-      let target = e.target
-      if ( target.className === 'osf_input osf_input--error' || target.className == 'osf_input' ) {
-        let html = $('body').find('.osf_close_span').html()
-        let text = $('div.osf_dialog > div > div > div > button > span').html()
-        let checkClose = text.toString()
-        let numberOfClose = (checkClose.match(/×/g) || 0).length;
-
-        if ( numberOfClose > 1 ) {
-          let checkText = text.toString().substr(text.toString().length - 1, 1)
-          if ( checkText == "×" ) {
-            text = text.substr(0, text.length - 1)
-            $('body').find('.osf_close_span').html(text)
-            $('.div.osf_dialog > div > div > div > button > span').removeClass('hide-close-btn')
-          }
-        }
-             
-      }
-  })
-},100)
-</script>
-
-  <script async>
- 
-   let mm = setInterval(function() {
- if ( $('.go3894874857').length > 0 ) {
-    if ( !$('.go3894874857').hasClass('notranslate') ) {
-      $('.go3894874857').addClass('notranslate')  
-    }
-  }
-   
-   },100)
-
-     
- let ss = setInterval(function() {   
-   const currentLanguage = document.documentElement.lang;
-   let signUp = document.querySelector('body .go3894874857');
-   if (signUp && currentLanguage.length > 0) { // Make sure 'signUp' exists
-     if (currentLanguage == 'es') {
-        signUp.innerHTML = "REGÍSTRATE AHORA";
-      } else if (currentLanguage == "ar") {
-        signUp.innerHTML = "أفتح حساب الأن";
-      } else if (currentLanguage == "id") {
-        signUp.innerHTML = "DAFTAR SEKARANG";
-      } else if (currentLanguage == "zh-TW") {
-        signUp.innerHTML = "立即註冊";
-      } else if (currentLanguage == 'ja') {
-        signUp.innerHTML = "今すぐサインアップ";
-      } else if (currentLanguage == "ms") {
-        signUp.innerHTML = "DAFTARLAH SEKARANG";
-      } else if (currentLanguage == "cs") {
-        signUp.innerHTML = "PŘIHLÁSIT SE HNED";
-      } else if (currentLanguage == "da") {
-        signUp.innerHTML = "TILMELD DIG NU";
-      } else if (currentLanguage == "fi") {
-        signUp.innerHTML = "ILMOITTAUDU NYT";
-      } else if (currentLanguage == "hi") {
-        signUp.innerHTML = "अभी साइनअप करें";
-      } else if (currentLanguage == "fa") {
-        signUp.innerHTML = "ثبت نام کن";
-      } else if (currentLanguage == "el") {
-        signUp.innerHTML = "ΕΓΓΡΑΦΕΙΤΕ ΤΩΡΑ";
-      } else if (currentLanguage == "it") {
-        signUp.innerHTML = "ISCRIVITI ORA";
-      } else if (currentLanguage == "nl") {
-        signUp.innerHTML = "SCHRIJF NU IN";
-      } else if (currentLanguage == "no") {
-        signUp.innerHTML = "REGISTRER DEG NÅ";
-      } else if (currentLanguage == "th") {
-        signUp.innerHTML = "สมัครตอนนี้เลย";
-      } else if (currentLanguage == "tr") {
-        signUp.innerHTML = "ŞİMDİ KAYIT OL";
-      } else if (currentLanguage == "vi") {
-        signUp.innerHTML = "ĐĂNG KÝ NGAY";
-      } else if (currentLanguage == "tl") {
-        signUp.innerHTML = "MAG-SIGN UP NGAYON";
-      } else if (currentLanguage == "fr") {
-        signUp.innerHTML = "S'INSCRIRE MAINTENANT";
-      } else if (currentLanguage == "pt") {
-        signUp.innerHTML = "INSCREVA-SE AGORA";
-      } else if (currentLanguage == "sv") {
-        signUp.innerHTML = "ANMÄL DIG NU";
-      } else if (currentLanguage == "ko") {
-        signUp.innerHTML = "지금 등록하세요";
-      } else if (currentLanguage == "de") {
-        signUp.innerHTML = "JETZT REGISTRIEREN";
-      } else {
-        signUp.innerHTML = "SIGN UP NOW";
-      }
-   }
-}, 100);
-
-
-  </script>
-  <script async>
-document.addEventListener("DOMContentLoaded", function(event) {
-  let xx=setInterval(function() {
-    const codeViewBtn = document.querySelector(".go2369719582");
-    codeViewBtn && codeViewBtn.classList.add("notranslate");
-     const currentLanguage = document.documentElement.lang;
-     const codeView = document.querySelector('body .go2369719582'); 
-    if(codeView){
-     if (currentLanguage == 'es'){
-        codeView.innerHTML = "VER MI CÓDIGO";
-      }else if(currentLanguage == "ar"){
-        codeView.innerHTML = "عرض الكود الخاص بي";
-      }else if(currentLanguage == "id"){
-        codeView.innerHTML = "LIHAT KODE SAYA";
-      }else if(currentLanguage == "zh-TW"){
-        codeView.innerHTML = "查看我的代碼";
-      }else if (currentLanguage == 'ja'){
-        codeView.innerHTML = "私のコードを見る";
-      }else if(currentLanguage == "ms"){
-        codeView.innerHTML = "LIHAT KOD SAYA"
-      }else if(currentLanguage == "cs"){
-        codeView.innerHTML = "ZOBRAZIT MŮJ KÓD"
-      }else if(currentLanguage == "da"){
-        codeView.innerHTML = "SE MIN KODE"
-      }else if(currentLanguage == "fi"){
-        codeView.innerHTML = "KATSO KOODI"; 
-      }else if(currentLanguage == "hi"){
-        codeView.innerHTML = "मेरा कोड देखें";
-      }else if(currentLanguage == "fa"){
-        codeView.innerHTML = "مشاهده کد من";
-      }else if(currentLanguage == "el"){
-        codeView.innerHTML = "ΔΕΙΤΕ ΤΟΝ ΚΩΔΙΚΟ ΜΟΥ";
-      }else if(currentLanguage == "it"){
-        codeView.innerHTML = "VISUALIZZA IL MIO CODICE";
-      }else if(currentLanguage == "nl"){
-        codeView.innerHTML = "BEKIJK MIJN CODE";
-      }else if(currentLanguage == "no"){
-        codeView.innerHTML = "SE MIN KODE";
-      }else if(currentLanguage == "th"){
-        codeView.innerHTML = "ดูรหัสของฉัน";
-      }else if(currentLanguage == "tr"){
-        codeView.innerHTML = "KODUMU GÖRÜNTÜLE";
-      }else if(currentLanguage == "vi"){
-        codeView.innerHTML = "XEM MÃ CỦA TÔI";
-      }else if(currentLanguage == "tl"){
-        codeView.innerHTML = "TINGNAN ANG AKING CODE";
-      }else if(currentLanguage == "fr"){
-        codeView.innerHTML = "VOIR MON CODE";
-      }else if(currentLanguage == "pt"){
-        codeView.innerHTML = "VER MEU CÓDIGO";
-      }else if(currentLanguage == "sv"){
-        codeView.innerHTML = "SE MIN KOD";
-      }else if(currentLanguage == "ko"){
-        codeView.innerHTML = "내 코드 보기";  
-      }else if(currentLanguage == "de"){
-        codeView.innerHTML = "MEINEN CODE ANZEIGEN";
-      }else if(currentLanguage == "en"){
-        codeView.innerHTML = "VIEW MY CODE";
-      }else{
-        codeView.innerHTML = " ";
-      }     
-    }  
-      },100) 
-});       
-  </script>
-  
-   <script async>
-document.addEventListener("DOMContentLoaded", function(event) {
-     let xx=setInterval(function() {
-      const codeView = document.querySelector('body .go2369719582');
-       if(codeView){
-       codeView.addEventListener('click', function() {
-         setTimeout(function() {
-
-           const currentLanguage = document.documentElement.lang;
-             let flyoutForm1 = document.querySelector('body .go3176171171 h2');
-             let flyoutForm2 = document.querySelector('body .go3176171171 h3');
-             let flyoutForm3 = document.querySelector('body .go3176171171 h4');
-
-           if(flyoutForm1 && flyoutForm2 && flyoutForm3){
-             if (currentLanguage == 'tl'){
-                flyoutForm1.innerHTML = "Salamat sa pagtangkilik!";
-                flyoutForm2.innerHTML = "Gamitin ang code sa ibaba para makakuha ng 15% na diskwento.";
-                flyoutForm3.innerHTML = "Mangyaring suriin ang iyong inbox, ipinadala namin ang code sa iyong email.";
-              }else if(currentLanguage == "ar"){
-                flyoutForm1.innerHTML = "شكرا لك على الاشتراك!";
-                flyoutForm2.innerHTML = "استخدم الكود أدناه للاستفادة من خصم 15٪.";
-                flyoutForm3.innerHTML = "يرجى التحقق من صندوق الوارد الخاص بك ، لقد أرسلنا الرمز إلى بريدك الإلكتروني.";
-              }else if(currentLanguage == "id"){
-                flyoutForm1.innerHTML = "Terima kasih telah berlangganan!";
-                flyoutForm2.innerHTML = "Gunakan kode di bawah ini untuk mendapatkan diskon 15%.";
-                flyoutForm3.innerHTML = "Silakan periksa kotak masuk Anda, kode telah kami kirimkan ke email Anda.";
-              }else if(currentLanguage == "zh-TW"){
-                flyoutForm1.innerHTML = "感謝您的訂閱！";
-                flyoutForm2.innerHTML = "使用下面的代碼可享受 15% 的折扣。";
-                flyoutForm3.innerHTML = "請檢查您的收件箱，我們已將驗證碼發送至您的郵箱。";
-              }else if (currentLanguage == 'ja'){
-                flyoutForm1.innerHTML = "登録ありがとうございます！";
-                flyoutForm2.innerHTML = "以下のコードを使用して、15% 割引を利用できます。";
-                flyoutForm3.innerHTML = "受信トレイを確認してください。コードをメールに送信しました。";
-              }else if(currentLanguage == "es"){
-                flyoutForm1.innerHTML = "¡Gracias por suscribirse!";
-                flyoutForm2.innerHTML = "Use el código a continuación para aprovechar el 15% de descuento.";
-                flyoutForm3.innerHTML = "Por favor revise su bandeja de entrada, le enviamos el código a su correo electrónico.";
-              }else if(currentLanguage == "ms"){
-                flyoutForm1.innerHTML = "Terima kasih kerana melanggan!";
-                flyoutForm2.innerHTML = "Gunakan kod di bawah untuk mendapatkan diskaun 15%.";
-                flyoutForm3.innerHTML = "Sila semak peti masuk anda, kami menghantar kod ke e-mel anda.";
-              }else if(currentLanguage == "cs"){
-                flyoutForm1.innerHTML = "Děkujeme za přihlášení k odběru!";
-                flyoutForm2.innerHTML = "Použijte kód níže a využijte 15% slevu.";
-                flyoutForm3.innerHTML = "Zkontrolujte si prosím svou doručenou poštu, kód jsme vám zaslali na váš e-mail.";
-              }else if(currentLanguage == "da"){
-                flyoutForm1.innerHTML = "Tak fordi du abonnerer!";
-                flyoutForm2.innerHTML = "Brug koden nedenfor for at få 15% rabat.";
-                flyoutForm3.innerHTML = "Tjek venligst din indbakke, vi har sendt koden til din e-mail.";
-              }else if(currentLanguage == "fi"){
-                flyoutForm1.innerHTML = "Kiitos tilaamisesta!";
-                flyoutForm2.innerHTML = "Käytä alla olevaa koodia saadaksesi 15% alennuksen.";
-                flyoutForm3.innerHTML = "Tarkista postilaatikkosi, lähetimme koodin sähköpostiisi.";  
-              }else if(currentLanguage == "hi"){
-                flyoutForm1.innerHTML = "सदस्यता लेने के लिए धन्यवाद!";
-                flyoutForm2.innerHTML = "15% छूट प्राप्त करने के लिए नीचे दिए गए कोड का उपयोग करें।";
-                flyoutForm3.innerHTML = "कृपया अपना इनबॉक्स देखें, हमने कोड आपके ईमेल पर भेज दिया है।";
-              }else if(currentLanguage == "fa"){
-                flyoutForm1.innerHTML = "با تشکر از شما برای اشتراک!";
-                flyoutForm2.innerHTML = "با استفاده از کد زیر از 15 درصد تخفیف بهره مند شوید.";
-                flyoutForm3.innerHTML = "لطفا صندوق ورودی خود را بررسی کنید، ما کد را به ایمیل شما ارسال کردیم.";
-              }else if(currentLanguage == "el"){
-                flyoutForm1.innerHTML = "Ευχαριστώ για την εγγραφή!";
-                flyoutForm2.innerHTML = "Χρησιμοποιήστε τον παρακάτω κωδικό για να επωφεληθείτε από έκπτωση 15%.";
-                flyoutForm3.innerHTML = "Ελέγξτε τα εισερχόμενά σας, στείλαμε τον κωδικό στο email σας.";
-              }else if(currentLanguage == "it"){
-                flyoutForm1.innerHTML = "Grazie per esserti iscritto!";
-                flyoutForm2.innerHTML = "Usa il codice qui sotto per usufruire del 15% di sconto.";
-                flyoutForm3.innerHTML = "Controlla la tua casella di posta, abbiamo inviato il codice alla tua email.";
-              }else if(currentLanguage == "nl"){
-                flyoutForm1.innerHTML = "Bedankt voor je inschrijving!";
-                flyoutForm2.innerHTML = "Gebruik onderstaande code voor 15% korting.";
-                flyoutForm3.innerHTML = "Controleer uw inbox, we hebben de code naar uw e-mail gestuurd.";
-              }else if(currentLanguage == "no"){
-                flyoutForm1.innerHTML = "Takk for at du abonnerer!";
-                flyoutForm2.innerHTML = "Bruk koden nedenfor for å få 15 % rabatt.";
-                flyoutForm3.innerHTML = "Vennligst sjekk innboksen din, vi har sendt koden til din e-post.";
-              }else if(currentLanguage == "th"){
-                flyoutForm1.innerHTML = "ขอบคุณสำหรับการสมัคร!";
-                flyoutForm2.innerHTML = "ใช้โค้ดด้านล่างเพื่อรับส่วนลด 15%";
-                flyoutForm3.innerHTML = "โปรดตรวจสอบกล่องจดหมายของคุณ เราได้ส่งรหัสไปยังอีเมลของคุณแล้ว";
-              }else if(currentLanguage == "tr"){
-                flyoutForm1.innerHTML = "Abone olduğunuz için teşekkür ederiz!";
-                flyoutForm2.innerHTML = "%15 indirimden yararlanmak için aşağıdaki kodu kullanın.";
-                flyoutForm3.innerHTML = "Lütfen gelen kutunuzu kontrol edin, kodu e-postanıza gönderdik.";
-              }else if(currentLanguage == "vi"){
-                flyoutForm1.innerHTML = "Cảm ơn bạn đã đăng ký!";
-                flyoutForm2.innerHTML = "Sử dụng mã dưới đây để tận dụng giảm giá 15%.";
-                flyoutForm3.innerHTML = "Vui lòng kiểm tra hộp thư đến của bạn, chúng tôi đã gửi mã vào email của bạn.";
-              }else if(currentLanguage == "fr"){
-                flyoutForm1.innerHTML = "Merci de vous être abonné!";
-                flyoutForm2.innerHTML = "Utilisez le code ci-dessous pour bénéficier de 15% de réduction.";
-                flyoutForm3.innerHTML = "Veuillez vérifier votre boîte de réception, nous avons envoyé le code à votre adresse e-mail.";
-              }else if(currentLanguage == "pt"){
-                flyoutForm1.innerHTML = "Obrigado por se inscrever!";
-                flyoutForm2.innerHTML = "Use o código abaixo para aproveitar 15% de desconto.";
-                flyoutForm3.innerHTML = "Verifique sua caixa de entrada, enviamos o código para o seu e-mail.";
-              }else if(currentLanguage == "sv"){
-                flyoutForm1.innerHTML = "Tack för att du prenumererar!";
-                flyoutForm2.innerHTML = "Använd koden nedan för att få 15% rabatt.";
-                flyoutForm3.innerHTML = "Kontrollera din inkorg, vi skickade koden till din e-post.";  
-              }else if(currentLanguage == "ko"){
-                flyoutForm1.innerHTML = "구독해주셔서 감사합니다!";
-                flyoutForm2.innerHTML = "아래 코드를 사용하여 15% 할인을 받으세요.";
-                flyoutForm3.innerHTML = "받은 편지함을 확인하십시오. 이메일로 코드를 보냈습니다.";  
-              }else if(currentLanguage == "de"){
-                flyoutForm1.innerHTML = "Danke fürs Abonnieren!";
-                flyoutForm2.innerHTML = "Verwenden Sie den unten stehenden Code, um 15 % Rabatt zu erhalten.";
-                flyoutForm3.innerHTML = "Bitte überprüfen Sie Ihren Posteingang, wir haben den Code an Ihre E-Mail gesendet.";
-              }else{
-                flyoutForm1.innerHTML = "Thank you for subscribing!";
-                flyoutForm2.innerHTML = "Use the code below to avail 15% discount.";
-                flyoutForm3.innerHTML = "Please check your inbox, we sent the code to your email.";
-              }  
-             }
-         },2000) 
-       });
-       }
-   },100) 
-});
-
-     
-
-   
-   
-  </script>
-<script async>
-    document.addEventListener("DOMContentLoaded", function () {
-      const elHtml = document.querySelector("html");
-    const lang = elHtml?.getAttribute("lang");
-      const errorByLangList = {
-        "en": {
-          required: "Your email is required",
-          email: "Your email is invalid"
-        },
-        "vi": {
-          required: "Email của bạn là bắt buộc",
-          email: "Địa chỉ email của bạn không hợp lệ"
-        },
-        "ar": {
-          required: "البريد الإلكتروني الخاص بك مطلوب",
-          email: "بريدك الالكتروني خاطئ"
-        },
-        "id": {
-          required: "Email Anda diperlukan",
-          email: "Email Anda tidak valid"
-        },
-        "zh-TW": {
-          required: "您的電子郵件是必需的",
-          email: "您的郵箱無效"
-        },
-        "ja": {
-          required: "あなたのメールアドレスは必須です",
-          email: "あなたのメールアドレスは無効です"
-        },
-        "es": {
-          required: "Su correo electrónico es requerido",
-          email: "Tu Correo Electrónico es Inválido"
-        },
-        "ms": {
-          required: "E-mel anda diperlukan",
-          email: "E-mel anda tidak sah"
-        },
-        "cs": {
-          required: "Váš e-mail je povinný",
-          email: "Váš email je neplatný"
-        },
-        "da": {
-          required: "Din e-mail er påkrævet",
-          email: "Din e-mail er ugyldig"
-        },
-        "fi": {
-          required: "Sähköpostiosoite vaaditaan",
-          email: "Sähköpostiosoitteesi on virheellinen"
-        },
-        "hi": {
-          required: "आपका ईमेल आवश्यक है",
-          email: "आपका ईमेल अमान्य है"
-        },
-        "fa": {
-          required: "ایمیل شما الزامی است",
-          email: "ایمیل شما نامعتبر است"
-        },
-        "el": {
-          required: "Το email σας είναι απαραίτητο",
-          email: "Το email σας δεν είναι έγκυρο"
-        },
-        "it": {
-          required: "La tua email è richiesta",
-          email: "La tua mail non è valida"
-        },
-        "nl": {
-          required: "Uw e-mailadres is vereist",
-          email: "Uw e-mailadres is ongeldig"
-        },
-        "no": {
-          required: "Din e-post er påkrevd",
-          email: "E-postadressen din er ugyldig"
-        },
-        "th": {
-          required: "อีเมลของคุณเป็นสิ่งจำเป็น",
-          email: "อีเมลของคุณไม่ถูกต้อง"
-        },
-        "tl": {
-          required: "Kinakailangan ang iyong email",
-          email: "Ang iyong email ay hindi wasto"
-        },
-        "fr": {
-          required: "Votre email est requis",
-          email: "Votre email est invalide"
-        },
-        "pt": {
-          required: "Seu e-mail é obrigatório",
-          email: "Seu e-mail é inválido"
-        },
-        "sv": {
-          required: "Din e-postadress krävs",
-          email: "Din e-postadress är ogiltig"
-        },
-        "ko": {
-          required: "이메일이 필요합니다",
-          email: "귀하의 이메일이 유효하지 않습니다"
-        },
-        "de": {
-          required: "Ihre E-Mail-Adresse ist erforderlich",
-          email: "Deine E-Mail Adresse ist ungültig"
-        },
+    <script>
+      window.shopUrl = '{{ request.origin }}';
+      window.routes = {
+        cart_add_url: '{{ routes.cart_add_url }}',
+        cart_change_url: '{{ routes.cart_change_url }}',
+        cart_update_url: '{{ routes.cart_update_url }}',
+        cart_url: '{{ routes.cart_url }}',
+        predictive_search_url: '{{ routes.predictive_search_url }}',
       };
-      const errorByLang = errorByLangList[lang] ? errorByLangList[lang] : errorByLangList['en'];
-     $(document).on("input.osf_input", "input", function(e){
-       let val = e.target.value;
-       let errorLabel = $('.osf_error_span');
-      const reg= /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
-       if(!val){
-         errorLabel.html(errorByLang.required);
-       }else if(!reg.test(val)){
-          errorLabel.html(errorByLang.email);
-       }else{
-          errorLabel.html("");
-       }
-       $(this).on("focusin", function(e2){
-         let val2 = e2.target.value;
-         setTimeout(() => {
-           let errorLabel = $('.osf_error_span');
-           if(!val2){
-             errorLabel.html(errorByLang.required);
-           }else if(!reg.test(val2)){
-              errorLabel.html(errorByLang.email);
-           }else{
-              errorLabel.html("");
-           }
-         }, 300)
-       })
-     });
-    });
-</script>
 
-<script async>
-$(document).ready(function(){
-  
-    $("img").attr("loading", "lazy");  
- 
-});
-  
-</script>
-  
- <script async>window.performance && window.performance.mark && window.performance.mark('shopify.content_for_header.end');</script> 
-  
-  {% include 'fa_translate_custom' %}
+      window.cartStrings = {
+        error: `{{ 'sections.cart.cart_error' | t }}`,
+        quantityError: `{{ 'sections.cart.cart_quantity_error_html' | t: quantity: '[quantity]' }}`,
+      };
 
+      window.variantStrings = {
+        addToCart: `{{ 'products.product.add_to_cart' | t }}`,
+        soldOut: `{{ 'products.product.sold_out' | t }}`,
+        unavailable: `{{ 'products.product.unavailable' | t }}`,
+        unavailable_with_option: `{{ 'products.product.value_unavailable' | t: option_value: '[value]' }}`,
+      };
 
-  <!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T4DGJ6NT"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
+      window.quickOrderListStrings = {
+        itemsAdded: `{{ 'sections.quick_order_list.items_added.other' | t: quantity: '[quantity]' }}`,
+        itemAdded: `{{ 'sections.quick_order_list.items_added.one' | t: quantity: '[quantity]' }}`,
+        itemsRemoved: `{{ 'sections.quick_order_list.items_removed.other' | t: quantity: '[quantity]' }}`,
+        itemRemoved: `{{ 'sections.quick_order_list.items_removed.one' | t: quantity: '[quantity]' }}`,
+        viewCart: `{{- 'sections.quick_order_list.view_cart' | t -}}`,
+        each: `{{- 'sections.quick_order_list.each' | t: money: '[money]' }}`,
+        min_error: `{{- 'sections.quick_order_list.min_error' | t: min: '[min]' }}`,
+        max_error: `{{- 'sections.quick_order_list.max_error' | t: max: '[max]' }}`,
+        step_error: `{{- 'sections.quick_order_list.step_error' | t: step: '[step]' }}`,
+      };
 
-  <script async>
-  const accordionItems = document.querySelectorAll('.accordion-item a');
+      window.accessibilityStrings = {
+        imageAvailable: `{{ 'products.product.media.image_available' | t: index: '[index]' }}`,
+        shareSuccess: `{{ 'general.share.success_message' | t }}`,
+        pauseSlideshow: `{{ 'sections.slideshow.pause_slideshow' | t }}`,
+        playSlideshow: `{{ 'sections.slideshow.play_slideshow' | t }}`,
+        recipientFormExpanded: `{{ 'recipient.form.expanded' | t }}`,
+        recipientFormCollapsed: `{{ 'recipient.form.collapsed' | t }}`,
+        countrySelectorSearchCount: `{{ 'localization.country_results_count' | t: count: '[count]' }}`,
+      };
+    </script>
 
-  function toggleAccordion () {
-    this.classList.toggle('active');
-    this.nextElementSibling.classList.toggle('active');
-  }
-
-accordionItems.forEach(item => item.addEventListener('click', toggleAccordion))
-</script>
-<script async>
-    document.addEventListener('DOMContentLoaded', function () {
-        // Track add to cart events
-        document.body.addEventListener('click', function (event) {
-            if (event.target && event.target.closest('form[action="/cart/add"]')) {
-                var form = event.target.closest('form[action="/cart/add"]');
-                var productId = form.querySelector('[name="id"]').value;
-
-                var xhr = new XMLHttpRequest();
-                xhr.open('GET', `/products/${productId}.js`, true);
-                xhr.onload = function () {
-                    if (xhr.status === 200) {
-                        var product = JSON.parse(xhr.responseText);
-                        _learnq.push(['track', 'Added to Cart', {
-                            ProductName: product.title,
-                            ProductID: product.id,
-                            URL: product.url,
-                            ImageURL: product.images[0] || '',
-                            Price: product.price / 100 // Convert from cents to dollars
-                        }]);
-                    }
-                };
-                xhr.send();
-            }
-        });
-    });
-</script>
-{% if customer %}
-<script async type="text/javascript">
- var _learnq = _learnq || [];
- document.addEventListener("DOMContentLoaded", () => {
-   _learnq.push(['identify', {
-     '$email': '{{customer.email}}'
-   }]);
- });
-</script>
-{% endif %}
-<script async type="text/javascript">
- var _learnq = _learnq || [];
- const identifyCustomerCheckout = setInterval(() => {
-   if (typeof _learnq.isIdentified === "function") {
-     identifyKlaviyoUserFromCheckout();
-     clearInterval(identifyCustomerCheckout);
-   }
- }, 300)
-
- function identifyKlaviyoUserFromCheckout() {
-   var storage_ui = localStorage['__ui'];
-   if(storage_ui&&!_learnq.isIdentified()){
-     var storage_ui_arr = JSON.parse(storage_ui);
-     storage_ui_arr.forEach(function(e){
-       if(e[1]['proposedState']){
-         var checkoutEmail = e[1]['proposedState'].email;
-         if (checkoutEmail&&IsEmail(checkoutEmail)) {
-           _learnq.push(['identify', {
-             '$email': checkoutEmail,
-           }]);
-         }
-       }
-     })
-   }
- }
-
- function IsEmail(email) {
-   var regex = /^([a-zA-Z0-9\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-   if (!regex.test(email)) {
-     return false;
-   } else {
-     return true;
-   }
- }
-</script>
-<style>
-  @font-face {
-    font-family: 'Source Sans Proo';
-    font-style: normal;
-    font-weight: 400;
-    src: local('Source Sans Pro'), url('https://fonts.cdnfonts.com/s/12183/SourceSansPro-Regular.woff') format('woff');
-}
-  html, body, input, textarea, button, select{
-  font-family: 'Source Sans Proo', sans-serif !important;                                             
-  font-weight: 400;
-  font-style: normal;
-}
-h1, h2, h3, h4, h5, h6,.h1, .h2, .h3, .h4, .h5, .h6{
- font-family: 'Source Sans Proo', sans-serif ; 
-  font-weight: 400;
-  font-style: normal;
-}
-p,div,li,ul,.p,s,ol{
-font-family: 'Source Sans Proo', sans-serif !important; 
-  font-weight: 400;
-  font-style: normal;
-}
-</style>
-{%- render "ecom_footer"-%}</body>
+    {%- if settings.predictive_search_enabled -%}
+      <script src="{{ 'predictive-search.js' | asset_url }}" defer="defer"></script>
+    {%- endif -%}
+  </body>
 </html>

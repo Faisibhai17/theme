@@ -1,0 +1,71 @@
+<div
+  {% if section.settings.border_top_enable %}
+    class="footer-border pt-100"
+  {% endif %}
+>
+  <div class="row">
+    {% for block in section.blocks %}
+      {% case block.type %}
+        {% when 'contact_information' %}
+          <div class="col-lg-{{ block.settings.footer_info_coloum }} col-md-4 col-12">
+            <div class="copyright mb-30">
+              <div class="footer-logo">
+                {%- if block.settings.footer_logo -%}
+                  <a href="/">
+                    <img
+                      src="{{ block.settings.footer_logo | img_url: '300x300' }}"
+                      alt="{{ block.settings.logo.alt | default: shop.name }}"
+                    >
+                  </a>
+                {%- else -%}
+                  <a href="/">
+                    {{ shop.name }}
+                  </a>
+                {%- endif -%}
+              </div>
+              {{ block.settings.copy_ritht_text }}
+            </div>
+          </div>
+
+        {% when 'footer_menu' %}
+          <div class="col-lg-{{ block.settings.footer_menu_coloum }} col-md-4 col-12">
+            <div class="footer-widget mb-30">
+              {% if block.settings.footer_menu_title != '' %}
+                <div class="footer-title">
+                  <h3>{{ block.settings.footer_menu_title }}</h3>
+                </div>
+              {% endif %}
+              <div class="footer-list">
+                <ul>
+                  {% assign footer_menu = block.settings.footer_menu_handle %}
+                  {% for link in linklists[footer_menu].links %}
+                    <li>
+                      <a href="{{ link.url }}">{{ link.title }}</a>
+                    </li>
+                  {% endfor %}
+                </ul>
+              </div>
+            </div>
+          </div>
+
+        {% when 'newslatter' %}
+          <div class="col-lg-{{ block.settings.newslatter_coloum }} col-md-6 col-12">
+            <div class="footer-widget mb-30">
+              {% if block.settings.newslatter_title != '' %}
+                <div class="footer-title">
+                  <h3>{{ block.settings.newslatter_title }}</h3>
+                </div>
+              {% endif %}
+              <div class="subscribe-style">
+                {% if block.settings.newslatter_description != '' %}
+                  <p>{{ block.settings.newslatter_description }}</p>
+                {% endif %}
+
+                {% include 'footer-newsletter' %}
+              </div>
+            </div>
+          </div>
+      {% endcase %}
+    {% endfor %}
+  </div>
+</div>

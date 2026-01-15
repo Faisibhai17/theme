@@ -1,0 +1,34 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-xl-2 col-lg-2 col-md-6 col-4">
+      <div class="logo">
+        {%- include 'header-logo' -%}
+      </div>
+    </div>
+    <div class="col-xl-8 col-lg-8 d-none d-lg-block">
+      <div class="main-menu">
+        {% include 'main-menu' %}
+      </div>
+    </div>
+    <div class="col-xl-2 col-lg-2 col-md-6 col-8">
+      <div class="transcy-switcher-manual transcy-desktop hidden"></div>
+      <div class="header-right-wrap ">
+        {%- if section.settings.search_enable -%}
+          {% include 'search-bar' %}
+        {%- endif -%}
+        {%- if section.settings.top_menu_enable -%}
+          {% include 'header-top-menu' %}
+        {%- endif -%}
+        {%- if section.settings.header_wishlist_enable -%}
+          {% include 'header-wishlist' %}
+        {%- endif -%}
+        {%- if section.settings.mini_cart_enable -%}
+          {%- include 'mini-cart' -%}
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+  <div class="mobile-menu-area">
+    {% include 'mobile-menu' %}
+  </div>
+</div>

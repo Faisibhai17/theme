@@ -1,0 +1,60 @@
+{% form 'contact' %}
+  {% if form.posted_successfully? %}
+    <p class="note form-success">{{ 'contact.form.post_success' | t }}</p>
+  {% endif %}
+  {{ form.errors | default_errors }}
+
+  <div class="">
+    {% if section.settings.contact_form_title != '' %}
+      <div class="contact-title mb-30">
+        <h2>{{ section.settings.contact_form_title }}</h2>
+      </div>
+    {% endif %}
+    <div class="contact-form-style" id="contact-form">
+      <div class="row">
+        <div class="col-lg-6">
+          <input
+            type="text"
+            id="ContactFormName"
+            name="contact[name]"
+            class="{% if form.errors contains 'name' %}error{% endif %}"
+            placeholder="{{ section.settings.name_placeholder }}"
+            value="{% if form.name %}{{ form.name }}{% elsif customer.name %}{{ customer.name }}{% endif %}"
+          >
+        </div>
+        <div class="col-lg-6">
+          <input
+            type="email"
+            name="contact[email]"
+            id="ContactFormEmail"
+            class="{% if form.errors contains 'email' %}error{% endif %}"
+            placeholder="{{ section.settings.email_placeholder }}"
+            value="{% if form.email %}{{ form.email }}{% elsif customer.email %}{{ customer.email }}{% endif %}"
+          >
+        </div>
+        <div class="col-lg-12">
+          <input
+            type="text"
+            id="contactSubject"
+            name="contact[subject]"
+            class="{% if form.error contains 'email' %}error{% endif %}"
+            placeholder="{{ section.settings.subject_placeholder }}"
+            value="{% if form.subject %}{{ form.subject }}{% elsif customer %}{{ customer.subject }}{% endif %}"
+          >
+        </div>
+        <div class="col-lg-12">
+          <textarea
+            class=""
+            name="contact[body]"
+            id="ContactFormMessage"
+            placeholder="{{ section.settings.message_placeholder }}"
+          >{% if form.body %}{{ form.body }}{% endif %}</textarea>
+
+          <button class="submit" type="submit">{{ section.settings.button_title }}</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="form__output"></div>
+  </div>
+{% endform %}

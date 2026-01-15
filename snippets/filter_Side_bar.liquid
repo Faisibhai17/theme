@@ -1,0 +1,245 @@
+<div class="row">
+  {% for block in section.blocks %}
+    {% case block.type %}
+      {% when 'search' %}
+        <!-- Product Filter -->
+        <div class="col-md-3 col-sm-6 col-xs-12 mb-30">
+          <div class="sidebar-widget">
+            {%- if block.settings.widget_title != '' -%}
+              <h4 class="pro-sidebar-title">{{ block.settings.widget_title }}</h4>
+            {%- endif -%}
+            <div class="pro-sidebar-search mt-25">
+              <form class="pro-sidebar-search-form" aaction="/search" method="get" role="search">
+                <input
+                  type="search"
+                  name="q"
+                  value="{{ search.terms | escape }}"
+                  placeholder="{{ 'general.search.placeholder' | t }}"
+                  aria-label="{{ 'general.search.placeholder' | t }}"
+                >
+                <button type="submit">
+                  <i class="pe-7s-search"></i>
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+
+      {% when 'category' %}
+        <!-- Product Filter -->
+        <div class="col-md-3 col-sm-6 col-xs-12 mb-30">
+          <div class="sidebar-widget">
+            {%- if block.settings.widget_title != '' -%}
+              <h4 class="pro-sidebar-title">{{ block.settings.widget_title }}</h4>
+            {%- endif -%}
+            <div class="sidebar-widget-list mt-30">
+              <ul>
+                {% assign categories_list_limit = block.settings.categories_list_limit_hanlde %}
+                {% for c in collections limit: categories_list_limit %}
+                  <li class="{% if collection and collection.handle == c.handle %}active{% endif %}">
+                    <div class="sidebar-widget-list-left">
+                      <a href="{{ c.url }}">
+                        {{- c.title }}
+                        <span>{{ c.products_count }}</span>
+                      </a>
+                    </div>
+                  </li>
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
+        </div>
+
+      {% when 'vendor' %}
+        <!-- Product Filter -->
+        <div class="col-md-3 col-sm-6 col-xs-12 mb-30">
+          <div class="sidebar-widget">
+            {%- if block.settings.widget_title != '' -%}
+              <h4 class="pro-sidebar-title">{{ block.settings.widget_title }}</h4>
+            {%- endif -%}
+            <div class="sidebar-widget-list mt-20">
+              <ul>
+                {% assign vendors_list_limit = block.settings.vendors_list_limit_hanlde %}
+                {% for vendor in shop.vendors limit: vendors_list_limit %}
+                  <li class="{% if collection.current_vendor == vendor %}active{% endif %}">
+                    <div class="sidebar-widget-list-left">
+                      <a href="{{ vendor | url_for_vendor }}">{{ vendor }}</a>
+                    </div>
+                  </li>
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
+        </div>
+
+      {% when 'type' %}
+        <!-- Product Filter -->
+        <div class="col-md-3 col-sm-6 col-xs-12 mb-30">
+          <div class="sidebar-widget">
+            {%- if block.settings.widget_title != '' -%}
+              <h4 class="pro-sidebar-title">{{ block.settings.widget_title }}</h4>
+            {%- endif -%}
+            <div class="sidebar-widget-list mt-20">
+              <ul>
+                {% assign types_list_limit = block.settings.types_list_limit_hanlde %}
+                {% for type in shop.types limit: types_list_limit %}
+                  {%- if type != '' -%}
+                    <li class="{% if collection.current_type == type %}active{% endif %}">
+                      <div class="sidebar-widget-list-left">
+                        <a href="{{ type | url_for_type }}">{{ type }}</a>
+                      </div>
+                    </li>
+                  {%- endif -%}
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
+        </div>
+
+      {% when 'color' %}
+        <!-- Product Filter -->
+        <div class="col-md-3 col-sm-6 col-xs-12 mb-30">
+          <div class="sidebar-widget">
+            {%- if block.settings.widget_title != '' -%}
+              <h4 class="pro-sidebar-title">{{ block.settings.widget_title }}</h4>
+            {%- endif -%}
+            <div class="sidebar-widget-list mt-20">
+              <ul>
+                {% assign tags = block.settings.color_picker | replace: ', ', ',' | replace: ' ,', ',' | split: ',' %}
+                {% assign colors_list_limit = block.settings.colors_list_limit_hanlde %}
+
+                {% for t in tags limit: colors_list_limit %}
+                  {% assign tag = t | strip %}
+                  {%- if current_tags contains tag -%}
+                    <li class="{{ tag }} active">
+                      <div class="sidebar-widget-list-left">
+                        <a href="/collections/all/{{ tag | handle }}">{{ tag }}</a>
+                      </div>
+                    </li>
+
+                  {%- elsif collection.all_tags contains tag -%}
+                    <li class="{{ tag }}">
+                      <div class="sidebar-widget-list-left">
+                        <a href="/collections/all/{{ tag | handle }}">{{ tag }}</a>
+                      </div>
+                    </li>
+                  {%- endif -%}
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
+        </div>
+
+      {% when 'size' %}
+        <!-- Product Filter -->
+        <div class="col-md-3 col-sm-6 col-xs-12 mb-30">
+          <div class="sidebar-widget">
+            {%- if block.settings.widget_title != '' -%}
+              <h4 class="pro-sidebar-title">{{ block.settings.widget_title }}</h4>
+            {%- endif -%}
+            <div class="sidebar-widget-list mt-20">
+              <ul>
+                {% assign tags = block.settings.size_picker | replace: ', ', ',' | replace: ' ,', ',' | split: ',' %}
+                {% assign size_list_limit = block.settings.size_list_limit_hanlde %}
+
+                {% for t in tags limit: size_list_limit %}
+                  {% assign tag = t | strip %}
+                  {%- if current_tags contains tag -%}
+                    <li class="active">
+                      <div class="sidebar-widget-list-left">
+                        <a href="/collections/all/{{ tag | handle }}">{{ tag }}</a>
+                      </div>
+                    </li>
+                  {%- elsif collection.all_tags contains tag -%}
+                    <li>
+                      <div class="sidebar-widget-list-left">
+                        <a href="/collections/all/{{ tag | handle }}">{{ tag }}</a>
+                      </div>
+                    </li>
+                  {%- endif -%}
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
+        </div>
+
+      {% when 'menu' %}
+        <!-- Product Filter -->
+        <div class="col-md-3 col-sm-6 col-xs-12 mb-30">
+          <div class="sidebar-widget">
+            {%- if block.settings.widget_title != '' -%}
+              <h4 class="pro-sidebar-title">{{ block.settings.widget_title }}</h4>
+            {%- endif -%}
+            <div class="sidebar-widget-list mt-20">
+              <ul>
+                {% assign menu = block.settings.menu_handle %}
+                {% for link in linklists[menu].links %}
+                  <li class="{% if link.active %}active{% endif %}">
+                    <div class="sidebar-widget-list-left">
+                      <a href="{{ link.url }}">{{ link.title }}</a>
+                    </div>
+                  </li>
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
+        </div>
+
+      {% when 'tag' %}
+        <!-- Product Filter -->
+        <div class="col-md-3 col-sm-6 col-xs-12 mb-30">
+          <div class="product-filter">
+            {%- if block.settings.widget_title != '' -%}
+              <h5>{{ block.settings.widget_title }}</h5>
+            {%- endif -%}
+            <div class="product-tags">
+              <ul>
+                {% assign tags_list_limit = block.settings.tags_list_limit_hanlde %}
+                {% for tag in collection.all_tags limit: tags_list_limit %}
+                  {%- if current_tags contains tag -%}
+                    <li class="active">
+                      <a href="/collections/all/{{ tag | handle }}">{{ tag }}</a>
+                    </li>
+                  {%- else -%}
+                    <li>
+                      <a href="/collections/all/{{ tag | handle }}">{{ tag }}</a>
+                    </li>
+                  {%- endif -%}
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
+        </div>
+
+      {% when 'banner' %}
+        {% capture i %}{% cycle 1, 2, 3, 4, 5, 6 %}{% endcapture %}
+        <!-- Product Filter -->
+        <div class="col-md-3 col-sm-6 col-xs-12 mb-30">
+          <div class="sidebar-widget mt-50">
+            {%- if block.settings.widget_title != '' -%}
+              <h4 class="pro-sidebar-title">{{ block.settings.widget_title }}</h4>
+            {%- endif -%}
+            <div class="sidebar-widget-list mt-20">
+              <div style="background: #f2f2f2;">
+                {% if block.settings.banner_image != blank and block.settings.banner_image_url != blank %}
+                  <a href="{{ block.settings.banner_image_url }}">
+                    <img
+                      src="{{ block.settings.banner_image | img_url: 'grande' }}"
+                      alt="{{ block.settings.banner_image.alt }}"
+                    >
+                  </a>
+                {% elsif block.settings.banner_image != blank %}
+                  <img
+                    src="{{ block.settings.banner_image | img_url: 'grande' }}"
+                    alt="{{ block.settings.banner_image.alt }}"
+                  >
+                {% else %}
+                  {{ 'collection-' | append: i | placeholder_svg_tag }}
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+    {% endcase %}
+  {% endfor %}
+</div>

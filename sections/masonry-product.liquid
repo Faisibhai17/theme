@@ -1,0 +1,336 @@
+<div class="product-area hm6-section-padding" id="section-{{ section.id }}">
+  <div class="{% if section.settings.container_style == 'style_1' %}container {% else %} container-fluid{% endif %}">
+    <div class="row grid">
+      <div class="grid-sizer"></div>
+
+      {% for block in section.blocks %}
+        {% case block.type %}
+          {% when 'product' %}
+            <div class="col-lg-{{ block.settings.product_coloum }} col-md-6 col-12 grid-item">
+              <div class="product-wrap-4 mb-20">
+                <a href="{{ block.settings.product_img_url }}">
+                  <img
+                    src="{% if block.settings.product_img %}{{ block.settings.product_img | img_url: 'master' }}{% else %}http:\/\/via.placeholder.com\/870x700{% endif %}"
+                    alt="{{ block.settings.product_img.alt }}"
+                  >
+                </a>
+                <div class="product-content-4 {% if block.settings.text_style == 'text_style_1' %} text-center position-1 {% elsif block.settings.text_style == 'text_style_2' %}  text-center position-2 {% else %} product-content-center position-3 {% endif %}">
+                  {% if block.settings.product_title != '' %}
+                    <h4>
+                      <a href="{{ block.settings.product_title_url }}">{{ block.settings.product_title }}</a>
+                    </h4>
+                  {% endif %}
+
+                  {% if block.settings.product_new_price != '' or block.settings.product_old_price != '' %}
+                    <div class="price-4 price-4-center">
+                      <span>{{ block.settings.product_new_price }}</span>
+                      <span class="old">{{ block.settings.product_old_price }}</span>
+                    </div>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+        {% endcase %}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{%- include 'section-style' -%}
+
+{% schema %}
+{
+  "name": "Masonry Product",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Container Style"
+    },
+    {
+      "type": "radio",
+      "id": "container_style",
+      "label": "Container Style",
+      "options": [
+        {
+          "value": "style_1",
+          "label": "Container"
+        },
+        {
+          "value": "style_2",
+          "label": "Container Fulied"
+        }
+      ],
+
+      "default": "style_2"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product",
+      "name": "product",
+      "settings": [
+        {
+          "type": "text",
+          "id": "product_coloum",
+          "label": "Product Coloum",
+          "default": "6",
+          "info": "Follow Bootstrap Column"
+        },
+        {
+          "type": "image_picker",
+          "id": "product_img",
+          "label": "Image",
+          "info": "Recommended Size: 870 x 700px"
+        },
+        {
+          "type": "url",
+          "id": "product_img_url",
+          "label": "URL"
+        },
+        {
+          "type": "header",
+          "content": "Text Style"
+        },
+        {
+          "type": "radio",
+          "id": "text_style",
+          "label": "Product Text Style",
+          "options": [
+            {
+              "value": "text_style_1",
+              "label": "Style 1"
+            },
+            {
+              "value": "text_style_2",
+              "label": "Style 2"
+            },
+            {
+              "value": "text_style_3",
+              "label": "Style 3"
+            }
+          ],
+
+          "default": "text_style_1"
+        },
+        {
+          "type": "text",
+          "id": "product_title",
+          "label": "Product Title",
+          "default": "T- Shirt And <br>Jeans",
+          "info": "Use of <br>"
+        },
+        {
+          "type": "url",
+          "id": "product_title_url",
+          "label": "URL"
+        },
+        {
+          "type": "text",
+          "id": "product_new_price",
+          "label": "New Price",
+          "default": "$ 60.00"
+        },
+        {
+          "type": "text",
+          "id": "product_old_price",
+          "label": "Old Price",
+          "default": "$ 80.00"
+        }
+      ]
+    },
+    {
+      "type": "section_padding",
+      "name": "Section Padding",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "header",
+          "content": "Large/Desktop Device"
+        },
+        {
+          "type": "range",
+          "id": "section_padding_top",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Padding Top",
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "section_padding_bottom",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Padding Bottom",
+          "unit": "px",
+          "default": 100
+        },
+        {
+          "type": "header",
+          "content": "Tablet Device"
+        },
+        {
+          "type": "range",
+          "id": "section_padding_top_md",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Padding Top",
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "section_padding_bottom_md",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Padding Bottom",
+          "unit": "px",
+          "default": 80
+        },
+        {
+          "type": "header",
+          "content": "Mobile Device"
+        },
+        {
+          "type": "range",
+          "id": "section_padding_top_xs",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Padding Top",
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "section_padding_bottom_xs",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Padding Bottom",
+          "unit": "px",
+          "default": 60
+        }
+      ]
+    },
+    {
+      "type": "section_margin",
+      "name": "Section Margin",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "header",
+          "content": "Large/Desktop Device"
+        },
+        {
+          "type": "range",
+          "id": "section_margin_top",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Margin Top",
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "section_margin_bottom",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Margin Bottom",
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "header",
+          "content": "Tablet Device"
+        },
+        {
+          "type": "range",
+          "id": "section_margin_top_md",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Margin Top",
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "section_margin_bottom_md",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Margin Bottom",
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "header",
+          "content": "Mobile Device"
+        },
+        {
+          "type": "range",
+          "id": "section_margin_top_xs",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Margin Top",
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "section_margin_bottom_xs",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Margin Bottom",
+          "unit": "px",
+          "default": 0
+        }
+      ]
+    },
+    {
+      "type": "section_background",
+      "name": "Section Background",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "section_bg_image",
+          "label": "BG Image"
+        },
+        {
+          "type": "color",
+          "id": "section_bg_color",
+          "label": "BG Color",
+          "default": "#ffffff"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Masonry Product",
+      "category": "3. collections",
+      "blocks": [
+        {
+          "type": "section_padding"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

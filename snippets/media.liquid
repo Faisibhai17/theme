@@ -1,0 +1,49 @@
+{% case media.media_type %}
+  {% when 'media' %}
+    {%- assign alt = image.alt -%}
+    {%- if alt contains 'nt_360' -%}{%- break -%}{%- endif -%}
+    {%- assign img_url = image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+    {%- assign img_alt = alt | split: '|' | first | handleize | strip -%}
+    {%- unless image.alt contains 'hide' -%}
+      <div class="p-item nt_img_ptw shopify-product-gallery__image{%- if ck_thumb %} bc_{{img_alt}}{%- endif -%}">
+        <a
+          href="{{ image | img_url: product_image_zoom_size, scale: product_image_scale }}"
+          class="nt-pr_metro-image-equal lazyload"
+          data-bgset="{%- include 'bgset', image: image -%}"
+          data-sizes="auto"
+          data-parent-fit="cover"
+        >
+          <img
+            class="hide op_0 attachment-shop_single size-shop_single sp-post-image "
+            src="{{ featured_image | img_url: '1x1' }}"
+            data-image-id="{{ image.id }}"
+            data-large_image="{{ image | img_url: product_image_zoom_size, scale: product_image_scale }}"
+            data-large_image_width="{{ image.width }}"
+            data-large_image_height="{{ image.height }}"
+            alt="{{ image.alt | split:'|' | last | escape }}"
+          >
+          <div class="nt-wrap-lazy"></div>
+        </a>
+      </div>
+    {%- endunless -%}
+  {% when 'external_video' %}
+    <div
+      class="product-single__media"
+      style="padding-top: {{ 1 | divided_by: media.aspect_ratio | times: 100}}%;"
+      data-media-id="{{ media.id }}"
+    >
+      {{ media | external_video_tag }}
+    </div>
+  {% when 'video' %}
+    <div class="product-single__media" data-media-id="{{ media.id }}">
+      {{ media | video_tag: controls: true }}
+    </div>
+  {% when 'model' %}
+    <div class="product-single__media" style="padding-top: 100%" data-media-id="{{ media.id }}">
+      {{ media | model_viewer_tag }}
+    </div>
+  {% else %}
+    <div class="product-single__media" style="padding-top: 100%;" data-media-id="{{ media.id }}">
+      {{ media | media_tag }}
+    </div>
+{% endcase %}

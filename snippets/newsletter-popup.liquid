@@ -1,0 +1,104 @@
+{%- if settings.newsletter_style_handle == 'newsletter_style_1' -%}
+  <div id="one-time-newsletter" class="popup_wrapper">
+    <div class="newsletter_popup_inner">
+      <span class="popup_off"><i class="pe-7s-close"></i></span>
+      <div class="subscribe_area">
+        <h2 class="">{{ settings.newletter_popup_title }}</h2>
+        <p class="">{{ settings.newsletter_text }}</p>
+        <div class="form-group subscribe-form-group">
+          <form
+            action="{{ settings.newsletter_action }}"
+            method="post"
+            id="mc-embedded-subscribe-form"
+            name="mc-embedded-subscribe-form"
+            target="_blank"
+          >
+            <input
+              type="email"
+              class="form-control subscribe-form-input"
+              id="mail"
+              value="{% if customer %}{{ customer.email }}{% endif %}"
+              name="EMAIL"
+              placeholder="{{ 'general.newsletter_form.newsletter_email'| t }}"
+            >
+            <button type="submit" class="newsletter-btn" id="subscribe">{{ settings.newsletter_button_name }}</button>
+            {%- if settings.dont_show_again_enable -%}
+              <p><input id="forgetMe" type="checkbox" name="forgetMe"> {{ settings.dont_show_again_text }}</p>
+            {%- endif -%}
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+{%- elsif settings.newsletter_style_handle == 'newsletter_style_2' -%}
+  <div id="one-time-newsletter" class="popup_wrapper">
+    <div class="newsletter_popup_inner">
+      <span class="popup_off"><i class="pe-7s-close"></i></span>
+      <div class="subscribe_area area-2">
+        <div class="subscribe-image">
+          {% if settings.newsletter_bg_img %}
+            <img src="{{ settings.newsletter_bg_img | img_url: '440x550', crop: 'center' }}">
+          {% else %}
+            <img src="https://via.placeholder.com/440x550">
+          {% endif %}
+        </div>
+        <div class="subscribe-content">
+          <h2 class="">{{ settings.newletter_popup_title }}</h2>
+          <p class="">{{ settings.newsletter_text }}</p>
+          <div class="form-group subscribe-form-group">
+            <form
+              action="{{ settings.newsletter_action }}"
+              method="post"
+              id="mc-embedded-subscribe-form"
+              name="mc-embedded-subscribe-form"
+              target="_blank"
+            >
+              <input
+                type="email"
+                class="form-control subscribe-form-input"
+                id="mail"
+                value="{% if customer %}{{ customer.email }}{% endif %}"
+                name="EMAIL"
+                placeholder="{{ 'general.newsletter_form.newsletter_email'| t }}"
+              >
+              <button type="submit" class="newsletter-btn" id="subscribe">{{ settings.newsletter_button_name }}</button>
+              {%- if settings.dont_show_again_enable -%}
+                <p><input id="forgetMe" type="checkbox" name="forgetMe"> {{ settings.dont_show_again_text }}</p>
+              {%- endif -%}
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{%- endif -%}
+
+{%- if settings.one_day_popup_enable -%}
+  {{ 'newsletter-js.js' | asset_url | script_tag | remove: ' type="text/javascript"' }}
+  <script>
+    $(function () {
+      $('#one-time-newsletter').firstVisitPopup({
+        cookieName: 'index',
+      });
+    });
+  </script>
+{%- else -%}
+  <script>
+    setTimeout(function () {
+      $('.popup_wrapper').css({ opacity: '1', visibility: 'visible' });
+      $('.popup_off').click(function () {
+        $('.popup_wrapper').fadeOut(200);
+      });
+    }, 5000);
+  </script>
+{%- endif -%}
+{%- if settings.dont_show_again_enable -%}
+  <script>
+    if (localStorage.getItem('DontShow')) {
+      $('#one-time-newsletter').hide();
+    }
+    $('#forgetMe').on('click', function () {
+      localStorage.setItem('DontShow', 'true');
+    });
+  </script>
+{%- endif -%}

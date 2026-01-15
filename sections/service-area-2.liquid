@@ -1,0 +1,288 @@
+<div class="suppoer-area" id="section-{{ section.id }}">
+  <div class="{% if section.settings.container_style == 'style_1' %}container {% else %} container-fluid{% endif %}">
+    <div class="row">
+      {% for block in section.blocks %}
+        {%- case block.type -%}
+          {%- when 'service' -%}
+            <div class="col-lg-{{ block.settings.service_coloum }} col-md-6 col-12 shape">
+              <div class="support-wrap-2 mb-30 support-shape text-center">
+                <div class="support-content-2">
+                  {% if block.settings.service_icon %}
+                    <img
+                      class="animated"
+                      src="{{ block.settings.service_icon | img_url: 'compact' }}"
+                      alt="{{ block.settings.service_icon.alt }}"
+                    >
+                  {% endif %}
+
+                  {% if block.settings.service_title != '' %}
+                    <h5>{{ block.settings.service_title }}</h5>
+                  {% endif %}
+                  {% if block.settings.service_description != '' %}
+                    <p>{{ block.settings.service_description }}</p>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+        {%- endcase -%}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{%- include 'section-style' -%}
+
+{% schema %}
+{
+  "name": "Service 2",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Container Style"
+    },
+    {
+      "type": "radio",
+      "id": "container_style",
+      "label": "Container Style",
+      "options": [
+        {
+          "value": "style_1",
+          "label": "Container"
+        },
+        {
+          "value": "style_2",
+          "label": "Container Fulied"
+        }
+      ],
+
+      "default": "style_1"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "service",
+      "name": "Service",
+      "settings": [
+        {
+          "type": "text",
+          "id": "service_coloum",
+          "label": "Service Coloum",
+          "default": "4",
+          "info": "Follow Bootstrap Column"
+        },
+        {
+          "type": "image_picker",
+          "id": "service_icon",
+          "label": "Image",
+          "info": "Recommended Size: 50 x 50px"
+        },
+        {
+          "type": "text",
+          "id": "service_title",
+          "label": "Service Title",
+          "default": "Free Shipping"
+        },
+        {
+          "type": "textarea",
+          "id": "service_description",
+          "label": "Service Description",
+          "default": "Lorem ipsum dolor sit amet consectetu adipisicing elit sed"
+        }
+      ]
+    },
+    {
+      "type": "section_padding",
+      "name": "Section Padding",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "header",
+          "content": "Large/Desktop Device"
+        },
+        {
+          "type": "range",
+          "id": "section_padding_top",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Padding Top",
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "section_padding_bottom",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Padding Bottom",
+          "unit": "px",
+          "default": 100
+        },
+        {
+          "type": "header",
+          "content": "Tablet Device"
+        },
+        {
+          "type": "range",
+          "id": "section_padding_top_md",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Padding Top",
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "section_padding_bottom_md",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Padding Bottom",
+          "unit": "px",
+          "default": 80
+        },
+        {
+          "type": "header",
+          "content": "Mobile Device"
+        },
+        {
+          "type": "range",
+          "id": "section_padding_top_xs",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Padding Top",
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "section_padding_bottom_xs",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Padding Bottom",
+          "unit": "px",
+          "default": 60
+        }
+      ]
+    },
+    {
+      "type": "section_margin",
+      "name": "Section Margin",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "header",
+          "content": "Large/Desktop Device"
+        },
+        {
+          "type": "range",
+          "id": "section_margin_top",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Margin Top",
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "section_margin_bottom",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Margin Bottom",
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "header",
+          "content": "Tablet Device"
+        },
+        {
+          "type": "range",
+          "id": "section_margin_top_md",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Margin Top",
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "section_margin_bottom_md",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Margin Bottom",
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "header",
+          "content": "Mobile Device"
+        },
+        {
+          "type": "range",
+          "id": "section_margin_top_xs",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Margin Top",
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "section_margin_bottom_xs",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Margin Bottom",
+          "unit": "px",
+          "default": 0
+        }
+      ]
+    },
+    {
+      "type": "section_background",
+      "name": "Section Background",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "section_bg_image",
+          "label": "BG Image"
+        },
+        {
+          "type": "color",
+          "id": "section_bg_color",
+          "label": "BG Color",
+          "default": "#ffffff"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Service 2",
+      "category": "5. about",
+      "blocks": [
+        {
+          "type": "section_padding"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

@@ -1,0 +1,533 @@
+<div class="product-area pa_section2" id="section-{{ section.id }}">
+  <div class="{% if section.settings.container_style == 'style_1' %}container {% else %} container-fluid{% endif %}">
+    {% if section.settings.section_title != '' %}
+      <div class="section-title text-{% if section.settings.section_text_style == 'section_style_left' %}left{% elsif section.settings.section_text_style == 'section_style_center' %}center{% elsif section.settings.section_text_style == 'section_style_right' %}right{% endif %}">
+        <h2>{{ section.settings.section_title }}</h2>
+      </div>
+    {% endif %}
+
+    <div class="product-tab-list nav pt-30 pb-55 text-center">
+      {%- assign i = 1 -%}
+      {% for block in section.blocks %}
+        {%- case block.type -%}
+          {%- when 'tab_with_product' -%}
+            {%- assign tab_product = collections[block.settings.tab_product_handle] -%}
+
+            {%- if tab_product == empty -%}
+              <a class="{% if forloop.first == true %}active{% endif %}" href="#tab-{{ i }}" data-toggle="tab">
+                <h2>Tab-{{ i }}</h2>
+              </a>
+
+              {%- assign i = i | plus: 1 -%}
+            {%- else -%}
+              <a
+                class="{% if forloop.first == true %}active{% endif %}"
+                href="#tab-{{ block.id }}-{{ tab_product.title | handle }}"
+                data-toggle="tab"
+              >
+                <h2>{{ tab_product.title }}</h2>
+              </a>
+            {%- endif -%}
+        {% endcase %}
+      {% endfor %}
+    </div>
+    <div class="tab-content jump">
+      {%- assign i = 1 -%}
+      {% for block in section.blocks %}
+        {%- case block.type -%}
+          {%- when 'tab_with_product' -%}
+            {%- assign tab_product = collections[block.settings.tab_product_handle] -%}
+            {%- assign product_limit = section.settings.product_limit_handle -%}
+            {%- if tab_product == empty -%}
+              <div class="tab-pane {% if forloop.first == true %}active{% endif %}" id="tab-{{ i }}">
+                <div class="row">
+                  {% for i in (1..product_limit) %}
+                    {% capture a %}{% cycle 1, 2, 3, 4, 5, 6 %}{% endcapture %}
+                    <div class="col-lg-{{ section.settings.product_column }} col-md-{{ section.settings.product_column_md }}  col-{{ section.settings.product_column_xs }}">
+                      <div class="product-wrap mb-25 scroll-zoom">
+                        <div class="product-img" style="background: #f2f2f2;">
+                          {% assign product_item = 'product-' | append: a %}
+                          {{ product_item | placeholder_svg_tag: 'my-custom-class' }}
+                        </div>
+                        <div class="product-content text-center">
+                          <h3><a href="product-details.html">T- Shirt And Jeans</a></h3>
+                          <div class="product-price">
+                            <span>$ 60.00</span>
+                            <span class="old">$ 60.00</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  {% endfor %}
+                </div>
+              </div>
+
+              {%- assign i = i | plus: 1 -%}
+            {%- else -%}
+              <div
+                class="tab-pane {% if forloop.first == true %}active{% endif %}"
+                id="tab-{{ block.id }}-{{ tab_product.title | handle }}"
+              >
+                {% if section.settings.product_style == 'style_1' %}
+                  <div class="row">
+                    {% assign product_column = section.settings.product_column_handle %}
+                    {% for product in tab_product.products limit: product_limit %}
+                      <div class="col-lg-{{ section.settings.product_column }} col-md-{{ section.settings.product_column_md }} col-{{ section.settings.product_column_xs }}">
+                        {% include 'product-grid-item' %}
+                      </div>
+                    {% endfor %}
+                  </div>
+
+                {% elsif section.settings.product_style == 'style_2' %}
+                  <div class="custom-row-3 item-wrapper3">
+                    {% assign product_column = section.settings.product_column_handle %}
+                    {% for product in tab_product.products limit: product_limit %}
+                      <div class="col-md-{{ section.settings.product_column_md }} col-lg-{{ section.settings.product_column }} col-{{ section.settings.product_column_xs }}">
+                        {% include 'product-grid-item-2' %}
+                      </div>
+                    {% endfor %}
+
+                    {% if section.settings.button_title != '' %}
+                      <div class="view-more text-center mt-20 toggle-btn3 col-12">
+                        <a class="loadMore3" href="{{ section.settings.button_url }}">
+                          {{- section.settings.button_title -}}
+                        </a>
+                      </div>
+                    {% endif %}
+                  </div>
+
+                {% else %}
+                  <div class="custom-row-4  hm9-section-padding">
+                    {% assign product_column = section.settings.product_column_handle %}
+                    {% for product in tab_product.products limit: product_limit %}
+                      <div class="custom2-col-5 mb-10">
+                        {% include 'product-grid-item-2' %}
+                      </div>
+                    {% endfor %}
+                  </div>
+                {% endif %}
+              </div>
+            {%- endif -%}
+        {% endcase %}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{%- include 'section-style' -%}
+
+<style>
+
+    {% if section.settings.boder_enable %}
+
+    .section-title h2::before {
+      background-color: #000;
+  }
+    .section-title h2::after {
+      background-color: #000;
+  }
+    {% else %}
+
+     .section-title h2::before {
+      display: none;
+  }
+    .section-title h2::after {
+      display: none;
+  }
+
+    {% endif %}
+</style>
+
+{% schema %}
+{
+  "name": "Tab With Product",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Container Style"
+    },
+    {
+      "type": "radio",
+      "id": "container_style",
+      "label": "Container Style",
+      "options": [
+        {
+          "value": "style_1",
+          "label": "Container"
+        },
+        {
+          "value": "style_2",
+          "label": "Container Fulied"
+        }
+      ],
+
+      "default": "style_1"
+    },
+    {
+      "type": "header",
+      "content": "Section Heading"
+    },
+    {
+      "type": "text",
+      "id": "section_title",
+      "label": "Section Title",
+      "default": "DAILY DEALS!"
+    },
+    {
+      "type": "checkbox",
+      "id": "boder_enable",
+      "label": "Border Show/Hide",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Text Style"
+    },
+    {
+      "type": "radio",
+      "id": "section_text_style",
+      "label": "Text Style",
+      "options": [
+        {
+          "value": "section_style_left",
+          "label": "Left"
+        },
+        {
+          "value": "section_style_center",
+          "label": "center"
+        },
+        {
+          "value": "section_style_right",
+          "label": "right"
+        }
+      ],
+
+      "default": "section_style_center"
+    },
+    {
+      "type": "header",
+      "content": "Product"
+    },
+    {
+      "type": "radio",
+      "id": "product_style",
+      "label": "Product Style",
+      "options": [
+        {
+          "value": "style_1",
+          "label": "Style 1"
+        },
+        {
+          "value": "style_2",
+          "label": "Style 2"
+        },
+        {
+          "value": "style_3",
+          "label": "Style 3"
+        }
+      ],
+
+      "default": "style_1"
+    },
+    {
+      "type": "range",
+      "id": "product_limit_handle",
+      "min": 2,
+      "max": 20,
+      "step": 1,
+      "label": "Limit",
+      "default": 8
+    },
+    {
+      "type": "header",
+      "content": "Product Column"
+    },
+    {
+      "type": "select",
+      "id": "product_column",
+      "label": "Desktop",
+      "options": [
+        {
+          "label": "2",
+          "value": "6"
+        },
+        {
+          "label": "3",
+          "value": "4"
+        },
+        {
+          "label": "4",
+          "value": "3"
+        }
+      ],
+      "default": "3"
+    },
+    {
+      "type": "select",
+      "id": "product_column_md",
+      "label": "Tablet",
+      "options": [
+        {
+          "label": "2",
+          "value": "6"
+        },
+        {
+          "label": "3",
+          "value": "4"
+        },
+        {
+          "label": "4",
+          "value": "3"
+        }
+      ],
+      "default": "4"
+    },
+    {
+      "type": "select",
+      "id": "product_column_xs",
+      "label": "Mobile",
+      "options": [
+        {
+          "label": "1",
+          "value": "12"
+        },
+        {
+          "label": "2",
+          "value": "6"
+        }
+      ],
+      "default": "12"
+    },
+    {
+      "type": "header",
+      "content": "Button"
+    },
+    {
+      "type": "text",
+      "id": "button_title",
+      "label": "Button Title",
+      "default": "VIEW MORE PRODUCTS"
+    },
+    {
+      "type": "url",
+      "id": "button_url",
+      "label": "URL"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "tab_with_product",
+      "name": "Tab with product",
+      "settings": [
+        {
+          "type": "collection",
+          "id": "tab_product_handle",
+          "label": "Tab With Product"
+        }
+      ]
+    },
+    {
+      "type": "section_margin",
+      "name": "Section Margin",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "header",
+          "content": "Large/Desktop Device"
+        },
+        {
+          "type": "range",
+          "id": "section_margin_top",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Margin Top",
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "section_margin_bottom",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Margin Bottom",
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "header",
+          "content": "Tablet Device"
+        },
+        {
+          "type": "range",
+          "id": "section_margin_top_md",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Margin Top",
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "section_margin_bottom_md",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Margin Bottom",
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "header",
+          "content": "Mobile Device"
+        },
+        {
+          "type": "range",
+          "id": "section_margin_top_xs",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Margin Top",
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "section_margin_bottom_xs",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Margin Bottom",
+          "unit": "px",
+          "default": 0
+        }
+      ]
+    },
+    {
+      "type": "section_padding",
+      "name": "Section Padding",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "header",
+          "content": "Large/Desktop Device"
+        },
+        {
+          "type": "range",
+          "id": "section_padding_top",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Padding Top",
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "section_padding_bottom",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Padding Bottom",
+          "unit": "px",
+          "default": 100
+        },
+        {
+          "type": "header",
+          "content": "Tablet Device"
+        },
+        {
+          "type": "range",
+          "id": "section_padding_top_md",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Padding Top",
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "section_padding_bottom_md",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Padding Bottom",
+          "unit": "px",
+          "default": 80
+        },
+        {
+          "type": "header",
+          "content": "Mobile Device"
+        },
+        {
+          "type": "range",
+          "id": "section_padding_top_xs",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Padding Top",
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "section_padding_bottom_xs",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Padding Bottom",
+          "unit": "px",
+          "default": 60
+        }
+      ]
+    },
+    {
+      "type": "section_background",
+      "name": "Section Background",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "section_bg_image",
+          "label": "BG Image"
+        },
+        {
+          "type": "color",
+          "id": "section_bg_color",
+          "label": "BG Color",
+          "default": "#ffffff"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Tab With Product",
+      "category": "3. collections",
+      "blocks": [
+        {
+          "type": "tab_with_product"
+        },
+        {
+          "type": "tab_with_product"
+        },
+        {
+          "type": "tab_with_product"
+        },
+        {
+          "type": "section_padding"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

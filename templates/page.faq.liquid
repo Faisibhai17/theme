@@ -1,0 +1,80 @@
+<div class="create-custom-page">
+  <div class="container">
+    {{ page.content }}
+    {%- section 'faq-section2' -%}
+    {%- section 'faq-section' -%}
+  </div>
+</div>
+<style>
+  /**
+   * FAQ
+   */
+  .shopify_explorer_faq__item--expandable > .shopify_explorer_faq__question {
+    cursor: pointer;
+  }
+  .shopify_explorer_faq__item--expandable > .shopify_explorer_faq__answer {
+    display: none;
+  }
+  .shopify_explorer_faq__separator {
+    text-transform: none;
+    text-align: center;
+  }
+  .shopify_explorer_faq__separator :not(:first-child) {
+    margin-top: 1.2em;
+  }
+  .shopify_explorer_faq__item {
+    border-bottom: 1px solid #000;
+  }
+  .shopify_explorer_faq__item:not(:last-child) {
+    margin-bottom: 0.9em;
+  }
+  .shopify_explorer_faq__item .shopify_explorer_faq__question {
+    margin-bottom: 0.2em;
+    position: relative;
+    padding: 5px 15px;
+    padding-right: 30px;
+    margin: 0;
+  }
+  .shopify_explorer_faq__item .shopify_explorer_faq__question.active::before {
+    -webkit-transform: rotate(-135deg);
+    -ms-transform: rotate(-135deg);
+    transform: rotate(-135deg);
+  }
+  .shopify_explorer_faq__item .shopify_explorer_faq__answer {
+    padding: 5px 15px;
+  }
+  .shopify_explorer_faq__item .shopify_explorer_faq__answer.active {
+    border-top: 1px solid #000;
+  }
+  .shopify_explorer_faq__item .shopify_explorer_faq__question::before {
+    position: absolute;
+    right: 0;
+    border-bottom: 1px solid #000;
+    border-right: 1px solid #000;
+    content: '';
+    display: block;
+    height: 12px;
+    margin-top: -11px;
+    pointer-events: none;
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    -webkit-transform-origin: 66% 66%;
+    -ms-transform-origin: 66% 66%;
+    transform-origin: 66% 66%;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+    -webkit-transition: all 0.15s ease-in-out;
+    transition: all 0.15s ease-in-out;
+    width: 12px;
+  }
+  @media (max-width: 590px) {
+    .shopify_explorer_faq__item .shopify_explorer_faq__question::before {
+      width: 8px;
+      height: 8px;
+      margin-top: -7px;
+      right: 3px;
+    }
+  }
+</style>

@@ -1,0 +1,5 @@
+{
+  "content": "<div class=\"theme-default-margin\">\n  <div class=\"container\">\n    <div class=\"row\">\n      <div class=\"col-lg-12 col-12\">\n        <div class=\"error-content text-center\">\n          {% if settings.opps_404 %}\n            <img src=\"{{ settings.opps_404 | img_url: '1024x1024' }}\" alt=\"\">\n          {% endif %}\n          {% if settings.heading_404 != '' %}\n            <h4>{{ settings.heading_404 }}</h4>\n          {% endif %}\n          {% if settings.sub_text_404 != '' %}\n            <p>{{ settings.sub_text_404 }}</p>\n          {% endif %}\n          {% if settings.button_title != '' %}\n            <a class=\"theme-default-button\" href=\"{{ settings.button_url }}\" data-text=\"{{ settings.button_title }}\">\n              {{- settings.button_title -}}\n            </a>\n          {% endif %}\n        </div>\n      </div>\n    </div>\n  </div>\n</div>",
+  "name": "Custom 404 Content",
+  "settings": []
+}

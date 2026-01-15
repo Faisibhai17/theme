@@ -1,0 +1,334 @@
+{
+  "content": "<div class=\"Blog-area\" id=\"section-{{ section.id }}\">\n  <div class=\"{% if section.settings.container_style == 'style_1' %}container {% else %} container-fluid{% endif %}\">\n    <div class=\"row {% if section.settings.sidebar_handle == 'left_sidebar_handle' %}flex-row-reverse{% endif %}\">\n      <div class=\"{% if section.settings.sidebar_handle == 'without_sidebar' %}col-lg-12{% else %}col-lg-9{% endif %} col-12\">\n        \n        <div class=\"blog-details-wrapper\">\n          \n          \n          <div class=\"blog-details-top\">\n            <div class=\"blog-details-img\">\n              <img alt=\"{{ article.image.alt }}\" src=\"{{ article | img_url: 'master' }}\">\n            </div>\n            <div class=\"blog-details-content\">\n              <h3>{{ article.title }}</h3>\n              <div class=\"blog-meta-2\">\n                <ul>\n                  <li>{{ article.published_at | date: \"%b, %d , %y\" }}</li>\n                  <li><a href=\"{{ article.url }}#comments\">{{ 'blogs.comments.with_count' | t: count: article.comments_count }} <i class=\"fa fa-comments-o\"></i></a></li>\n                </ul>\n              </div>\n               {{ article.content }}\n             </div>\n          </div>\n          \n          <div class=\"tag-share\">\n            <div class=\"dec-tag\">\n              {% include 'tags-article' %}\n            </div>\n            <div class=\"blog-share\">\n              {% include 'blog-share-2' %}\n            </div>\n          </div>\n          \n          {% if blog.next_article or blog.previous_article %}\n          <div class=\"next-previous-post\">\n\n            {% if blog.previous_article %}\n            <span class=\"left\">\n              <i class=\"fa fa-angle-left\"></i> \n              {{ 'blogs.article.older_post' | t | link_to: blog.previous_article }}\n            </span>\n            {% endif %}\n            {% if blog.next_article %}\n            <span class=\"right\">\n              {{ 'blogs.article.newer_post' | t | link_to: blog.next_article }} \n              <i class=\"fa fa-angle-right\"></i>\n            </span>\n            {% endif %}\n          </div>\n          {% endif %}\n          \n          \n          {%- if article.comments_enabled? -%}\n          {%- assign comment_post_limit = section.settings.comment_post_limit_handle -%}\n          {%- paginate article.comments by comment_post_limit -%}\n          <div id=\"comments\" class=\"comment-success\">\n            {%- if comment and comment.created_at -%}\n            <p class=\"note form-success mt-20\">\n              {%- if blog.comments_modareted? -%}\n              {{ 'blogs.comments.success_moderated' | t }}            \n              {%- else -%}\n              {{ 'blogs.comments.success' | t }}\n              {%- endif -%}\n            </p>\n            {%- endif -%}\n\n            {%- if article.comments.size > 0 -%}\n            {%- include 'blog-comments' -%}\n            {%- endif -%}\n\n            {%- if paginate.pages > 1 -%}\n           <div class=\"pro-pagination-style text-center mt-20\">\n              {% include 'pagination' %}\n            </div>\n            {%- endif -%}\n            {%- endpaginate -%}\n\n            {%- include 'blog-comment-form' -%}\n\n          </div>\n          {%- endif -%}\n\n        </div>\n        \n        \n      </div>\n      {%- unless section.settings.sidebar_handle == 'without_sidebar' -%}\n      <div class=\"col-lg-3\">\n        {% include 'blog-sidebar' %}\n      </div>\n      {%- endunless -%}\n    </div>\n  </div>\n</div>\n\n{%- include 'section-style' -%}",
+  "name": "Article Page",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Container Style"
+    },
+    {
+      "type": "radio",
+      "id": "container_style",
+      "label": "Container Style",
+      "options": [
+        {
+          "value": "style_1",
+          "label": "Container"
+        },
+        {
+          "value": "style_2",
+          "label": "Container Fulied"
+        }
+      ],
+      "default": "style_1"
+    },
+    {
+      "type": "header",
+      "content": "Comment Box"
+    },
+    {
+      "type": "image_picker",
+      "id": "commentator_image",
+      "label": "Comment Thumb Image",
+      "info": "Recommended Size: 80 x 80px"
+    },
+    {
+      "type": "range",
+      "id": "comment_post_limit_handle",
+      "min": 1,
+      "max": 10,
+      "step": 1,
+      "label": "How Many Comment Post Show",
+      "default": 5
+    },
+    {
+      "type": "header",
+      "content": "Article Sidebar"
+    },
+    {
+      "type": "radio",
+      "id": "sidebar_handle",
+      "label": "Sidebar Position -",
+      "options": [
+        {
+          "label": "Left Sidebar",
+          "value": "left_sidebar_handle"
+        },
+        {
+          "label": "Right Sidebar",
+          "value": "right_sidebar_handle"
+        },
+        {
+          "label": "Without Sidebar",
+          "value": "without_sidebar"
+        }
+      ],
+      "default": "left_sidebar_handle"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "search",
+      "name": "Search",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "wedget_title",
+          "label": "Title",
+          "default": "Search"
+        }
+      ]
+    },
+    {
+      "type": "recent_post",
+      "name": "Recent Post",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "recent_post_title",
+          "label": "Recent Post Title",
+          "default": "Recent Post"
+        },
+        {
+          "type": "range",
+          "id": "recent_post_limit_handle",
+          "min": 2,
+          "max": 10,
+          "step": 1,
+          "label": "Post Limit",
+          "default": 3
+        }
+      ]
+    },
+    {
+      "type": "archive",
+      "name": "Archive",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "archive_title",
+          "label": "Archive Title",
+          "default": "Archive"
+        }
+      ]
+    },
+    {
+      "type": "tag",
+      "name": "Tag",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "blog_tags_title",
+          "label": "Tags Title",
+          "default": "Tags"
+        },
+        {
+          "type": "range",
+          "id": "blog_tags_list_limit_handle",
+          "min": 5,
+          "max": 20,
+          "step": 1,
+          "label": "Tag Limit",
+          "default": 10
+        }
+      ]
+    },
+    {
+      "type": "menu",
+      "name": "Menu",
+      "settings": [
+        {
+          "type": "text",
+          "id": "menu_title",
+          "label": "Menu Title",
+          "default": "Custom Menu"
+        },
+        {
+          "type": "link_list",
+          "id": "menu_handle",
+          "label": "Menu"
+        }
+      ]
+    },
+    {
+      "type": "section_padding",
+      "name": "Section Padding",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "header",
+          "content": "Large/Desktop Device"
+        },
+        {
+          "type": "range",
+          "id": "section_padding_top",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Padding Top",
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "section_padding_bottom",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Padding Bottom",
+          "unit": "px",
+          "default": 100
+        },
+        {
+          "type": "header",
+          "content": "Tablet Device"
+        },
+        {
+          "type": "range",
+          "id": "section_padding_top_md",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Padding Top",
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "section_padding_bottom_md",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Padding Bottom",
+          "unit": "px",
+          "default": 80
+        },
+        {
+          "type": "header",
+          "content": "Mobile Device"
+        },
+        {
+          "type": "range",
+          "id": "section_padding_top_xs",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Padding Top",
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "section_padding_bottom_xs",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Padding Bottom",
+          "unit": "px",
+          "default": 60
+        }
+      ]
+    },
+    {
+      "type": "section_margin",
+      "name": "Section Margin",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "header",
+          "content": "Large/Desktop Device"
+        },
+        {
+          "type": "range",
+          "id": "section_margin_top",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Margin Top",
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "section_margin_bottom",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Margin Bottom",
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "header",
+          "content": "Tablet Device"
+        },
+        {
+          "type": "range",
+          "id": "section_margin_top_md",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Margin Top",
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "section_margin_bottom_md",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Margin Bottom",
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "header",
+          "content": "Mobile Device"
+        },
+        {
+          "type": "range",
+          "id": "section_margin_top_xs",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Margin Top",
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "section_margin_bottom_xs",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Margin Bottom",
+          "unit": "px",
+          "default": 0
+        }
+      ]
+    },
+    {
+      "type": "section_background",
+      "name": "Section Background",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "section_bg_image",
+          "label": "BG Image"
+        },
+        {
+          "type": "color",
+          "id": "section_bg_color",
+          "label": "BG Color",
+          "default": "#ffffff"
+        }
+      ]
+    }
+  ]
+}

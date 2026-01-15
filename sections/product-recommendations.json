@@ -1,0 +1,19 @@
+{
+  "content": "{%- if section.settings.show_product_recommendations -%}\n  <div class=\"product-recommendations\" data-product-id=\"{{ product.id }}\" data-limit=\"4\">\n    {%- if recommendations.products_count > 0 -%}\n      <h2>{{ section.settings.heading }}</h2>\n      <ul>\n        {%- for product in recommendations.products -%}\n          <li class=\"product\">\n            <a href=\"{{ product.url }}\">\n              <img\n                class=\"product__img\"\n                src=\"{{ product.featured_image | img_url: '300x300' }}\"\n                alt=\"{{ product.featured_image.alt }}\"\n              >\n              <p class=\"product__title\">{{ product.title }}</p>\n              <p class=\"product__price\">{{ product.price | money }}</p>\n            </a>\n          </li>\n        {%- endfor -%}\n      </ul>\n    {%- endif -%}\n  </div>\n{%- endif -%}",
+  "name": "Product recommendations",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_product_recommendations",
+      "label": "Turn on product recommendations",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "You might also like"
+    }
+  ],
+  "javascript": "var loadProductRecommendationsIntoSection = function () {\n    // Look for an element with class 'product-recommendations'\n    var productRecommendationsSection = document.querySelector('.product-recommendations');\n    if (productRecommendationsSection === null) {\n      return;\n    }\n    // Read product id from data attribute\n    var productId = productRecommendationsSection.dataset.productId;\n    // Read limit from data attribute\n    var limit = productRecommendationsSection.dataset.limit;\n    // Build request URL\n    var requestUrl =\n      '/recommendations/products?section_id=product-recommendations&limit=' + limit + '&product_id=' + productId;\n    // Create request and submit it using Ajax\n    var request = new XMLHttpRequest();\n    request.open('GET', requestUrl);\n    request.onload = function () {\n      if (request.status >= 200 && request.status < 300) {\n        var container = document.createElement('div');\n        container.innerHTML = request.response;\n        productRecommendationsSection.parentElement.innerHTML =\n          container.querySelector('.product-recommendations').innerHTML;\n      }\n    };\n    request.send();\n  };\n  // If your section has theme settings, the theme editor\n  // reloads the section as you edit those settings. When that happens, the\n  // recommendations need to be fetched again.\n  // See https://help.shopify.com/en/themes/development/sections/integration-with-theme-editor\n  document.addEventListener('shopify:section:load', function (event) {\n    if (event.detail.sectionId === 'product-recommendations') {\n      loadProductRecommendationsIntoSection();\n    }\n  });\n  // Fetching the recommendations on page load\n  loadProductRecommendationsIntoSection();"
+}

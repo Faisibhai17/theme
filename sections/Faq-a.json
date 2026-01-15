@@ -1,0 +1,24 @@
+{
+  "content": "{%for block in section.blocks%}\n\t<div class=\"faq faq\">\n     <div class=\"faq tab\">\n          <input type=\"checkbox\" id=\"tab{{forloop.index}}\" class=\"faq tab-toggle\">\n                <label for=\"tab{{forloop.index}}\" class=\"faq tab-label\">\n                    {{block.settings.question}}\n                </label>\n     <div class=\"faq tab-content\">\n         {{block.settings.answer}}\n     </div>\n       {%endfor%}\n  </div>\n\n <style>\n   \n.faq .tab {\n    border-radius: 8px;\n    overflow: hidden;\n\tcolor: white;\n}\n\n.faq .tab-toggle {\n    display: none;\n}\n\n.faq .tab-label {\n    background-color: #7DCABB;\n    display: flex;\n    justify-content: space-between;\n    padding: 1rem;\n    font-weight: bold;\n    color: black,\n}\n\n.faq .tab-label:after {\n    content: '\\276F';\n    transition: all .4s;\n}\n\n.faq .tab-content {\n    background-color: white;\n    max-height: 0px;\n    overflow: hidden;\n    transition: all .4s;\n    padding: 0 1rem;\n\tcolor: black;\n}\n\n.faq .tab-toggle:checked~.tab-label::after {\n    transform: rotate(90deg);\n}\n\n.faq .tab-toggle:checked~.tab-content {\n    max-height: 100vh;\n}\n </style>",
+  "name": "FAQ-QUESTION",
+  "blocks": [
+    {
+      "type": "text",
+      "name": "Question/Answer",
+      "settings": [
+        {
+          "id": "question",
+          "type": "text",
+          "label": "Question",
+          "default": "Add Question Here"
+        },
+        {
+          "id": "answer",
+          "type": "richtext",
+          "label": "The Answer",
+          "default": "<p>Add your answer here</p>"
+        }
+      ]
+    }
+  ]
+}

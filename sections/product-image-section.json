@@ -1,0 +1,11 @@
+{
+  "content": "<div class=\"skincare-section prod_skin_sct\">\n  <div class=\"container\">\n    <div class=\"row\">\n      <div class=\"col-sm-8 align-self-center\">\n        <div class=\"skin-care-img\">\n          <img src=\"https://cdn.shopify.com/s/files/1/0555/6148/6492/files/facewashing.png?v=1670360502\" width=\"100%\">\n        </div>\n      </div>\n      <div class=\"col-sm-4 align-self-center\">\n        <div class=\"tt-skincare\">\n          <img\n            src=\"https://cdn.shopify.com/s/files/1/0555/6148/6492/files/Screenshot_1.png?v=1667979005\"\n            alt=\"Flowers in Chania\"\n          >\n          <h3 class=\"day-night\">AM/PM</h3>\n          <ol type=\"1\">\n            <li>Massage Properly Clean onto wet skin and then rinse.</li>\n            <li>JMist Prep Step all over your face.</li>\n            <li>Gently pat in one pump of Much Brighter Skin.</li>\n            <li>Mist Prep Step again all over your face.</li>\n            <li>Follow with a pea-sized amount of Very Lightweight Moisturiser.</li>\n            <li>Liberally apply SPF all the way down to your boobs.</li>\n          </ol>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>",
+  "name": "skincare",
+  "settings": [],
+  "presets": [
+    {
+      "name": "skincare-quiz",
+      "category": "skincare"
+    }
+  ]
+}

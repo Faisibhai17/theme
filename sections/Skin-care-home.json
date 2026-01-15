@@ -1,0 +1,11 @@
+{
+  "content": "<div class=\"skincare-quiz\">\n   <div class=\"container\">\n     <div class=\"row\">\n       <div class=\"col-md-3 col-sm-12 align-self-center\">\n          <div class=\"tt-skincare\">\n            <h3 class=\"titlte-sec\">FIND YOUR FORMULA</h3>\n            <h2 class=\"title-big\">Skincare Quiz</h2>\n            <p>Start here for personalized product selections to reach your skin goals.</p>            \n          </div>\n         \n       </div>\n       <div class=\"col-md-6 col-sm-12 align-self-center\">\n         <div class=\"analysis-img\">\n           <img src=\"https://cdn.shopify.com/s/files/1/0555/6148/6492/files/skin_analysisd.png?v=1674587004\" width=\"100%\" alt=\"Skincare packs\">\n         </div>\n       </div>\n       <div class=\"col-md-3 col-sm-12 align-self-center\">\n        <ol class=\"skin-details\">\n         <li>Complete the Quiz</li>\n         <li>Get the best advise for your skin type</li>\n         <li>Build your own Skincare Ritual</li>\n         </ol> \n       </div>\n     </div>\n   </div>  \n</div>\n<div class=\"button-sec\" id=\"home-quiz-btn\">\n  {% assign quiz-btn = 'TAKE QUIZ NOW' %}\n  \n   <div class=\"button-skin text-center\">\n      {% if shop.locale == 'en' %}\n        <a class=\"animated\" href=\"#quiz-wnHEnx\" id=\"lang-en\">\n      {% elsif shop.locale == 'ar' %}\n        <a class=\"animated\" href=\"#quiz-JRH8yg\" id=lang-arabic>\n      {% elsif shop.locale == 'id' %}\n        <a class=\"animated\" href=\"#quiz-DmHbWY\" id=\"lang-indonesian\">   \n      {% elsif shop.locale == 'es' %}\n        <a class=\"animated\" href=\"#quiz-7jHgPr\" id=\"lang-spanish\">\n      {% elsif shop.locale == 'zh-TW' %}\n        <a class=\"animated\" href=\"#quiz-BZHpPG\" id=\"lang-chinese\">\n      {% elsif shop.locale == 'ja' %}\n        <a class=\"animated\" href=\"#quiz-jyHy2y\" id=\"lang-japanesse\">\n      {% elsif shop.locale == 'de'%}\n        <a class=\"animated\" href=\"#quiz-MnH72q\" id=\"lang-german\">\n      {% else %}\n        <a class=\"animated\" href=\"#quiz-wnHEnx\" id=\"lang-en\">\n    {% endif %}\n    {{ quiz-btn }}</a>\n   </div>  \n</div>",
+  "name": "skincare",
+  "settings": [],
+  "presets": [
+    {
+      "name": "skincare-quiz",
+      "category": "skincare"
+    }
+  ]
+}

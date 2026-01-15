@@ -1,0 +1,18 @@
+{
+  "sections": {
+    "section_1": {
+      "type": "Faq-a"
+    },
+    "section_2": {
+      "type": "deal-of-product"
+    },
+    "section_3": {
+      "type": "custom-page-Brightening Dual Serum LP-content"
+    }
+  },
+  "order": [
+    "section_1",
+    "section_2",
+    "section_3"
+  ]
+}

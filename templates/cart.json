@@ -1,0 +1,14 @@
+{
+  "sections": {
+    "section_1": {
+      "type": "cart-template"
+    },
+    "section_2": {
+      "type": "custom-cart-content"
+    }
+  },
+  "order": [
+    "section_1",
+    "section_2"
+  ]
+}

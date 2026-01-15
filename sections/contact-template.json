@@ -1,0 +1,431 @@
+{
+  "content": "<div class=\"contact-area\" id=\"section-{{ section.id }}\">\n  <div class=\"{% if section.settings.container_style == 'style_1' %}container {% else %} container-fluid{% endif %}\">\n    <div class=\"custom-row-2\">\n      <div class=\"container contantFrst\">\n        <div class=\"row\">\n          <div class=\"col-lg-5 col-md-5\">\n            <h1 class=\"getIN\">Get <span>in</span> Touch</h1>\n            <h4>At Yessé, we want to give the best service possible to everyone who gets in touch with us!</h4>\n            <p>\n              We know that our customers have come to trust Yessé for the world’s finest skin products. Part of that\n              trust has been built from the many times we’ve helped people with their skincare issues and addressed\n              their concerns.\n            </p>\n            <p>So, if you need help, the Yessé team is here for you.</p>\n            <p>\n              If you have a question about an order, our products, or our website, please feel free to contact Yessé\n              today.\n            </p>\n          </div>\n          <div class=\"col-lg-7 col-md-7\">\n            <img\n              src=\"https://cdn.shopify.com/s/files/1/0555/6148/6492/files/kanyae.jpg?v=1670537507\"\n              alt=\"Uncomplicated skincare routine\"\n            >\n          </div>\n        </div>\n      </div>\n\n      {% include 'contact_location' %}\n      <div class=\"contact-form1\">\n        <div class=\"container\">\n          <div class=\"row\">\n            {% include 'contact_page_form' %}\n          </div>\n        </div>\n      </div>\n    </div>\n\n    {% if section.settings.google_map_enable %}\n      <!-- {% include 'contact-map' %} -->\n    {% endif %}\n  </div>\n</div>\n\n{%- include 'section-style' -%}",
+  "name": "Contact Template",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Container Style"
+    },
+    {
+      "type": "radio",
+      "id": "container_style",
+      "label": "Container Style",
+      "options": [
+        {
+          "value": "style_1",
+          "label": "Container"
+        },
+        {
+          "value": "style_2",
+          "label": "Container Fulied"
+        }
+      ],
+      "default": "style_1"
+    },
+    {
+      "type": "header",
+      "content": "Google Map"
+    },
+    {
+      "type": "checkbox",
+      "id": "google_map_enable",
+      "label": "Google Map Enable",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "api_key",
+      "label": "API Key",
+      "info": "AIzaSyCGM-62ap9R-huo50hJDn05j3x-mU9151Y",
+      "default": "AIzaSyCGM-62ap9R-huo50hJDn05j3x-mU9151Y"
+    },
+    {
+      "type": "text",
+      "id": "latlong",
+      "label": "Latitude longitude",
+      "info": "40.709896, -73.995481",
+      "default": "40.709896, -73.995481"
+    },
+    {
+      "type": "image_picker",
+      "id": "map_img",
+      "label": "Icon",
+      "info": "Image Size 105 X 105"
+    },
+    {
+      "type": "header",
+      "content": "Contact Number"
+    },
+    {
+      "type": "text",
+      "id": "Contact_icon",
+      "label": "Icon",
+      "default": "phone",
+      "info": "FontAwsome Icon [See Icon](https://fontawsome.com/icons)"
+    },
+    {
+      "type": "textarea",
+      "id": "Contact_number",
+      "label": "Number 1",
+      "default": "+012 345 678 102"
+    },
+    {
+      "type": "textarea",
+      "id": "Contact_number_2",
+      "label": "Number 2",
+      "default": "+012 345 678 102"
+    },
+    {
+      "type": "header",
+      "content": "Email"
+    },
+    {
+      "type": "text",
+      "id": "email_icon",
+      "label": "Icon",
+      "default": "globe",
+      "info": "FontAwsome Icon [See Icon](https://fontawsome.com/icons)"
+    },
+    {
+      "type": "textarea",
+      "id": "email_number",
+      "label": "Email 1",
+      "default": "urname@email.com"
+    },
+    {
+      "type": "textarea",
+      "id": "email_number_2",
+      "label": "Email 2",
+      "default": "urwebsitenaem.com"
+    },
+    {
+      "type": "header",
+      "content": "Address"
+    },
+    {
+      "type": "text",
+      "id": "map_icon",
+      "label": "Icon",
+      "default": "map-marker",
+      "info": "FontAwsome Icon [See Icon](https://fontawsome.com/icons)"
+    },
+    {
+      "type": "textarea",
+      "id": "address_1",
+      "label": "Address 1",
+      "default": "Address goes here,"
+    },
+    {
+      "type": "textarea",
+      "id": "address_2",
+      "label": "Address 2",
+      "default": "street, Crossroad 123."
+    },
+    {
+      "type": "header",
+      "content": "Social Icon"
+    },
+    {
+      "type": "text",
+      "id": "social_title",
+      "label": "Social Title",
+      "default": "Follow Us"
+    },
+    {
+      "type": "checkbox",
+      "id": "contact_social_enable",
+      "label": "Contact Social Enable",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "social_icon_1_name",
+      "label": "Social Icon Name",
+      "default": "facebook",
+      "info": "FontAwsome Icon [See Icon](https://fontawsome.com/icons)"
+    },
+    {
+      "type": "url",
+      "id": "socila_icon_1_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Icon With Link"
+    },
+    {
+      "type": "text",
+      "id": "social_icon_2_name",
+      "label": "Social Icon Name",
+      "default": "pinterest-p",
+      "info": "FontAwsome Icon [See Icon](https://fontawsome.com/icons)"
+    },
+    {
+      "type": "url",
+      "id": "socila_icon_2_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Icon With Link"
+    },
+    {
+      "type": "text",
+      "id": "social_icon_3_name",
+      "label": "Social Icon Name",
+      "default": "tumblr",
+      "info": "FontAwsome Icon [See Icon](https://fontawsome.com/icons)"
+    },
+    {
+      "type": "url",
+      "id": "socila_icon_3_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Icon With Link"
+    },
+    {
+      "type": "text",
+      "id": "social_icon_4_name",
+      "label": "Social Icon Name",
+      "default": "vimeo",
+      "info": "FontAwsome Icon [See Icon](https://fontawsome.com/icons)"
+    },
+    {
+      "type": "url",
+      "id": "socila_icon_4_link",
+      "label": "Link"
+    },
+    {
+      "type": "text",
+      "id": "social_icon_5_name",
+      "label": "Social Icon Name",
+      "default": "twitter",
+      "info": "FontAwsome Icon [See Icon](https://fontawsome.com/icons)"
+    },
+    {
+      "type": "url",
+      "id": "socila_icon_5_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Contact Form"
+    },
+    {
+      "type": "text",
+      "id": "contact_form_title",
+      "label": "Contact Form Title",
+      "default": "Get In Touch"
+    },
+    {
+      "type": "text",
+      "id": "name_placeholder",
+      "label": "Name",
+      "default": "Name"
+    },
+    {
+      "type": "text",
+      "id": "email_placeholder",
+      "label": "Email",
+      "default": "Email"
+    },
+    {
+      "type": "text",
+      "id": "subject_placeholder",
+      "label": "Subject",
+      "default": "Subject"
+    },
+    {
+      "type": "text",
+      "id": "message_placeholder",
+      "label": "Massage",
+      "default": "Message"
+    },
+    {
+      "type": "text",
+      "id": "button_title",
+      "label": "Buttom Title",
+      "default": "SEND"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "section_padding",
+      "name": "Section Padding",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "header",
+          "content": "Large/Desktop Device"
+        },
+        {
+          "type": "range",
+          "id": "section_padding_top",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Padding Top",
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "section_padding_bottom",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Padding Bottom",
+          "unit": "px",
+          "default": 100
+        },
+        {
+          "type": "header",
+          "content": "Tablet Device"
+        },
+        {
+          "type": "range",
+          "id": "section_padding_top_md",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Padding Top",
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "section_padding_bottom_md",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Padding Bottom",
+          "unit": "px",
+          "default": 80
+        },
+        {
+          "type": "header",
+          "content": "Mobile Device"
+        },
+        {
+          "type": "range",
+          "id": "section_padding_top_xs",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Padding Top",
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "section_padding_bottom_xs",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Padding Bottom",
+          "unit": "px",
+          "default": 60
+        }
+      ]
+    },
+    {
+      "type": "section_margin",
+      "name": "Section Margin",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "header",
+          "content": "Large/Desktop Device"
+        },
+        {
+          "type": "range",
+          "id": "section_margin_top",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Margin Top",
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "section_margin_bottom",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Margin Bottom",
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "header",
+          "content": "Tablet Device"
+        },
+        {
+          "type": "range",
+          "id": "section_margin_top_md",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Margin Top",
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "section_margin_bottom_md",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Margin Bottom",
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "header",
+          "content": "Mobile Device"
+        },
+        {
+          "type": "range",
+          "id": "section_margin_top_xs",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Margin Top",
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "section_margin_bottom_xs",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Margin Bottom",
+          "unit": "px",
+          "default": 0
+        }
+      ]
+    },
+    {
+      "type": "section_background",
+      "name": "Section Background",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "section_bg_image",
+          "label": "BG Image"
+        },
+        {
+          "type": "color",
+          "id": "section_bg_color",
+          "label": "BG Color",
+          "default": "#ffffff"
+        }
+      ]
+    }
+  ]
+}

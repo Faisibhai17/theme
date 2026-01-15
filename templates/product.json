@@ -1,0 +1,42 @@
+{
+  "sections": {
+    "section_1": {
+      "type": "product-template"
+    },
+    "section_2": {
+      "type": "single-product-tab"
+    },
+    "section_3": {
+      "type": "video-text"
+    },
+    "section_4": {
+      "type": "product-image-section"
+    },
+    "section_5": {
+      "type": "rich-text"
+    },
+    "section_6": {
+      "type": "rich-text-ourmission"
+    },
+    "section_7": {
+      "type": "related-product"
+    },
+    "section_8": {
+      "type": "instagram-feed"
+    },
+    "section_9": {
+      "type": "custom-product-content"
+    }
+  },
+  "order": [
+    "section_1",
+    "section_2",
+    "section_3",
+    "section_4",
+    "section_5",
+    "section_6",
+    "section_7",
+    "section_8",
+    "section_9"
+  ]
+}

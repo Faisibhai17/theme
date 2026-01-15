@@ -1,0 +1,5 @@
+{
+  "content": "{% layout none %}\n<html>\n  {{ content_for_header }}\n  <script src=\"https://whai-cdn.nyc3.cdn.digitaloceanspaces.com/quiz/production/script_tag.js\"></script>\n  <head>\n    <meta charset=\"utf-8\">\n    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\n    <meta name=\"viewport\" content=\"width=device-width,initial-scale=1\">\n  </head>\n  <body>\n    <askwhai-quiz-root mode=\"embed\" quiz=\"8795\"></askwhai-quiz-root>\n  </body>\n</html>",
+  "name": "Custom page-vqb-quiz-8795 Content",
+  "settings": []
+}

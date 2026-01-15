@@ -1,0 +1,290 @@
+{
+  "content": "{% if section.settings.banner_area_enable %}\n  <div class=\"banner-area\" id=\"section-{{ section.id }}\">\n    <div class=\"{% if section.settings.container_style == 'style_1' %}container {% else %} container-fluid{% endif %}\">\n      <div class=\"{% if section.settings.container_style == 'style_1' %}row {% else %}  custom-row-2 {% endif %}\">\n        {% for block in section.blocks %}\n          {% case block.type %}\n            {% when 'banner' %}\n              <div class=\"col-lg-{{ block.settings.banner_coloum }} col-md-6 col-12\">\n                <div class=\"{% if block.settings.text_style == 'text_style_1' %}single-banner {% else %} single-banner-2 {% endif %} mb-30\">\n                  <a href=\"{{ block.settings.banner_img_url }}\">\n                    <img\n                      src=\"{% if block.settings.banner_img %}{{ block.settings.banner_img | img_url: 'master' }}{% else %}http:\\/\\/via.placeholder.com\\/370x230{% endif %}\"\n                      alt=\"{{ block.settings.banner_img.alt }}\"\n                    >\n                  </a>\n                  {% if block.settings.banner_title != ''\n                    or block.settings.banner_subtitle != ''\n                    or block.settings.button_icon != ''\n                  %}\n                    <div class=\"{% if block.settings.text_style == 'text_style_1' %}banner-content {% else %} banner-content-2 {% endif %}\">\n                      <h3>{{ block.settings.banner_title }}</h3>\n                      <h4>{{ block.settings.banner_subtitle }}</h4>\n                      <a href=\"{{ block.settings.arrow_url }}\"\n                        ><i class=\"fa fa-{{ block.settings.button_icon }}\"></i\n                      ></a>\n                    </div>\n                  {% endif %}\n                </div>\n              </div>\n          {% endcase %}\n        {% endfor %}\n      </div>\n    </div>\n  </div>\n{% endif %}\n\n{%- include 'section-style' -%}",
+  "name": "Banner",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Container Style"
+    },
+    {
+      "type": "radio",
+      "id": "container_style",
+      "label": "Container Style",
+      "options": [
+        {
+          "value": "style_1",
+          "label": "Container"
+        },
+        {
+          "value": "style_2",
+          "label": "Container Fulied"
+        }
+      ],
+      "default": "style_1"
+    },
+    {
+      "type": "checkbox",
+      "id": "banner_area_enable",
+      "label": "Banner Area Enable",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "banner",
+      "name": "Banner",
+      "settings": [
+        {
+          "type": "text",
+          "id": "banner_coloum",
+          "label": "Banner Coloum",
+          "default": "4",
+          "info": "Follow Bootstrap Column"
+        },
+        {
+          "type": "image_picker",
+          "id": "banner_img",
+          "label": "Image",
+          "info": "Recommended Size: 370 x 230px"
+        },
+        {
+          "type": "url",
+          "id": "banner_img_url",
+          "label": "URL"
+        },
+        {
+          "type": "header",
+          "content": "Text Style"
+        },
+        {
+          "type": "radio",
+          "id": "text_style",
+          "label": "Product Text Style",
+          "options": [
+            {
+              "value": "text_style_1",
+              "label": "Style 1"
+            },
+            {
+              "value": "text_style_2",
+              "label": "Style 2"
+            }
+          ],
+          "default": "text_style_1"
+        },
+        {
+          "type": "text",
+          "id": "banner_title",
+          "label": "Banner Title",
+          "default": "Watches"
+        },
+        {
+          "type": "text",
+          "id": "banner_subtitle",
+          "label": "Banner Subtitle",
+          "default": "Starting at <span>$99.00</span>",
+          "info": "Use of <span>"
+        },
+        {
+          "type": "text",
+          "id": "button_icon",
+          "label": "Icon",
+          "default": "long-arrow-right",
+          "info": "[See More Icon](https://fontawesome.com/icons)"
+        },
+        {
+          "type": "url",
+          "id": "arrow_url",
+          "label": "URL"
+        }
+      ]
+    },
+    {
+      "type": "section_padding",
+      "name": "Section Padding",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "header",
+          "content": "Large/Desktop Device"
+        },
+        {
+          "type": "range",
+          "id": "section_padding_top",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Padding Top",
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "section_padding_bottom",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Padding Bottom",
+          "unit": "px",
+          "default": 100
+        },
+        {
+          "type": "header",
+          "content": "Tablet Device"
+        },
+        {
+          "type": "range",
+          "id": "section_padding_top_md",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Padding Top",
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "section_padding_bottom_md",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Padding Bottom",
+          "unit": "px",
+          "default": 80
+        },
+        {
+          "type": "header",
+          "content": "Mobile Device"
+        },
+        {
+          "type": "range",
+          "id": "section_padding_top_xs",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Padding Top",
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "section_padding_bottom_xs",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Padding Bottom",
+          "unit": "px",
+          "default": 60
+        }
+      ]
+    },
+    {
+      "type": "section_margin",
+      "name": "Section Margin",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "header",
+          "content": "Large/Desktop Device"
+        },
+        {
+          "type": "range",
+          "id": "section_margin_top",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Margin Top",
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "section_margin_bottom",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Margin Bottom",
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "header",
+          "content": "Tablet Device"
+        },
+        {
+          "type": "range",
+          "id": "section_margin_top_md",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Margin Top",
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "section_margin_bottom_md",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Margin Bottom",
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "header",
+          "content": "Mobile Device"
+        },
+        {
+          "type": "range",
+          "id": "section_margin_top_xs",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Margin Top",
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "section_margin_bottom_xs",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Margin Bottom",
+          "unit": "px",
+          "default": 0
+        }
+      ]
+    },
+    {
+      "type": "section_background",
+      "name": "Section Background",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "section_bg_image",
+          "label": "BG Image"
+        },
+        {
+          "type": "color",
+          "id": "section_bg_color",
+          "label": "BG Color",
+          "default": "#ffffff"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Banner",
+      "category": "2. banner",
+      "blocks": [
+        {
+          "type": "section_padding"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,249 @@
+{
+  "content": "<div class=\"subscribe-area pl-30 pr-30\" id=\"section-{{ section.id }}\">\n  <div class=\"{% if section.settings.container_style == 'style_1' %}container {% else %} container-fluid{% endif %}\">\n    <div class=\"row no-gutters\">\n      <div class=\"col-xl-6 col-lg-8 ml-auto mr-auto\">\n        <div class=\"subscribe-style-2 text-center\">\n          {% if section.settings.newslatter_title != '' %}\n            <h2>{{ section.settings.newslatter_title }}</h2>\n          {% endif %}\n          {% if section.settings.newslatter_description != '' %}\n            <p>{{ section.settings.newslatter_description }}</p>\n          {% endif %}\n          <div class=\"subscribe-form-2\">\n            <form\n              action=\"{{ settings.newsletter_action }}\"\n              class=\"newsletter-form mc-form validate\"\n              method=\"post\"\n              id=\"mc-embedded-subscribe-form\"\n              name=\"mc-embedded-subscribe-form\"\n              target=\"_blank\"\n              novalidate\n            >\n              <div id=\"mc_embed_signup_scroll\" class=\"mc-form\">\n                <div id=\"mc-form\" class=\"mc-form subscribe-form\">\n                  <input\n                    type=\"email\"\n                    value=\"\"\n                    name=\"EMAIL\"\n                    class=\"newsletter-form__input email\"\n                    id=\"mce-EMAIL\"\n                    placeholder=\"{{ section.settings.newslatter_placeholder_title }}\"\n                    required\n                  >\n                  <div class=\"clear-2\">\n                    <input\n                      class=\"button\"\n                      type=\"submit\"\n                      name=\"subscribe\"\n                      value=\"{{ section.settings.newslatter_button_title }}\"\n                    >\n                  </div>\n                </div>\n              </div>\n            </form>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n\n{%- include 'section-style' -%}\n\n<style>\n  .subscribe-style-2 .subscribe-form-2 form .clear-2 {\n      background: rgba(0, 0, 0, 0) url({% if section.settings.arrow_icon %}{{ section.settings.arrow_icon | img_url: 'master' }}{% else %}http:\\/\\/via.placeholder.com\\/30x20{% endif %}) no-repeat scroll right 0 center;\n  }\n</style>",
+  "name": "Newslatter Area",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Container Style"
+    },
+    {
+      "type": "radio",
+      "id": "container_style",
+      "label": "Container Style",
+      "options": [
+        {
+          "value": "style_1",
+          "label": "Container"
+        },
+        {
+          "value": "style_2",
+          "label": "Container Fulied"
+        }
+      ],
+      "default": "style_2"
+    },
+    {
+      "type": "header",
+      "content": "Section Heading"
+    },
+    {
+      "type": "text",
+      "id": "newslatter_title",
+      "label": "Newslatter Title",
+      "default": "Subscribe"
+    },
+    {
+      "type": "textarea",
+      "id": "newslatter_description",
+      "label": "Newslatter Description",
+      "default": "Subscribe to our newsletter to receive news on update"
+    },
+    {
+      "type": "textarea",
+      "id": "newslatter_placeholder_title",
+      "label": "Newslatter Placeholder Title",
+      "default": "Enter your email address"
+    },
+    {
+      "type": "text",
+      "id": "newslatter_button_title",
+      "label": "Button Title",
+      "default": "Subscribe"
+    },
+    {
+      "type": "image_picker",
+      "id": "arrow_icon",
+      "label": "Icon Image",
+      "info": "Recommended Size: 30 x 20px"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "section_padding",
+      "name": "Section Padding",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "header",
+          "content": "Large/Desktop Device"
+        },
+        {
+          "type": "range",
+          "id": "section_padding_top",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Padding Top",
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "section_padding_bottom",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Padding Bottom",
+          "unit": "px",
+          "default": 100
+        },
+        {
+          "type": "header",
+          "content": "Tablet Device"
+        },
+        {
+          "type": "range",
+          "id": "section_padding_top_md",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Padding Top",
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "section_padding_bottom_md",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Padding Bottom",
+          "unit": "px",
+          "default": 80
+        },
+        {
+          "type": "header",
+          "content": "Mobile Device"
+        },
+        {
+          "type": "range",
+          "id": "section_padding_top_xs",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Padding Top",
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "section_padding_bottom_xs",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Padding Bottom",
+          "unit": "px",
+          "default": 60
+        }
+      ]
+    },
+    {
+      "type": "section_margin",
+      "name": "Section Margin",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "header",
+          "content": "Large/Desktop Device"
+        },
+        {
+          "type": "range",
+          "id": "section_margin_top",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Margin Top",
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "section_margin_bottom",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Margin Bottom",
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "header",
+          "content": "Tablet Device"
+        },
+        {
+          "type": "range",
+          "id": "section_margin_top_md",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Margin Top",
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "section_margin_bottom_md",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Margin Bottom",
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "header",
+          "content": "Mobile Device"
+        },
+        {
+          "type": "range",
+          "id": "section_margin_top_xs",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Margin Top",
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "section_margin_bottom_xs",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Margin Bottom",
+          "unit": "px",
+          "default": 0
+        }
+      ]
+    },
+    {
+      "type": "section_background",
+      "name": "Section Background",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "section_bg_image",
+          "label": "BG Image"
+        },
+        {
+          "type": "color",
+          "id": "section_bg_color",
+          "label": "BG Color",
+          "default": "#ffffff"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Newslatter Area",
+      "category": "5. about",
+      "blocks": [
+        {
+          "type": "section_padding"
+        }
+      ]
+    }
+  ]
+}

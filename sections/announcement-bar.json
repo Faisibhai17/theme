@@ -1,0 +1,69 @@
+{
+  "content": "<link\n  rel=\"stylesheet\"\n  href=\"https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css\"\n/>\n\n<link\n  rel=\"stylesheet\"\n  href=\"https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css\"\n/>\n\n{% if section.blocks.size > 0 %}\n\n<!-- ================= STYLES ================= -->\n<style>\n  .announcement-slider {\n    opacity: 0;\n    visibility: hidden;\n  }\n\n  .announcement-slider.slick-initialized {\n    opacity: 1;\n    visibility: visible;\n  }\n\n  .announcement-slide {\n    background-color: {{ section.settings.color_bg }};\n    padding: 10px 0;\n    color: {{ section.settings.color_text }};\n    font-size: {{ section.settings.font_size }}px;\n    text-align: center;\n    font-weight: 600;\n  }\n\n  .announcement-slide a {\n    color: {{ section.settings.color_text }};\n    text-decoration: none;\n  }\n\n  .announcement-slide a:hover {\n    color: {{ section.settings.color_text_hover }};\n  }\n\n  @media screen and (max-width: 991px) {\n    .announcement-slide {\n      font-size: 12px;\n    }\n  }\n</style>\n\n<!-- ================= HTML ================= -->\n<div class=\"announcement-slider js-announcement-slick-{{ section.id }}\">\n  {% for block in section.blocks %}\n    <div class=\"announcement-slide\">\n      {% if block.settings.link != blank %}\n        <a href=\"{{ block.settings.link }}\">{{ block.settings.text }}</a>\n      {% else %}\n        {{ block.settings.text }}\n      {% endif %}\n    </div>\n  {% endfor %}\n</div>\n<script\n  src=\"https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js\"\n  defer\n></script>\n<script src=\"https://code.jquery.com/jquery-3.6.0.min.js\"></script>\n\n<!-- ================= SCRIPT ================= -->\n<script>\n(function () {\n\n  function initAnnouncementSlider() {\n    var $slider = $('.js-announcement-slick-{{ section.id }}');\n\n    if (!$slider.length) return;\n\n    // Prevent multiple initializations (FIXES CRASH)\n    if ($slider.hasClass('slick-initialized')) {\n      $slider.slick('unslick');\n    }\n\n    $slider.on('init', function () {\n      $slider.addClass('slick-initialized');\n    });\n\n    $slider.slick({\n      infinite: true,\n      autoplay: true,\n      autoplaySpeed: 2000,\n      arrows: false,\n      dots: false,\n      speed: 500,\n      slidesToShow: 1,\n      slidesToScroll: 1,\n      pauseOnHover: false,\n      pauseOnFocus: false,\n      adaptiveHeight: false\n    });\n  }\n\n  // Normal page load\n  document.addEventListener('DOMContentLoaded', initAnnouncementSlider);\n\n  // Shopify section reload (Theme Editor support)\n  document.addEventListener('shopify:section:load', function (event) {\n    if (event.target.querySelector('.js-announcement-slick-{{ section.id }}')) {\n      initAnnouncementSlider();\n    }\n  });\n\n})();\n</script>\n\n{% endif %}",
+  "name": "Announcement Bar (Slider)",
+  "settings": [
+    {
+      "type": "range",
+      "id": "header_padding",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Header padding",
+      "default": 0
+    },
+    {
+      "type": "color",
+      "id": "color_bg",
+      "label": "Background color",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "color_text",
+      "label": "Text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "color_text_hover",
+      "label": "Hover color",
+      "default": "#eeeeee"
+    },
+    {
+      "type": "range",
+      "id": "font_size",
+      "min": 10,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "label": "Font size",
+      "default": 14
+    }
+  ],
+  "blocks": [
+    {
+      "type": "announcement",
+      "name": "Announcement",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Announcement text",
+          "default": "This is an example announcement"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link (optional)"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Announcement Bar Slider",
+      "category": "Header"
+    }
+  ]
+}

@@ -1,0 +1,316 @@
+{
+  "content": "<div class=\"testimonial-area\" id=\"section-{{ section.id }}\">\n  <div class=\"{% if section.settings.container_style == 'style_1' %}container {% else %} container-fluid{% endif %}\">\n    <div class=\"row\">\n      <div class=\"col-lg-10 ml-auto mr-auto\">\n        <div class=\"testimonial-active owl-carousel nav-style-1 nav-testi-style\">\n          {% for block in section.blocks %}\n            {% case block.type %}\n              {% when 'testimonial' %}\n                <div class=\"single-testimonial text-center\">\n                  {% if block.settings.author_image %}\n                    <img\n                      src=\"{{ block.settings.author_image | img_url: 'compact' }}\"\n                      alt=\"Testimonials skincare products\"\n                    >\n                  {% endif %}\n                  {% if block.settings.testimonial_description != '' %}\n                    <p>{{ block.settings.testimonial_description }}</p>\n                  {% endif %}\n                  {% if block.settings.client_name != '' or block.settings.client_position != '' %}\n                    <div class=\"client-info\">\n                      {% if block.settings.client_map_icon %}\n                        <i class=\"fa fa-{{ block.settings.client_map_icon }}\"></i>\n                      {% endif %}\n                      <h5>{{ block.settings.client_name }}</h5>\n                      <span>{{ block.settings.client_position }}</span>\n                    </div>\n                  {% endif %}\n                </div>\n            {% endcase %}\n          {% endfor %}\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n\n{%- include 'section-style' -%}\n\n<script>\n\n  /* Testimonial active */\n  $('#section-{{ section.id }} .testimonial-active').owlCarousel({\n      loop: true,\n    {% if settings.rtl_enable %} rtl:true, {% endif %}\n      nav: true,\n      autoplay: true,\n      autoHeight : true,\n      navText: ['<i class=\"pe-7s-angle-left\"></i>', '<i class=\"pe-7s-angle-right\"></i>'],\n      autoplayTimeout: 5000,\n      item: {{ section.settings.testimonial_cursole_handle }},\n      margin: 30,\n      responsive: {\n          0: {\n              items: 1,\n              autoplay: true,\n          },\n          576: {\n              items: 1\n          },\n          768: {\n              items: 1\n          },\n          1000: {\n              items: {{ section.settings.testimonial_cursole_handle }}\n          }\n      }\n  })\n</script>",
+  "name": "Testimonial Area",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Container Style"
+    },
+    {
+      "type": "radio",
+      "id": "container_style",
+      "label": "Container Style",
+      "options": [
+        {
+          "value": "style_1",
+          "label": "Container"
+        },
+        {
+          "value": "style_2",
+          "label": "Container Fulied"
+        }
+      ],
+      "default": "style_1"
+    },
+    {
+      "type": "header",
+      "content": "Testimonial Cursole"
+    },
+    {
+      "type": "select",
+      "id": "testimonial_cursole_handle",
+      "label": "Testimonial Cursole",
+      "options": [
+        {
+          "value": "1",
+          "label": "1 Testimonial"
+        },
+        {
+          "value": "2",
+          "label": "2 Testimonial"
+        },
+        {
+          "value": "3",
+          "label": "3 Testimonial"
+        },
+        {
+          "value": "4",
+          "label": "4 Testimonial"
+        },
+        {
+          "value": "5",
+          "label": "5 Testimonial"
+        },
+        {
+          "value": "6",
+          "label": "6 Testimonial"
+        },
+        {
+          "value": "7",
+          "label": "7 Testimonial"
+        },
+        {
+          "value": "8",
+          "label": "8 Testimonial"
+        },
+        {
+          "value": "9",
+          "label": "9 Testimonial"
+        },
+        {
+          "value": "10",
+          "label": "10 Testimonial"
+        },
+        {
+          "value": "11",
+          "label": "11 Testimonial"
+        },
+        {
+          "value": "12",
+          "label": "12 Testimonial"
+        }
+      ],
+      "default": "1"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "testimonial",
+      "name": "Testimonial",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "author_image",
+          "label": "Author Image",
+          "info": "Recommended Size: 150 x 150px"
+        },
+        {
+          "type": "textarea",
+          "id": "testimonial_description",
+          "label": "Testimonial Description",
+          "default": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
+        },
+        {
+          "type": "header",
+          "content": "Map Icon"
+        },
+        {
+          "type": "text",
+          "id": "client_map_icon",
+          "label": "Icon",
+          "default": "map-signs",
+          "info": "Fontawesome Icon [See Icon](https://fontawesome.com/v4.7.0/icons/)"
+        },
+        {
+          "type": "text",
+          "id": "client_name",
+          "label": "Client Name",
+          "default": "Grace Alvarado"
+        },
+        {
+          "type": "text",
+          "id": "client_position",
+          "label": "Client Position",
+          "default": "Customer"
+        }
+      ]
+    },
+    {
+      "type": "section_padding",
+      "name": "Section Padding",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "header",
+          "content": "Large/Desktop Device"
+        },
+        {
+          "type": "range",
+          "id": "section_padding_top",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Padding Top",
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "section_padding_bottom",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Padding Bottom",
+          "unit": "px",
+          "default": 100
+        },
+        {
+          "type": "header",
+          "content": "Tablet Device"
+        },
+        {
+          "type": "range",
+          "id": "section_padding_top_md",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Padding Top",
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "section_padding_bottom_md",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Padding Bottom",
+          "unit": "px",
+          "default": 80
+        },
+        {
+          "type": "header",
+          "content": "Mobile Device"
+        },
+        {
+          "type": "range",
+          "id": "section_padding_top_xs",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Padding Top",
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "section_padding_bottom_xs",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Padding Bottom",
+          "unit": "px",
+          "default": 60
+        }
+      ]
+    },
+    {
+      "type": "section_margin",
+      "name": "Section Margin",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "header",
+          "content": "Large/Desktop Device"
+        },
+        {
+          "type": "range",
+          "id": "section_margin_top",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Margin Top",
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "section_margin_bottom",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Margin Bottom",
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "header",
+          "content": "Tablet Device"
+        },
+        {
+          "type": "range",
+          "id": "section_margin_top_md",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Margin Top",
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "section_margin_bottom_md",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Margin Bottom",
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "header",
+          "content": "Mobile Device"
+        },
+        {
+          "type": "range",
+          "id": "section_margin_top_xs",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Margin Top",
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "section_margin_bottom_xs",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Margin Bottom",
+          "unit": "px",
+          "default": 0
+        }
+      ]
+    },
+    {
+      "type": "section_background",
+      "name": "Section Background",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "section_bg_image",
+          "label": "BG Image"
+        },
+        {
+          "type": "color",
+          "id": "section_bg_color",
+          "label": "BG Color",
+          "default": "#ffffff"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Testimonial Area",
+      "category": "5. about",
+      "blocks": [
+        {
+          "type": "section_padding"
+        }
+      ]
+    }
+  ]
+}

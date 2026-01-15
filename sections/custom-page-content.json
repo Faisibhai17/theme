@@ -1,0 +1,5 @@
+{
+  "content": "<div class=\"create-custom-page\">\n  <div class=\"container\">\n    {{ page.content }}\n  </div>\n</div>",
+  "name": "Custom page Content",
+  "settings": []
+}

@@ -1,0 +1,356 @@
+{
+  "content": "<div class=\"cart-main-area\" id=\"section-{{ section.id }}\">\n  <div class=\"container\">\n    {%- if cart.item_count > 0 -%}\n      <form action=\"/cart\" method=\"post\" novalidate class=\"cart\">\n        {% if section.settings.cart_title != '' %}\n          <h3 class=\"cart-page-title\">{{ section.settings.section_title }}</h3>\n        {% endif %}\n        <div class=\"row\">\n          <div class=\"col-lg-12 col-md-12 col-sm-12 col-12\">\n            <div class=\"table-content table-responsive cart-table-content\">\n              <table>\n                <thead>\n                  <tr>\n                    <th>{{ section.settings.table_image_title }}</th>\n                    <th>{{ section.settings.table_product_title }}</th>\n                    <th>{{ section.settings.table_price_title }}</th>\n                    <th>{{ section.settings.table_quantity_title }}</th>\n                    <th>{{ section.settings.table_total_title }}</th>\n                    <th>{{ section.settings.table_reomove_title }}</th>\n                  </tr>\n                </thead>\n                <tbody>\n                  {% for item in cart.items %}\n                    <tr>\n                      <td class=\"product-thumbnail\">\n                        <a href=\"{{ item.url }}\"\n                          ><img src=\"{{ item | img_url: 'compact' }}\" alt=\"{{ item.title | escape }}\"\n                        ></a>\n                      </td>\n                      <td class=\"product-name\">\n                        <a href=\"{{ item.url }}\">{{ item.product.title }}</a>\n                        {%- unless item.variant.title contains 'Default' -%}\n                          <span>{{ item.variant.title }}</span>\n                        {%- endunless -%}\n                        {% if section.settings.cart_vendor_enable %}\n                          <p>{{ item.vendor }}</p>\n                        {% endif %}\n                      </td>\n                      <td class=\"product-price-cart\">\n                        <span class=\"amount\">{{ item.price | money }}</span>\n                      </td>\n                      <td class=\"product-quantity\">\n                        <div class=\"cart-plus-minus\">\n                          <input class=\"cart-plus-minus-box\" type=\"text\" value=\"{{ item.quantity }}\" name=\"updates[]\">\n                        </div>\n                      </td>\n                      <td class=\"product-subtotal pro-subtotal\">{{ item.line_price | money }}</td>\n                      <td class=\"product-remove\">\n                        <a href=\"/cart/change?line={{ forloop.index }}&amp;quantity=0\"><i class=\"fa fa-times\"></i></a>\n                      </td>\n                    </tr>\n                  {% endfor %}\n                </tbody>\n              </table>\n            </div>\n\n            <div class=\"row\">\n              <div class=\"col-lg-12\">\n                <div class=\"cart-shiping-update-wrapper\">\n                  <div class=\"cart-shiping-update\">\n                    <a href=\"javascript:history.back()\">{{ section.settings.continue_shopping_title }}</a>\n                  </div>\n                  <div class=\"cart-clear\">\n                    <input name=\"update\" type=\"submit\" value=\"{{ section.settings.update_button_title }}\">\n                    <a href=\"/cart/clear\">{{ section.settings.clear_cart_title }}</a>\n                  </div>\n                </div>\n              </div>\n            </div>\n\n            <div class=\"row\">\n              <div class=\"col-lg-8 col-md-6 col-12\">\n                <div class=\"discount-code-wrapper\">\n                  {%- if section.settings.cart_feature == 'cart_note' -%}\n                    <div class=\"title-wrap\">\n                      <h4 class=\"cart-bottom-title section-bg-gray\">{{ section.settings.cart_note_title }}</h4>\n                      <textarea name=\"note\" class=\"\" id=\"CartSpecialInstructions\">{{ cart.note }}</textarea>\n                    </div>\n                  {%- endif -%}\n                  {%- if section.settings.cart_feature == 'shipping_calculator' -%}\n                    {%- include 'cart-shipping-calculator' -%}\n                  {%- endif -%}\n                </div>\n              </div>\n\n              <div class=\"col-lg-4 col-md-6 col-12\">\n                <div class=\"grand-totall\">\n                  <div class=\"title-wrap\">\n                    <h4 class=\"cart-bottom-title section-bg-gary-cart\">\n                      {{ section.settings.cart_total_heading_title }}\n                    </h4>\n                  </div>\n                  <h5>\n                    {{ section.settings.cart_subtotal_title }}\n                    <span class=\"amount\"\n                      ><span id=\"bk-cart-subtotal-price\">{{ cart.total_price | money }}</span></span\n                    >\n                  </h5>\n\n                  <h4 class=\"grand-totall-title\">\n                    {{ section.settings.cart_total_title }}\n                    <span class=\"amount\"\n                      ><span id=\"bk-cart-subtotal-price\">{{ cart.total_price | money }}</span></span\n                    >\n                  </h4>\n\n                  {%- if cart.total_discounts > 0 -%}\n                    {% assign savings = cart.total_discounts | money %}\n                    <p>\n                      <span class=\"cart-subtotal__savings\"\n                        ><em>{{ 'cart.general.savings_html' | t: price: savings }}</em></span\n                      >\n                    </p>\n                  {%- endif -%}\n\n                  <button type=\"submit\" name=\"checkout\">{{ section.settings.checkout_button_title }}</button>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n      </form>\n    {%- else -%}\n      <div class=\"row\">\n        <div class=\"col-lg-12 col-12\">\n          <div class=\"empty-cart-page\">\n            <h2>{{ section.settings.shopping_cart_title }}</h2>\n            <h3>{{ section.settings.cart_empty_title }}</h3>\n            <p>\n              {{ section.settings.cart_continue_title }}\n              <a href=\"/collections/all\">{{ section.settings.here_title }}</a>\n            </p>\n          </div>\n        </div>\n      </div>\n    {%- endif -%}\n  </div>\n</div>\n\n{%- include 'section-style' -%}",
+  "name": "Cart Page",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Title"
+    },
+    {
+      "type": "text",
+      "id": "section_title",
+      "label": "Section Title",
+      "default": "Your cart items"
+    },
+    {
+      "type": "header",
+      "content": "Table Heading Title"
+    },
+    {
+      "type": "text",
+      "id": "table_image_title",
+      "label": "Image Heading Title",
+      "default": "Image"
+    },
+    {
+      "type": "text",
+      "id": "table_product_title",
+      "label": "Product Heading Title",
+      "default": "Product"
+    },
+    {
+      "type": "text",
+      "id": "table_price_title",
+      "label": "Price Heading Title",
+      "default": "Price"
+    },
+    {
+      "type": "text",
+      "id": "table_quantity_title",
+      "label": "Quantity Heading Title",
+      "default": "Quantity"
+    },
+    {
+      "type": "text",
+      "id": "table_total_title",
+      "label": "Total Heading Title",
+      "default": "Total"
+    },
+    {
+      "type": "text",
+      "id": "table_reomove_title",
+      "label": "Remove Heading Title",
+      "default": "Remove"
+    },
+    {
+      "type": "header",
+      "content": "Button Title"
+    },
+    {
+      "type": "text",
+      "id": "update_button_title",
+      "label": "Update Button Title",
+      "default": "Update Cart"
+    },
+    {
+      "type": "text",
+      "id": "continue_shopping_title",
+      "label": "Continue Shopping Button Title",
+      "default": "Continue Shopping"
+    },
+    {
+      "type": "text",
+      "id": "clear_cart_title",
+      "label": "Clear Cart Button Title",
+      "default": "Clear Cart"
+    },
+    {
+      "type": "checkbox",
+      "id": "cart_vendor_enable",
+      "label": "Show Product Vendor",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Cart Note / Shipping Calculator"
+    },
+    {
+      "type": "radio",
+      "id": "cart_feature",
+      "label": "Show Any One",
+      "options": [
+        {
+          "value": "shipping_calculator",
+          "label": "Shipping Calculator"
+        },
+        {
+          "value": "cart_note",
+          "label": "Cart Note"
+        }
+      ],
+      "default": "shipping_calculator"
+    },
+    {
+      "type": "text",
+      "id": "shipping_calculator_heading",
+      "label": "Shipping Calculator Title",
+      "default": "Get shipping estimates"
+    },
+    {
+      "type": "text",
+      "id": "shipping_calculator_button_title",
+      "label": "Shipping Calculator Button Title",
+      "default": "Calculate shipping"
+    },
+    {
+      "type": "text",
+      "id": "cart_note_title",
+      "label": "Cart Note Title",
+      "default": "Special instructions for seller"
+    },
+    {
+      "type": "header",
+      "content": "Cart Totals"
+    },
+    {
+      "type": "text",
+      "id": "cart_total_heading_title",
+      "label": "Cart Total Heading Title",
+      "default": "Cart Totals"
+    },
+    {
+      "type": "text",
+      "id": "cart_subtotal_title",
+      "label": "Cart Subtotal Title",
+      "default": "Subtotal"
+    },
+    {
+      "type": "text",
+      "id": "cart_total_title",
+      "label": "Cart Total Title",
+      "default": "Total"
+    },
+    {
+      "type": "text",
+      "id": "checkout_button_title",
+      "label": "Checkout Button Title",
+      "default": "Proceed to Checkout"
+    },
+    {
+      "type": "header",
+      "content": "Cart Empty"
+    },
+    {
+      "type": "text",
+      "id": "shopping_cart_title",
+      "label": "Shopping Cart Title",
+      "default": "Shopping Cart"
+    },
+    {
+      "type": "text",
+      "id": "cart_empty_title",
+      "label": "Cart Empty Title",
+      "default": "Your cart is currently empty."
+    },
+    {
+      "type": "text",
+      "id": "cart_continue_title",
+      "label": "Continue Browsing Title",
+      "default": "Continue browsing"
+    },
+    {
+      "type": "text",
+      "id": "here_title",
+      "label": "Here Title",
+      "default": "here"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "section_padding",
+      "name": "Section Padding",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "header",
+          "content": "Large/Desktop Device"
+        },
+        {
+          "type": "range",
+          "id": "section_padding_top",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Padding Top",
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "section_padding_bottom",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Padding Bottom",
+          "unit": "px",
+          "default": 100
+        },
+        {
+          "type": "header",
+          "content": "Tablet Device"
+        },
+        {
+          "type": "range",
+          "id": "section_padding_top_md",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Padding Top",
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "section_padding_bottom_md",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Padding Bottom",
+          "unit": "px",
+          "default": 80
+        },
+        {
+          "type": "header",
+          "content": "Mobile Device"
+        },
+        {
+          "type": "range",
+          "id": "section_padding_top_xs",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Padding Top",
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "section_padding_bottom_xs",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Padding Bottom",
+          "unit": "px",
+          "default": 60
+        }
+      ]
+    },
+    {
+      "type": "section_margin",
+      "name": "Section Margin",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "header",
+          "content": "Large/Desktop Device"
+        },
+        {
+          "type": "range",
+          "id": "section_margin_top",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Margin Top",
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "section_margin_bottom",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Margin Bottom",
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "header",
+          "content": "Tablet Device"
+        },
+        {
+          "type": "range",
+          "id": "section_margin_top_md",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Margin Top",
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "section_margin_bottom_md",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Margin Bottom",
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "header",
+          "content": "Mobile Device"
+        },
+        {
+          "type": "range",
+          "id": "section_margin_top_xs",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Margin Top",
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "section_margin_bottom_xs",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Margin Bottom",
+          "unit": "px",
+          "default": 0
+        }
+      ]
+    },
+    {
+      "type": "section_background",
+      "name": "Section Background",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "section_bg_image",
+          "label": "BG Image"
+        },
+        {
+          "type": "color",
+          "id": "section_bg_color",
+          "label": "BG Color",
+          "default": "#ffffff"
+        }
+      ]
+    }
+  ]
+}

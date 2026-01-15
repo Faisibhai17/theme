@@ -1,0 +1,42 @@
+{
+  "content": "<div class=\"shopify_explorer__content\">\n  {%- assign expand_questions = section.settings.expand_questions -%}\n  {%- for block in section.blocks -%}\n    {%- case block.type -%}\n      {%- when 'separator' -%}\n        <h3 class=\"shopify_explorer_faq__separator h3\" {{ block.shopify_attributes }}>\n          {{ block.settings.title | escape }}\n        </h3>\n      {%- when 'question' -%}\n        <div\n          class=\"shopify_explorer_faq__item {% unless expand_questions %}shopify_explorer_faq__item--expandable{% endunless %}\"\n          {{ block.shopify_attributes }}\n        >\n          <h3 class=\"shopify_explorer_faq__question h5 {% unless expand_questions %}link{% endunless %}\">\n            {{ block.settings.title }}\n          </h3>\n          <div class=\"shopify_explorer_faq__answer rte\">\n            {{ block.settings.answer }}\n          </div>\n        </div>\n    {%- endcase -%}\n  {%- endfor -%}\n</div>",
+  "name": "FAQs",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "expand_questions",
+      "label": "Expand all questions by default",
+      "default": false
+    }
+  ],
+  "blocks": [
+    {
+      "type": "separator",
+      "name": "Section separator",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Heading"
+        }
+      ]
+    },
+    {
+      "type": "question",
+      "name": "Question",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Question"
+        },
+        {
+          "type": "richtext",
+          "id": "answer",
+          "label": "Answer"
+        }
+      ]
+    }
+  ],
+  "javascript": "(function () {\n    $('body').on('click', '.shopify_explorer_faq__question', function () {\n      $(this).next('.shopify_explorer_faq__answer').slideToggle(150).toggleClass('active');\n      $(this).toggleClass('active');\n    });\n    $(document).on('shopify:block:select', '#shopify-section-page-shopify_explorer_faq-template', function (event) {\n      $(event.target).find('.shopify_explorer_faq__answer').slideDown(150);\n    });\n    $(document).on('shopify:block:deselect', '#shopify-section-page-shopify_explorer_faq-template', function (event) {\n      $(event.target).find('.shopify_explorer_faq__answer').slideUp(150);\n    });\n  })();"
+}

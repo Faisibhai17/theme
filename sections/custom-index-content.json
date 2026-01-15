@@ -1,0 +1,5 @@
+{
+  "content": "{{ content_for_index }}\n\n<script>\n  jQuery(document).ready(function ($) {\n    $('.tab-pane .row').addClass('owl-carousel');\n  });\n\n  $(function () {\n    // Owl Carousel\n    var owl = $('.owl-carousel');\n    owl.owlCarousel({\n      items: 3,\n      margin: 10,\n      loop: true,\n      nav: true,\n      responsive: {\n        0: {\n          items: 2,\n        },\n        768: {\n          items: 2,\n        },\n        1000: {\n          items: 3,\n        },\n      },\n    });\n  });\n</script>",
+  "name": "Custom index Content",
+  "settings": []
+}

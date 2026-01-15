@@ -1,0 +1,10 @@
+{
+  "sections": {
+    "section_1": {
+      "type": "custom-activate_account-content"
+    }
+  },
+  "order": [
+    "section_1"
+  ]
+}

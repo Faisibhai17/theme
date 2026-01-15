@@ -1,0 +1,5 @@
+{
+  "content": "<h1 class=\"blog-title\">\n  {{ page_title -}}\n  {%- if current_tags %} &ndash; tagged \"{{ current_tags | join: ', ' }}\"{% endif -%}\n  {%- if current_page != 1 %} &ndash; Page {{ current_page }}{% endif %}\n</h1>\n<p class=\"blog-p\">\n  {% if page_description %}{{ page_description | escape }}{% endif %}\n</p>\n{%- section 'blog-template' -%}",
+  "name": "Custom blog Content",
+  "settings": []
+}

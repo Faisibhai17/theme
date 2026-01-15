@@ -1,0 +1,11 @@
+{
+  "content": "<div class=\"shopSection\">\n  <div class=\"container-fluid\">\n    <div class=\"row\">\n      <div class=\"col-md-7 col-sm-12 shopSectionR\">\n        <img src=\"https://cdn.shopify.com/s/files/1/0555/6148/6492/files/7dfb1ae6042b.jpg?v=1666386098\" width=\"100%\">\n      </div>\n      <div class=\"col-md-5 col-sm-12 shopSectionL\">\n        <span\n          >WHETHER YOU NEED TO DETOXIFY, BRIGHTEN, OR REPLENISH YOUR SKIN, YESSÉ HAS THE PERFECT COLLECTION FOR YOU.</span\n        >\n        <h2>Each Yessé collection contains five incredible products to use in your new 4-step ritual.</h2>\n        <p>\n          Yessé 24K Gold Detoxifying Cream has matt finished that will give your skin the perfect oil control throughout\n          the day. You will love your new clean glow!\n        </p>\n        <p>\n          Adding an oily moisturiser on top of already clogged pores is a recipe for disaster. If you have oily skin,\n          you may be tempted to skip the moisturising stage to reduce the amount of oil on your face. Dried-out skin can\n          lead your oil glands to work overtime, resulting in even more clogged pores.\n        </p>\n        <p>\n          When contrasted to a heavy moisturiser, light moisturisers can keep your skin fresher and less weighed down.\n          Instead of a cream, this is a wonderful substitute. Even though it's moisturising, it doesn't feel greasy or\n          heavy on the skin, and it also doesn't clog the pores of your skin due to its rapid rate of absorption.\n        </p>\n        <a class=\"animated shopnowBTN\" href=\"/collections/all\">SHOP NOW</a>\n      </div>\n    </div>\n  </div>\n</div>",
+  "name": "shopSection",
+  "settings": [],
+  "presets": [
+    {
+      "name": "shop section",
+      "category": "shopSection"
+    }
+  ]
+}

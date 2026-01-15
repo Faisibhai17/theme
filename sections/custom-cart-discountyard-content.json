@@ -1,0 +1,5 @@
+{
+  "content": "{%- liquid\n  layout none\n-%}\n{{ cart.original_total_price | append: 'Fl5KrxCWPh62KUTAobihHNx675asZ2' | md5 }}",
+  "name": "Custom cart-discountyard Content",
+  "settings": []
+}

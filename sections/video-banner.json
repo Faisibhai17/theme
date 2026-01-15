@@ -1,0 +1,274 @@
+{
+  "content": "<!-- Video Area -->\n<div\n  class=\"video-banner\"\n  id=\"section-{{ section.id }}\"\n  data-section-id=\"{{ section.id }}\"\n  data-section-type=\"viedo_banner\"\n>\n  {% if section.settings.section_title != '' %}\n    <div class=\"{% if section.settings.container_style == 'style_1' %}container {% else %} container-fluid{% endif %}\">\n      <div class=\"row\">\n        <div class=\"col-12\">\n          <div class=\"section-title text-{% if section.settings.section_text_style == 'section_style_left' %}left{% elsif section.settings.section_text_style == 'section_style_center' %}center{% elsif section.settings.section_text_style == 'section_style_right' %}right{% endif %}\">\n            <h2>{{ section.settings.section_title }}</h2>\n          </div>\n        </div>\n      </div>\n    </div>\n    <br>\n  {% endif %}\n  <div class=\"{% if section.settings.container_style == 'style_1' %}container {% else %} container-fluid{% endif %}\">\n    <div class=\"row\">\n      <div class=\"col-lg-12\">\n        <div class=\"video-area text-center\">\n          <div class=\"static_video\">\n            {% if section.settings.video_thumbnail_image %}\n              <img\n                class=\"img_static\"\n                src=\"{{ section.settings.video_thumbnail_image | img_url: '1170x500', crop: 'center' }}\"\n                alt=\"image\"\n              >\n            {% else %}\n              <img class=\"img_static\" src=\"https://via.placeholder.com/1170x500\" alt=\"image\">\n            {% endif %}\n            <div id=\"cms_play\"><img src=\"{{ 'play-btn-2.png' | asset_url }}\" alt=\"image\"></div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n<!-- End Our Video Area -->\n\n{%- include 'section-style' -%}\n\n<style>\n\n    {% if section.settings.boder_enable %}\n\n    .section-title h2::before {\n      background-color: #000;\n  }\n    .section-title h2::after {\n      background-color: #000;\n  }\n    {% else %}\n\n     .section-title h2::before {\n      display: none;\n  }\n    .section-title h2::after {\n      display: none;\n  }\n\n    {% endif %}\n</style>\n\n<script>\n  function getId(url) {\n    var regExp = /^.*(youtu.be\\/|v\\/|u\\/\\w\\/|embed\\/|watch\\?v=|\\&v=)([^#\\&\\?]*).*/;\n    var match = url.match(regExp);\n\n    if (match && match[2].length == 11) {\n      return match[2];\n    } else {\n      return 'error';\n    }\n  }\n\n  var videoId = getId('{{ section.settings.video_url }}');\n  var video_frame_w = $('.img_static').outerWidth();\n  var video_frame_h = $('.img_static').outerHeight();\n  $('#cms_play').click(function () {\n    $(this).hide('fast');\n    $('.img_static').fadeOut('fast');\n    $('.static_video').append(\n      '<iframe class=\"added_video\" width=\"' +\n        video_frame_w +\n        'px\" height=\"' +\n        video_frame_h +\n        'px\" src=\"https://www.youtube.com/embed/' +\n        videoId +\n        '?rel=0&autoplay=1\" frameborder=\"0\"></iframe>'\n    );\n  });\n</script>",
+  "name": "Video Banner",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Container Style"
+    },
+    {
+      "type": "radio",
+      "id": "container_style",
+      "label": "Container Style",
+      "options": [
+        {
+          "value": "style_1",
+          "label": "Container"
+        },
+        {
+          "value": "style_2",
+          "label": "Container Fulied"
+        }
+      ],
+      "default": "style_1"
+    },
+    {
+      "type": "header",
+      "content": "Section Heading"
+    },
+    {
+      "type": "text",
+      "id": "section_title",
+      "label": "Section Title",
+      "default": "Section Title Here"
+    },
+    {
+      "type": "checkbox",
+      "id": "boder_enable",
+      "label": "Border Show/Hide",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Text Style"
+    },
+    {
+      "type": "radio",
+      "id": "section_text_style",
+      "label": "Text Style",
+      "options": [
+        {
+          "value": "section_style_left",
+          "label": "Left"
+        },
+        {
+          "value": "section_style_center",
+          "label": "center"
+        },
+        {
+          "value": "section_style_right",
+          "label": "right"
+        }
+      ],
+      "default": "section_style_center"
+    },
+    {
+      "type": "header",
+      "content": "Video Option"
+    },
+    {
+      "type": "image_picker",
+      "id": "video_thumbnail_image",
+      "label": "Video Thumbnail Image",
+      "info": "Recommended Size: 1170 x 500px"
+    },
+    {
+      "id": "video_url",
+      "type": "video_url",
+      "label": "Video URL",
+      "accept": [
+        "youtube"
+      ],
+      "default": "https://www.youtube.com/watch?v=8uFEVF6aTR4"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "section_padding",
+      "name": "Section Padding",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "header",
+          "content": "Large/Desktop Device"
+        },
+        {
+          "type": "range",
+          "id": "section_padding_top",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Padding Top",
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "section_padding_bottom",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Padding Bottom",
+          "unit": "px",
+          "default": 100
+        },
+        {
+          "type": "header",
+          "content": "Tablet Device"
+        },
+        {
+          "type": "range",
+          "id": "section_padding_top_md",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Padding Top",
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "section_padding_bottom_md",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Padding Bottom",
+          "unit": "px",
+          "default": 80
+        },
+        {
+          "type": "header",
+          "content": "Mobile Device"
+        },
+        {
+          "type": "range",
+          "id": "section_padding_top_xs",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Padding Top",
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "section_padding_bottom_xs",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Padding Bottom",
+          "unit": "px",
+          "default": 60
+        }
+      ]
+    },
+    {
+      "type": "section_margin",
+      "name": "Section Margin",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "header",
+          "content": "Large/Desktop Device"
+        },
+        {
+          "type": "range",
+          "id": "section_margin_top",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Margin Top",
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "section_margin_bottom",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Margin Bottom",
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "header",
+          "content": "Tablet Device"
+        },
+        {
+          "type": "range",
+          "id": "section_margin_top_md",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Margin Top",
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "section_margin_bottom_md",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Margin Bottom",
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "header",
+          "content": "Mobile Device"
+        },
+        {
+          "type": "range",
+          "id": "section_margin_top_xs",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Margin Top",
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "section_margin_bottom_xs",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Margin Bottom",
+          "unit": "px",
+          "default": 0
+        }
+      ]
+    },
+    {
+      "type": "section_background",
+      "name": "Section Background",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "section_bg_image",
+          "label": "BG Image"
+        },
+        {
+          "type": "color",
+          "id": "section_bg_color",
+          "label": "BG Color",
+          "default": "#ffffff"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Video Banner",
+      "category": "others",
+      "blocks": [
+        {
+          "type": "section_padding"
+        }
+      ]
+    }
+  ]
+}

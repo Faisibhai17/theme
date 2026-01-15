@@ -1,0 +1,34 @@
+{
+  "sections": {
+    "section_1": {
+      "type": "anti-aging1"
+    },
+    "section_2": {
+      "type": "anti-aging2"
+    },
+    "section_3": {
+      "type": "anti-aging3"
+    },
+    "section_4": {
+      "type": "anti-aging4"
+    },
+    "section_5": {
+      "type": "anti-aging5"
+    },
+    "section_6": {
+      "type": "anti-aging6"
+    },
+    "section_7": {
+      "type": "anti-aging7"
+    }
+  },
+  "order": [
+    "section_1",
+    "section_2",
+    "section_3",
+    "section_4",
+    "section_5",
+    "section_6",
+    "section_7"
+  ]
+}

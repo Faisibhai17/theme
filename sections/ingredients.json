@@ -1,0 +1,23 @@
+{
+  "content": "{% comment %}\n  <div id=\"section-cta\">\n    <h3> {{ section.settings.text-box }} </h3>\n    <a href=\"{{ section.settings.link }}\" class=\"button\">{{ section.settings.linktext }}</a>\n  </div>\n{% endcomment %}\n{% form 'product', product, id: 'AddToCartForm', class: 'product-content-inner' %}\n  <div id=\"shopify-product-reviews\" data-id=\"{{product.id}}\">{{ product.metafields.spr.reviews }}</div>\n{% endform %}",
+  "name": "ingredients",
+  "settings": [
+    {
+      "id": "text-box",
+      "type": "text",
+      "label": "Heading",
+      "default": "Title"
+    },
+    {
+      "id": "link",
+      "type": "url",
+      "label": "Button link"
+    },
+    {
+      "id": "linktext",
+      "type": "text",
+      "label": "Button text",
+      "default": "Click Here"
+    }
+  ]
+}

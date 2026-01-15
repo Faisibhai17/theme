@@ -1,0 +1,5 @@
+{
+  "content": "<div id=\"judgeme_all_reviews_page\" class=\"page clearfix jdgm-all-reviews-page\">\n  <div class=\"jdgm-all-reviews-page__wrapper\">\n    <h1 class=\"jdgm-all-reviews-page__title\">{{ page.title }}</h1>\n    <div class=\"jdgm-all-reviews-page__description\">{{ page.content }}</div>\n\n    {% render 'judgeme_all_reviews' %}\n  </div>\n</div>",
+  "name": "Custom page-judgeme_all_reviews Content",
+  "settings": []
+}

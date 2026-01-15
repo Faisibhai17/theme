@@ -1,0 +1,287 @@
+{
+  "content": "<div class=\"slider-area\" id=\"section-{{ section.id }}\">\n  <div class=\"slider-active owl-carousel nav-style-1\">\n    {% for block in section.blocks %}\n      {% case block.type %}\n        {% when 'slide' %}\n          <div\n            class=\"single-slider-3 slider-height-3 d-flex align-items-center slider-height-res-hm4\"\n            style=\"background-color: {{ block.settings.slider_bg_color }};\"\n          >\n            <div class=\"container\">\n              <div class=\"row align-items-center\">\n                <div class=\"col-xl-7 col-lg-7 col-md-6 col-12 col-sm-6\">\n                  <div class=\"slider-content-3 slider-content-4 slider-animated-1 text-center\">\n                    {% if block.settings.slider_subtitle != '' %}\n                      <h3 class=\"animated\">{{ block.settings.slider_subtitle }}</h3>\n                    {% endif %}\n                    {% if block.settings.slider_title != '' %}\n                      <h1 class=\"animated\">{{ block.settings.slider_title }}</h1>\n                    {% endif %}\n                    {% if block.settings.slider_description != '' %}\n                      <p class=\"animated\">{{ block.settings.slider_description }}</p>\n                    {% endif %}\n                    {% if block.settings.button_title != '' %}\n                      <div class=\"slider-btn btn-hover\">\n                        <a class=\"animated\" href=\"{{ block.settings.button_url }}\">{{ block.settings.button_title }}</a>\n                      </div>\n                    {% endif %}\n                  </div>\n                </div>\n                <div class=\"col-xl-5 col-lg-5 col-md-6 col-12 col-sm-6\">\n                  <div class=\"single-slider-img4 slider-animated-1\">\n                    <img\n                      class=\"animated\"\n                      src=\"{% if block.settings.slider_img %}{{ block.settings.slider_img | img_url: 'master' }}{% else %}http:\\/\\/via.placeholder.com\\/500x530{% endif %}\"\n                      alt=\"{{ block.settings.slider_img.alt }}\"\n                    >\n                    <div class=\"single-price-wrap\">\n                      <img\n                        src=\"{% if block.settings.slider_shape_img %}{{ block.settings.slider_shape_img | img_url: 'master' }}{% else %}http:\\/\\/via.placeholder.com\\/130x130{% endif %}\"\n                        alt=\"{{ block.settings.slider_shape_img.alt }}\"\n                      >\n                      {% if block.settings.sales_title != '' or block.settings.sales_price != '' %}\n                        <div class=\"single-price\">\n                          <span>{{ block.settings.sales_title }}</span>\n                          <span class=\"dollar\">{{ block.settings.sales_price }}</span>\n                        </div>\n                      {% endif %}\n                    </div>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n      {% endcase %}\n    {% endfor %}\n  </div>\n</div>\n\n{%- include 'section-style' -%}\n\n<script>\n  /* Slider active */\n  $('#section-{{ section.id }} .slider-active').owlCarousel({\n      loop: true,\n    {% if settings.rtl_enable %} rtl:true, {% endif %}\n      nav: true,\n      autoplay: false,\n      navText: ['<i class=\"fa fa-chevron-left\"></i>', '<i class=\"fa fa-chevron-right\"></i>'],\n      autoplayTimeout: 5000,\n      animateOut: 'fadeOut',\n      animateIn: 'fadeIn',\n      item: 1,\n      responsive: {\n          0: {\n              items: 1\n          },\n          768: {\n              items: 1\n          },\n          1000: {\n              items: 1\n          }\n      }\n  })\n</script>",
+  "name": "Slider 4",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "Slide",
+      "settings": [
+        {
+          "type": "header",
+          "content": "Background Color"
+        },
+        {
+          "type": "color",
+          "id": "slider_bg_color",
+          "label": "BG Color",
+          "default": "#f6f6f6"
+        },
+        {
+          "type": "header",
+          "content": "Text Style"
+        },
+        {
+          "type": "radio",
+          "id": "text_style",
+          "label": "Text Style",
+          "options": [
+            {
+              "value": "text_style_left",
+              "label": "Left"
+            },
+            {
+              "value": "text_style_center",
+              "label": "center"
+            },
+            {
+              "value": "text_style_right",
+              "label": "right"
+            }
+          ],
+          "default": "text_style_center"
+        },
+        {
+          "type": "text",
+          "id": "slider_subtitle",
+          "label": "Slider Subtitle",
+          "default": "Stylish"
+        },
+        {
+          "type": "text",
+          "id": "slider_title",
+          "label": "Slider Title",
+          "default": "Male Clothes"
+        },
+        {
+          "type": "textarea",
+          "id": "slider_description",
+          "label": "Slider Description",
+          "default": "30% off Summer Vacation"
+        },
+        {
+          "type": "text",
+          "id": "button_title",
+          "label": "Button Title",
+          "default": "SHOP NOW"
+        },
+        {
+          "type": "url",
+          "id": "button_url",
+          "label": "URL"
+        },
+        {
+          "type": "image_picker",
+          "id": "slider_img",
+          "label": "Image",
+          "info": "Recommended Size: 500 x 530px"
+        },
+        {
+          "type": "image_picker",
+          "id": "slider_shape_img",
+          "label": "Shape Image",
+          "info": "Recommended Size: 130 x 130px"
+        },
+        {
+          "type": "text",
+          "id": "sales_title",
+          "label": "Sales Title",
+          "default": "Sale"
+        },
+        {
+          "type": "text",
+          "id": "sales_price",
+          "label": "Sales Price",
+          "default": "$99.00"
+        }
+      ]
+    },
+    {
+      "type": "section_padding",
+      "name": "Section Padding",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "header",
+          "content": "Large/Desktop Device"
+        },
+        {
+          "type": "range",
+          "id": "section_padding_top",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Padding Top",
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "section_padding_bottom",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Padding Bottom",
+          "unit": "px",
+          "default": 100
+        },
+        {
+          "type": "header",
+          "content": "Tablet Device"
+        },
+        {
+          "type": "range",
+          "id": "section_padding_top_md",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Padding Top",
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "section_padding_bottom_md",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Padding Bottom",
+          "unit": "px",
+          "default": 80
+        },
+        {
+          "type": "header",
+          "content": "Mobile Device"
+        },
+        {
+          "type": "range",
+          "id": "section_padding_top_xs",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Padding Top",
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "section_padding_bottom_xs",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Padding Bottom",
+          "unit": "px",
+          "default": 60
+        }
+      ]
+    },
+    {
+      "type": "section_margin",
+      "name": "Section Margin",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "header",
+          "content": "Large/Desktop Device"
+        },
+        {
+          "type": "range",
+          "id": "section_margin_top",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Margin Top",
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "section_margin_bottom",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Margin Bottom",
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "header",
+          "content": "Tablet Device"
+        },
+        {
+          "type": "range",
+          "id": "section_margin_top_md",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Margin Top",
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "section_margin_bottom_md",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Margin Bottom",
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "header",
+          "content": "Mobile Device"
+        },
+        {
+          "type": "range",
+          "id": "section_margin_top_xs",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Margin Top",
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "section_margin_bottom_xs",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Margin Bottom",
+          "unit": "px",
+          "default": 0
+        }
+      ]
+    },
+    {
+      "type": "section_background",
+      "name": "Section Background",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "section_bg_image",
+          "label": "BG Image"
+        },
+        {
+          "type": "color",
+          "id": "section_bg_color",
+          "label": "BG Color",
+          "default": "#ffffff"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Slider 4",
+      "category": "1. slideshow",
+      "blocks": [
+        {
+          "type": "section_padding"
+        }
+      ]
+    }
+  ]
+}

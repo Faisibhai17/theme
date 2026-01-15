@@ -1,0 +1,26 @@
+{
+  "sections": {
+    "section_1": {
+      "type": "collection-template"
+    },
+    "section_2": {
+      "type": "related-product"
+    },
+    "section_3": {
+      "type": "testimonial-area"
+    },
+    "section_4": {
+      "type": "banner-area-coll"
+    },
+    "section_5": {
+      "type": "custom-collection-content"
+    }
+  },
+  "order": [
+    "section_1",
+    "section_2",
+    "section_3",
+    "section_4",
+    "section_5"
+  ]
+}

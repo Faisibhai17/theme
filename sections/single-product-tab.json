@@ -1,0 +1,326 @@
+{
+  "content": "{% if section.settings.product_tab_enable %}\n  <div class=\"description-review-area\" id=\"section-{{ section.id }}\">\n    <div class=\"{% if section.settings.container_style == 'style_1' %}container {% else %} container-fluid{% endif %}\">\n      <div class=\"description-review-wrapper\">\n        <div class=\"description-review-topbar nav\">\n          {% if section.settings.product_info_tab_enable %}\n            <a\n              href=\"#pro-dec\"\n              data-toggle=\"tab\"\n              role=\"tab\"\n              {% if section.settings.tab_active_handle == 'info_tab' %}\n                class=\"active\" aria-selected=\"true\"\n              {% endif %}\n            >\n              {{ section.settings.product_info_tab_title }}\n            </a>\n          {% endif %}\n          {% if section.settings.product_review_tab_enable %}\n            <a\n              href=\"#pro-review\"\n              data-toggle=\"tab\"\n              role=\"tab\"\n              {% if section.settings.tab_active_handle == 'review_tab' %}\n                class=\"active\" aria-selected=\"true\"\n              {% endif %}\n            >\n              {{ section.settings.product_review_tab_title }}\n            </a>\n          {% endif %}\n          {% if section.settings.product_comments_enable %}\n            <a\n              href=\"#comment-box\"\n              data-toggle=\"tab\"\n              aria-selected=\"false\"\n              {% if section.settings.tab_active_handle == 'comment_tab' %}\n                class=\"active\" aria-selected=\"true\"\n              {% endif %}\n            >\n              {{ section.settings.product_comments_title }}\n            </a>\n          {% endif %}\n          {% assign i = 1 %}\n          {% for block in section.blocks %}\n            <a\n              href=\"#{{ pages[block.settings.custom_tab_handle].title | handle }}-{{ block.id }}\"\n              data-toggle=\"tab\"\n              role=\"tab\"\n              aria-selected=\"false\"\n            >\n              {{ block.settings.custom_tab_title }}\n            </a>\n            {% assign i = i | plus: 1 %}\n          {% endfor %}\n        </div>\n        <div class=\"tab-content description-review-bottom\">\n          {% if section.settings.product_info_tab_enable %}\n            <div\n              class=\"tab-pane {% if section.settings.tab_active_handle == 'info_tab' %}active{% endif %}\"\n              id=\"pro-dec\"\n              role=\"tabpanel\"\n            >\n              <div class=\"product-description-wrapper\">\n                {%- if product.description contains '[product_description]' -%}\n                  {%- assign product_description_first = product.description\n                    | split: '[/product_description]'\n                    | first\n                  -%}\n                  {%- assign product_description_final = product_description_first\n                    | split: '[product_description]'\n                    | last\n                  -%}\n                  {{ product_description_final }}\n                {%- else -%}\n                  {{\n                    product.description\n                    | split: '[short_description]'\n                    | first\n                    | split: '[product_description]'\n                    | first\n                    | split: '[new_products]'\n                    | first\n                    | split: '[product_video]'\n                    | first\n                    | split: '[affiliate_link]'\n                    | first\n                    | split: '[countdown]'\n                    | first\n                  }}\n                {%- endif -%}\n              </div>\n            </div>\n          {% endif %}\n          {% if section.settings.product_review_tab_enable %}\n            <div\n              class=\"tab-pane {% if section.settings.tab_active_handle == 'review_tab' %}active{% endif %}\"\n              id=\"pro-review\"\n              role=\"tabpanel\"\n            >\n              <div class=\"product-anotherinfo-wrapper\">\n                <div id=\"shopify-product-reviews\" data-id=\"{{product.id}}\">{{ product.metafields.spr.reviews }}</div>\n              </div>\n            </div>\n          {% endif %}\n          {% if section.settings.product_comments_enable %}\n            <div\n              role=\"tabpanel\"\n              class=\"tab-pane {% if section.settings.tab_active_handle == 'comment_tab' %}active{% endif %}\"\n              id=\"comment-box\"\n            >\n              <div class=\"product-anotherinfo-wrapper\">\n                <div class=\"fb-comment-box\">\n                  <!-- disqus comment box start -->\n                  {% if section.settings.product_page_comments_box == 'disqus_comment' %}\n                    {% include 'disqus-comment' %}\n                  {% endif %}\n                  <!-- disqus comment box end -->\n                  <!-- facebook comment box start -->\n                  {% if section.settings.product_page_comments_box == 'facebook_comment' %}\n                    {% include 'facebook-comment' %}\n                    {% include 'facebook-comment-box-script' %}\n                  {% endif %}\n                  <!-- facebook comment box end -->\n                </div>\n              </div>\n            </div>\n          {% endif %}\n          {% assign i = 1 %}\n          {% for block in section.blocks %}\n            <div\n              class=\"tab-pane\"\n              id=\"{{ pages[block.settings.custom_tab_handle].title | handle }}-{{ block.id }}\"\n              role=\"tabpanel\"\n            >\n              <div class=\"product-anotherinfo-wrapper\">\n                {{ pages[block.settings.custom_tab_handle].content }}\n              </div>\n            </div>\n            {% assign i = i | plus: 1 %}\n          {% endfor %}\n        </div>\n      </div>\n    </div>\n  </div>\n{% endif %}\n\n{%- include 'section-style' -%}",
+  "name": "Information Tab",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Container Style"
+    },
+    {
+      "type": "radio",
+      "id": "container_style",
+      "label": "Container Style",
+      "options": [
+        {
+          "value": "style_1",
+          "label": "Container"
+        },
+        {
+          "value": "style_2",
+          "label": "Container Fulied"
+        }
+      ],
+      "default": "style_1"
+    },
+    {
+      "type": "checkbox",
+      "id": "product_tab_enable",
+      "label": "Show Product Tab Section",
+      "default": true
+    },
+    {
+      "type": "radio",
+      "id": "tab_active_handle",
+      "label": "Active Tab",
+      "options": [
+        {
+          "value": "info_tab",
+          "label": "Description Tab"
+        },
+        {
+          "value": "review_tab",
+          "label": "Review Tab"
+        },
+        {
+          "value": "comment_tab",
+          "label": "Comment Tab"
+        }
+      ],
+      "default": "info_tab"
+    },
+    {
+      "type": "header",
+      "content": "Description Tab"
+    },
+    {
+      "type": "checkbox",
+      "id": "product_info_tab_enable",
+      "label": "Show Product Description",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "product_info_tab_title",
+      "label": "Description Title",
+      "default": "Description"
+    },
+    {
+      "type": "header",
+      "content": "Review Tab"
+    },
+    {
+      "type": "checkbox",
+      "id": "product_review_tab_enable",
+      "label": "Show Product Review",
+      "info": "Install Free Apps for Product Review [Click Here](https://apps.shopify.com/product-reviews)",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "product_review_tab_title",
+      "label": "Title",
+      "default": "Reviews"
+    },
+    {
+      "type": "header",
+      "content": "Comment Tab"
+    },
+    {
+      "type": "checkbox",
+      "id": "product_comments_enable",
+      "label": "Show Comment",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "product_comments_title",
+      "label": "Comments Title",
+      "default": "Comments"
+    },
+    {
+      "type": "radio",
+      "id": "product_page_comments_box",
+      "label": "Select comments box",
+      "options": [
+        {
+          "value": "disqus_comment",
+          "label": "Disqus comments"
+        },
+        {
+          "value": "facebook_comment",
+          "label": "Facebook comments"
+        }
+      ],
+      "default": "facebook_comment"
+    },
+    {
+      "type": "text",
+      "id": "facebook_comments_post_limit",
+      "label": "FacebooK Comment Limit",
+      "default": "10"
+    },
+    {
+      "type": "text",
+      "id": "disqus_shortname",
+      "label": "Your Store Name",
+      "default": "demo-store",
+      "info": "Disqus Shortname (Get your shortname)[disqus.com](http://disqus.com)"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Custom Tab",
+      "type": "custom_tab",
+      "settings": [
+        {
+          "type": "text",
+          "id": "custom_tab_title",
+          "label": "Tab Title",
+          "default": "Tab Title"
+        },
+        {
+          "type": "page",
+          "id": "custom_tab_handle",
+          "label": "Select Page for information",
+          "info": "[Create a page](/admin/pages/new)"
+        }
+      ]
+    },
+    {
+      "type": "section_padding",
+      "name": "Section Padding",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "header",
+          "content": "Large/Desktop Device"
+        },
+        {
+          "type": "range",
+          "id": "section_padding_top",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Padding Top",
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "section_padding_bottom",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Padding Bottom",
+          "unit": "px",
+          "default": 100
+        },
+        {
+          "type": "header",
+          "content": "Tablet Device"
+        },
+        {
+          "type": "range",
+          "id": "section_padding_top_md",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Padding Top",
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "section_padding_bottom_md",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Padding Bottom",
+          "unit": "px",
+          "default": 80
+        },
+        {
+          "type": "header",
+          "content": "Mobile Device"
+        },
+        {
+          "type": "range",
+          "id": "section_padding_top_xs",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Padding Top",
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "section_padding_bottom_xs",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Padding Bottom",
+          "unit": "px",
+          "default": 60
+        }
+      ]
+    },
+    {
+      "type": "section_margin",
+      "name": "Section Margin",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "header",
+          "content": "Large/Desktop Device"
+        },
+        {
+          "type": "range",
+          "id": "section_margin_top",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Margin Top",
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "section_margin_bottom",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Margin Bottom",
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "header",
+          "content": "Tablet Device"
+        },
+        {
+          "type": "range",
+          "id": "section_margin_top_md",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Margin Top",
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "section_margin_bottom_md",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Margin Bottom",
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "header",
+          "content": "Mobile Device"
+        },
+        {
+          "type": "range",
+          "id": "section_margin_top_xs",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Margin Top",
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "section_margin_bottom_xs",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Margin Bottom",
+          "unit": "px",
+          "default": 0
+        }
+      ]
+    },
+    {
+      "type": "section_background",
+      "name": "Section Background",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "section_bg_image",
+          "label": "BG Image"
+        },
+        {
+          "type": "color",
+          "id": "section_bg_color",
+          "label": "BG Color",
+          "default": "#ffffff"
+        }
+      ]
+    }
+  ]
+}

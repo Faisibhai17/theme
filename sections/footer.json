@@ -1,0 +1,508 @@
+{
+  "content": "{% if section.settings.footer_style == 'footer_style_1' %}\n  <footer class=\"footer-area\" id=\"section-{{ section.id }}\">\n    <div class=\"{% if section.settings.container_style == 'style_1' %}container {% else %} container-fluid{% endif %}\">\n      {% include 'footer-top' %}\n    </div>\n  </footer>\n\n{% elsif section.settings.footer_style == 'footer_style_2' %}\n  {% if template == 'index' %}\n    <footer\n      class=\"footer-area 1 {% if section.settings.container_style == 'style_1' %} {% else %} hm4-footer-padding{% endif %}\"\n      id=\"section-{{ section.id }}\"\n    >\n      <div class=\"{% if section.settings.container_style == 'style_1' %}container {% else %} container-fluid{% endif %}\">\n        {% include 'footer-top' %}\n        <div class=\"row f_btm\">\n          <div class=\"col-lg-6 col-md-6 col-12 payment-icons-first\">\n            <div class=\"pay_icn\">{% include 'footer-payment-area' %}</div>\n            <span>© <span id=\"current-year\"></span> Yessé Australia. All Rights Reserved.</span>\n          </div>\n          <div class=\"col-lg-6 col-md-6 col-12 social-icons-first\">{% include 'footer-social-area' %}</div>\n        </div>\n      </div>\n    </footer>\n  {% else %}\n    <footer class=\"footer-area 2\" id=\"section-{{ section.id }}\">\n      <div class=\"container \">\n        {% include 'footer-top' %}\n        <div class=\"row f_btm\">\n          <div class=\"col-lg-6 col-md-6 col-12 payment-icons-second\">\n            <div class=\"pay_icn\">{% include 'footer-payment-area' %}</div>\n            <span>© <span id=\"current-year\"></span> Yessé Australia. All Rights Reserved.</span>\n          </div>\n          <div class=\"col-lg-6 col-md-6 col-12 social-icons-second\">{% include 'footer-social-area' %}</div>\n        </div>\n      </div>\n    </footer>\n  {% endif %}\n\n{% elsif section.settings.footer_style == 'footer_style_3' %}\n  <footer class=\"footer-area\" id=\"section-{{ section.id }}\">\n    {% include 'footer-top-2' %}\n    {% include 'footer-bottom' %}\n    {% section 'collection-banner' %}\n  </footer>\n\n{% else %}\n  <footer class=\"footer-area footer-white\" id=\"section-{{ section.id }}\">\n    {% include 'footer-top-2' %}\n  </footer>\n  <style>\n    .icon {\n      width: 3.125em;\n    }\n    .visuallyhidden {\n      border: 0;\n      clip: rect(0 0 0 0);\n      height: 1px;\n      margin: -1px;\n      overflow: hidden;\n      padding: 0;\n      position: absolute;\n      width: 1px;\n      white-space: nowrap;\n    }\n  </style>\n\n  {%- unless shop.enabled_payment_types == empty -%}\n    <span class=\"visuallyhidden\">Supported payment methods</span>\n\n    <ul>\n      <ul class=\"list\" role=\"list\">\n        <li>\n          <img\n            alt=\"Google pay\"\n            class=\"footer-icon\"\n            src=\"https://cdn.shopify.com/s/files/1/0871/1864/3519/files/google_pay.png?v=1714714798\"\n            loading=\"lazy\"\n            style=\"    background: red;\"\n          >\n        </li>\n        <li>\n          <img\n            alt=\"Google pay\"\n            class=\"footer-icon\"\n            src=\"https://cdn.shopify.com/s/files/1/0555/6148/6492/files/1_29f07d6c-68cf-4e7b-b6fc-746d6567f295.png?v=1723206830\"\n            loading=\"lazy\"\n          >\n        </li>\n        <li>\n          <img\n            alt=\"Shop Pay\"\n            class=\"footer-icon\"\n            src=\"https://cdn.shopify.com/s/files/1/0555/6148/6492/files/ShopPay.png?v=1723529397\"\n            loading=\"lazy\"\n          >\n        </li>\n        <li>\n          <img\n            alt=\"Google pay\"\n            class=\"footer-icon\"\n            src=\"https://cdn.shopify.com/s/files/1/0871/1864/3519/files/imgpsh_fullsize_anim_7_6d518ea3-fbf6-4c23-b199-474b5314a8eb.png?v=1714746791\"\n            loading=\"lazy\"\n          >\n        </li>\n        <li>\n          <img\n            alt=\"Google pay\"\n            class=\"footer-icon\"\n            src=\"https://cdn.shopify.com/s/files/1/0871/1864/3519/files/imgpsh_fullsize_anim_9_9af8fa7a-22c8-4cb0-ad50-34faaef98f5f.png?v=1714746792\"\n            loading=\"lazy\"\n          >\n        </li>\n        <li>\n          <img\n            alt=\"Google pay\"\n            class=\"footer-icon\"\n            src=\"https://cdn.shopify.com/s/files/1/0871/1864/3519/files/imgpsh_fullsize_anim_10_40267753-762c-4576-aaf3-684e3c0931df.png?v=1714746791\"\n            loading=\"lazy\"\n          >\n        </li>\n        <li>\n          <img\n            alt=\"Google pay\"\n            class=\"footer-icon\"\n            src=\"https://cdn.shopify.com/s/files/1/0871/1864/3519/files/imgpsh_fullsize_anim_8_e608be74-5cec-4235-98b9-0dcb10b58155.png?v=1714746792\"\n            loading=\"lazy\"\n          >\n        </li>\n      </ul>\n    </ul>\n  {%- endunless -%}\n{% endif %}\n\n{%- include 'section-style' -%}\n\n<div class=\"footer-block__details-content\">\n  {{ block.settings.html_content }}\n</div>",
+  "name": "Footer",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Container Style"
+    },
+    {
+      "type": "radio",
+      "id": "container_style",
+      "label": "Container Style",
+      "options": [
+        {
+          "value": "style_1",
+          "label": "Container"
+        },
+        {
+          "value": "style_2",
+          "label": "Container Fulied"
+        }
+      ],
+      "default": "style_1"
+    },
+    {
+      "type": "header",
+      "content": "Footer Style"
+    },
+    {
+      "type": "radio",
+      "id": "footer_style",
+      "label": "Footer Style",
+      "options": [
+        {
+          "value": "footer_style_1",
+          "label": "Style 1"
+        },
+        {
+          "value": "footer_style_2",
+          "label": "Style 2"
+        },
+        {
+          "value": "footer_style_3",
+          "label": "Style 3"
+        },
+        {
+          "value": "footer_style_4",
+          "label": "Style 4"
+        }
+      ],
+      "default": "footer_style_1"
+    },
+    {
+      "type": "header",
+      "content": "Footer Top"
+    },
+    {
+      "type": "header",
+      "content": "Border Top"
+    },
+    {
+      "type": "checkbox",
+      "id": "border_top_enable",
+      "label": "Border Top Enable",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Text Style"
+    },
+    {
+      "type": "radio",
+      "id": "footer_top_text_style",
+      "label": "Text Style",
+      "options": [
+        {
+          "value": "top_style_left",
+          "label": "Left"
+        },
+        {
+          "value": "top_style_center",
+          "label": "center"
+        },
+        {
+          "value": "top_style_right",
+          "label": "right"
+        }
+      ],
+      "default": "top_style_center"
+    },
+    {
+      "type": "header",
+      "content": "Footer Logo"
+    },
+    {
+      "type": "image_picker",
+      "id": "footer_logo",
+      "label": "Logo"
+    },
+    {
+      "type": "textarea",
+      "id": "logo_descrption",
+      "label": "Logo Description",
+      "default": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim"
+    },
+    {
+      "type": "header",
+      "content": "Social Area"
+    },
+    {
+      "type": "header",
+      "content": "Social 1"
+    },
+    {
+      "type": "text",
+      "id": "social_icon_1",
+      "label": "Icon",
+      "default": "facebook",
+      "info": "[See More Icon](https://fontawesome.com/icons)"
+    },
+    {
+      "type": "url",
+      "id": "social_icon_1_url",
+      "label": "URL"
+    },
+    {
+      "type": "header",
+      "content": "Social 2"
+    },
+    {
+      "type": "text",
+      "id": "social_icon_2",
+      "label": "Icon",
+      "default": "dribbble",
+      "info": "[See More Icon](https://fontawesome.com/icons)"
+    },
+    {
+      "type": "url",
+      "id": "social_icon_2_url",
+      "label": "URL"
+    },
+    {
+      "type": "header",
+      "content": "Social 3"
+    },
+    {
+      "type": "text",
+      "id": "social_icon_3",
+      "label": "Icon",
+      "default": "pinterest-p",
+      "info": "[See More Icon](https://fontawesome.com/icons)"
+    },
+    {
+      "type": "url",
+      "id": "social_icon_3_url",
+      "label": "URL"
+    },
+    {
+      "type": "header",
+      "content": "Social 4"
+    },
+    {
+      "type": "text",
+      "id": "social_icon_4",
+      "label": "Icon",
+      "default": "twitter",
+      "info": "[See More Icon](https://fontawesome.com/icons)"
+    },
+    {
+      "type": "url",
+      "id": "social_icon_4_url",
+      "label": "URL"
+    },
+    {
+      "type": "header",
+      "content": "Social 5"
+    },
+    {
+      "type": "text",
+      "id": "social_icon_5",
+      "label": "Icon",
+      "default": "linkedin",
+      "info": "[See More Icon](https://fontawesome.com/icons)"
+    },
+    {
+      "type": "url",
+      "id": "social_icon_5_url",
+      "label": "URL"
+    },
+    {
+      "type": "header",
+      "content": "Footer Bottom"
+    },
+    {
+      "type": "header",
+      "content": "Text Style"
+    },
+    {
+      "type": "radio",
+      "id": "footer_text_style",
+      "label": "Text Style",
+      "options": [
+        {
+          "value": "copy_style_left",
+          "label": "Left"
+        },
+        {
+          "value": "copy_style_center",
+          "label": "center"
+        },
+        {
+          "value": "copy_style_right",
+          "label": "right"
+        }
+      ],
+      "default": "copy_style_center"
+    },
+    {
+      "type": "richtext",
+      "id": "copy_ritht_text",
+      "label": "CopyRight Text",
+      "default": "<p>Copyright © 99 Shopify All Right Reserved.</p>"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "contact_information",
+      "name": "Information",
+      "settings": [
+        {
+          "type": "text",
+          "id": "footer_info_coloum",
+          "label": "Footer Info Coloum Control",
+          "default": "2",
+          "info": "Follow Bootstrap Column"
+        },
+        {
+          "type": "header",
+          "content": "Footer Logo"
+        },
+        {
+          "type": "image_picker",
+          "id": "footer_logo",
+          "label": "Logo"
+        },
+        {
+          "type": "richtext",
+          "id": "copy_ritht_text",
+          "label": "CopyRight Text",
+          "default": "<p>Copyright © 99 Shopify All Right Reserved.</p>"
+        }
+      ]
+    },
+    {
+      "type": "footer_menu",
+      "name": "Menu",
+      "settings": [
+        {
+          "type": "text",
+          "id": "footer_menu_coloum",
+          "label": "Menu Coloum Control",
+          "default": "2",
+          "info": "Follow Bootstrap Column"
+        },
+        {
+          "type": "text",
+          "id": "footer_menu_title",
+          "label": "Menu Title",
+          "default": "ABOUT US"
+        },
+        {
+          "type": "link_list",
+          "id": "footer_menu_handle",
+          "label": "Select Menu"
+        }
+      ]
+    },
+    {
+      "type": "newslatter",
+      "name": "Newslatter",
+      "settings": [
+        {
+          "type": "text",
+          "id": "newslatter_coloum",
+          "label": "Footer Newslatter Coloum Control",
+          "default": "4",
+          "info": "Follow Bootstrap Column"
+        },
+        {
+          "type": "text",
+          "id": "newslatter_title",
+          "label": "Newslatter Title",
+          "default": "SUBSCRIBE"
+        },
+        {
+          "type": "textarea",
+          "id": "newslatter_description",
+          "label": "Newslatter Description",
+          "default": "Get E-mail updates about our latest shop and special offers."
+        },
+        {
+          "type": "header",
+          "content": "Newslatter"
+        },
+        {
+          "type": "text",
+          "id": "newslatter_button_title",
+          "label": "Button Title",
+          "default": "Subscribe"
+        }
+      ]
+    },
+    {
+      "type": "custom_html",
+      "name": "Custom HTML",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Custom HTML Block"
+        },
+        {
+          "type": "textarea",
+          "id": "html_content",
+          "label": "HTML Content",
+          "default": "<p>Insert your custom HTML content here.</p>"
+        }
+      ]
+    },
+    {
+      "type": "section_padding",
+      "name": "Section Padding",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "header",
+          "content": "Large/Desktop Device"
+        },
+        {
+          "type": "range",
+          "id": "section_padding_top",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Padding Top",
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "section_padding_bottom",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Padding Bottom",
+          "unit": "px",
+          "default": 100
+        },
+        {
+          "type": "header",
+          "content": "Tablet Device"
+        },
+        {
+          "type": "range",
+          "id": "section_padding_top_md",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Padding Top",
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "section_padding_bottom_md",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Padding Bottom",
+          "unit": "px",
+          "default": 80
+        },
+        {
+          "type": "header",
+          "content": "Mobile Device"
+        },
+        {
+          "type": "range",
+          "id": "section_padding_top_xs",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Padding Top",
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "section_padding_bottom_xs",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Padding Bottom",
+          "unit": "px",
+          "default": 60
+        }
+      ]
+    },
+    {
+      "type": "section_margin",
+      "name": "Section Margin",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "header",
+          "content": "Large/Desktop Device"
+        },
+        {
+          "type": "range",
+          "id": "section_margin_top",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Margin Top",
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "section_margin_bottom",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Margin Bottom",
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "header",
+          "content": "Tablet Device"
+        },
+        {
+          "type": "range",
+          "id": "section_margin_top_md",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Margin Top",
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "section_margin_bottom_md",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Margin Bottom",
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "header",
+          "content": "Mobile Device"
+        },
+        {
+          "type": "range",
+          "id": "section_margin_top_xs",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Margin Top",
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "section_margin_bottom_xs",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "label": "Margin Bottom",
+          "unit": "px",
+          "default": 0
+        }
+      ]
+    },
+    {
+      "type": "section_background",
+      "name": "Section Background",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "section_bg_image",
+          "label": "BG Image"
+        },
+        {
+          "type": "color",
+          "id": "section_bg_color",
+          "label": "BG Color",
+          "default": "#ffffff"
+        }
+      ]
+    }
+  ]
+}

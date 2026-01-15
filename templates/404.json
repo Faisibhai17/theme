@@ -1,0 +1,10 @@
+{
+  "sections": {
+    "section_1": {
+      "type": "custom-404-content"
+    }
+  },
+  "order": [
+    "section_1"
+  ]
+}

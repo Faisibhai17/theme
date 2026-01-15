@@ -1,0 +1,22 @@
+{
+  "sections": {
+    "section_1": {
+      "type": "testimonial-landing-pg"
+    },
+    "section_2": {
+      "type": "Faq-a"
+    },
+    "section_3": {
+      "type": "deal-of-product"
+    },
+    "section_4": {
+      "type": "custom-page-Anti-Aging Dual Serum-fb-content"
+    }
+  },
+  "order": [
+    "section_1",
+    "section_2",
+    "section_3",
+    "section_4"
+  ]
+}
